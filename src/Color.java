@@ -53,28 +53,23 @@ public enum Color
 		this.hexColor = hexColor;
 	}
 	
-	/**
-	 * toString - overrides the ENUM toString by returning the radius/ordinal
-	 * 		value as a String rather than the name().
-	 * 
-	 * @return the radius/ordinal value of the color as a String
-	 * @overrides the default toString()
-	 */
-	public String toString()
-	{
-		return Integer.toString(radius);
-	}
+	
+	/******************************************************************************
+	 *                                                                            *
+	 *                            Standard Methods                                *
+	 *                                                                            *
+	 ******************************************************************************/
+	
 	
 	/**
-	 * getRadius - performs the same basic function as ordinal() but with
-	 * 		an easier to remember name, returning the radius/ordinal value.
+	 * getColor - wrapper for name() method, with an easier to remember name.
 	 * 
 	 * @param color: the ENUM
-	 * @return the radius/ordinal value as an int
+	 * @return the name of the color as a String
 	 */
-	public int getRadius(Color color)
+	public String getColor(Color color)
 	{
-		return color.radius;
+		return color.name();
 	}
 	
 	/**
@@ -90,13 +85,39 @@ public enum Color
 	}
 	
 	/**
-	 * getColor - wrapper for name() method, with an easier to remember name.
+	 * getRadius - performs the same basic function as ordinal() but with
+	 * 		an easier to remember name, returning the radius/ordinal value.
+	 * 		NO-ARG VERSION.
+	 * 
+	 * @return the radius/ordinal value as an int
+	 */
+	public int getRadius()
+	{
+		return radius;
+	}
+	
+	/**
+	 * getRadius - performs the same basic function as ordinal() but with
+	 * 		an easier to remember name, returning the radius/ordinal value.
+	 * 		ONE-ARG VERSION.
 	 * 
 	 * @param color: the ENUM
-	 * @return the name of the color as a String
+	 * @return the radius/ordinal value as an int
 	 */
-	public String getColor(Color color)
+	public int getRadius(Color color)
 	{
-		return color.name();
+		return color.radius;
+	}
+	
+	/**
+	 * toString - overrides the ENUM toString by returning the radius/ordinal
+	 * 		value as a String rather than the name().
+	 * 
+	 * @return the radius/ordinal value of the color as a String
+	 * @overrides the default toString()
+	 */
+	public String toString()
+	{
+		return Integer.toString(radius);
 	}
 }
