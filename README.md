@@ -1,7 +1,8 @@
 # Thesis
 An exploration of Broadcast Chromatic Numbers in restricted classes of trees.
 
-A repository for everything code-related to do with my master's thesis, _An Exploration of Broadcast Chromatic Numbers in Restricted Classes of Trees_, to be completed c. May 2017. 
+A repository for everything code-related to do with my master's thesis, _An Exploration of Broadcast Chromatic Numbers in Restricted_
+_Classes of Trees_, to be completed c. May 2017. 
 
 *13FEB16_v1*
       Added the COLOR ENUM, to provide color names/radius values/hexadecimal color values for broadcast nodes. This is mostly done for
