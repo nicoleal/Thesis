@@ -44,7 +44,7 @@ public enum Color
 	 * 		(en.wikipedia.org/wiki/List_of_Crayola-crayon_colors#Standard_colors)
 	 *  	hex value for each color, assuming Standard Color hex values.
 	 * 
-	 * 	@param radius: the ordinal/broadcast distance/i-value of the color
+	 *  @param radius: the ordinal/broadcast distance/i-value of the color
 	 *  @param hexColor: the hexidecimal value of the color, according to wikipedia
 	 */
 	Color(int radius, int hexColor) 
