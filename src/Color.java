@@ -42,7 +42,7 @@ public enum Color
 	 * Modified 2-arg constructor for Color, adding in a radius variable
 	 * 		(which preforms the same function as ordinal()) and the Crayola
 	 * 		(en.wikipedia.org/wiki/List_of_Crayola-crayon_colors#Standard_colors)
-	 *  	hex value for each color, assuming Standard Color hex values.
+	 *  		hex value for each color, assuming Standard Color hex values.
 	 * 
 	 *  @param radius: the ordinal/broadcast distance/i-value of the color
 	 *  @param hexColor: the hexidecimal value of the color, according to wikipedia
