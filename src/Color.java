@@ -9,6 +9,7 @@
  * 
  * @author Nicole Loew
  * @version CS5999 Graduate Thesis Spring 2017; 13 February 2016
+ * {@link https://github.com/nicoleal/Thesis}
  */
 
 public enum Color 
@@ -67,7 +68,7 @@ public enum Color
 	 * @param color: the ENUM
 	 * @return the name of the color as a String
 	 */
-	public String getColor(Color color)
+	public static String getColor(Color color)
 	{
 		return color.name();
 	}
@@ -79,7 +80,7 @@ public enum Color
 	 * @param color: the ENUM
 	 * @return the hex value of the color as an int
 	 */
-	public int getHex(Color color)
+	public static int getHex(Color color)
 	{
 		return color.hexColor;
 	}
@@ -104,7 +105,7 @@ public enum Color
 	 * @param color: the ENUM
 	 * @return the radius/ordinal value as an int
 	 */
-	public int getRadius(Color color)
+	public static int getRadius(Color color)
 	{
 		return color.radius;
 	}
@@ -118,6 +119,7 @@ public enum Color
 	 */
 	public String toString()
 	{
+		//TODO
 		return Integer.toString(radius);
 	}
 }

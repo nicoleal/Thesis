@@ -8,6 +8,7 @@
  * 
  * @author Nicole Loew
  * @version CS5999 Graduate Thesis Spring 2017; 13 February 2016
+ * {@link https://github.com/nicoleal/Thesis}
  */
 
 @SuppressWarnings("serial")
@@ -22,6 +23,7 @@ public class Node extends Exception implements Cloneable
 	private int kids;
 	private int maxDegree; //allKids++;
 	private int maxKids;
+	private int name;
 	private Node parent;
 	private Node[] children;
 	
@@ -34,31 +36,36 @@ public class Node extends Exception implements Cloneable
 	
 	
 	/**
-	 * NO-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
+	 * ONE-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
 	 * 		parent to null, and maxDegree to 20, so that the node can have up to 20 children /
 	 * 		degree-20.
+	 * 
+	 * @param name: the name assignment from TREE
 	 */
-	public Node()
+	public Node(int name)
 	{
 		color = DEFAULT_COLOR;
+		this.name = name;
+		parent = null;
+		depth = 0;
+		kids = 0;
 		maxDegree = DEFAULT_DEGREE;
 		allKids = maxDegree;
 		maxKids = allKids;
-		depth = 0;
-		kids = 0;
-		parent = null;
 		children = new Node[allKids];
 	}
 	
 	/**
-	 * ONE-ARG CONSTRUCTOR for Nodes in which only the parent is given. Sets color to WHITE (0),
+	 * TWO-ARG CONSTRUCTOR for Nodes in which only the parent is given. Sets color to WHITE (0),
 	 * 		and maxDegree to 20, so that the node can have up to 19 children / degree-20.
 	 * 
 	 * @param parent: the parent Node
+	 * @param name: the name assignment from TREE
 	 */
-	public Node(Node parent)
+	public Node(Node parent, int name)
 	{
 		color = DEFAULT_COLOR;
+		this.name = name;
 		maxDegree = DEFAULT_DEGREE;
 		allKids = maxDegree - 1;
 		maxKids = allKids;
@@ -69,15 +76,17 @@ public class Node extends Exception implements Cloneable
 	}
 	
 	/**
-	 * ONE-ARG CONSTRUCTOR for Nodes in which only the max degree is known. Sets color to
+	 * TWO-ARG CONSTRUCTOR for Nodes in which only the max degree is known. Sets color to
 	 * 		WHITE (0) and maxKids to input, so that each node can have up to input children 
 	 * 		/ degree-(input).
 	 *  
 	 * @param maxDegree: the maximum number of edges which can extend from the Node
+	 * @param name: the name assignment from TREE
 	 */
-	public Node(int maxDegree)
+	public Node(int maxDegree, int name)
 	{
 		color = DEFAULT_COLOR;
+		this.name = name;
 		this.maxDegree = maxDegree;
 		allKids = maxDegree;
 		maxKids = allKids;
@@ -88,17 +97,19 @@ public class Node extends Exception implements Cloneable
 	}
 	
 	/**
-	 * TWO-ARG CONSTRUCTOR for Nodes in which only the parent and maxDegree is given. Sets
+	 * THREE-ARG CONSTRUCTOR for Nodes in which only the parent and maxDegree is given. Sets
 	 * 		color to WHITE (0) and maxKids to (input - 2), so that the node can have up to
 	 * 		(input - 2) children / degree-(input).
 	 * 
 	 * @param parent: the parent Node
 	 * @param maxDegree: the maximum number of edges which can extend from the Node, INCLUDING
 	 * 		the parent-this.Node edge
+	 * @param name: the name assignment from TREE
 	 */
-	public Node(Node parent, int maxDegree)
+	public Node(Node parent, int maxDegree, int name)
 	{
 		color = DEFAULT_COLOR;
+		this.name = name;
 		this.maxDegree = maxDegree;
 		allKids = maxDegree - 1;
 		maxKids = allKids - 1;
@@ -127,7 +138,7 @@ public class Node extends Exception implements Cloneable
 	{
 		if (canHaveKids())
 		{
-			children[kids] = child;
+			children[getKids()] = child;
 			setKids(getKids() + 1);
 		}
 		else
@@ -215,6 +226,16 @@ public class Node extends Exception implements Cloneable
 	public int getMaxKids()
 	{
 		return maxKids;
+	}
+	
+	/**
+	 * getName - standard getter for name
+	 * 
+	 * @return the name of the node
+	 */
+	public int getName()
+	{
+		return name;
 	}
 	
 	/**
@@ -324,6 +345,15 @@ public class Node extends Exception implements Cloneable
 		maxKids = degree;
 	}
 	
+	/**
+	 * setName - standard setter for name.
+	 * 
+	 * @param name the name to be given to the node
+	 */
+	protected void setName(int name)
+	{
+		this.name = name;
+	}
 
 	/**
 	 * setParent - sets the parent and adjusts depth of node if 1) node doesn't already
@@ -424,7 +454,6 @@ public class Node extends Exception implements Cloneable
 		return temp;
 	}
 	
-	
 	/**
 	 * deepCopy - a deep copy of the Node, with own Objects.
 	 * 
@@ -433,13 +462,89 @@ public class Node extends Exception implements Cloneable
 	 */
 	private Node deepCopy() throws CloneNotSupportedException
 	{
-		Node temp = new Node();
+		Node temp = new Node(getName());
 		
 		temp = (Node) super.clone();
 		temp.parent = parent;
 		temp.children = children;
 		
 		return temp;
+	}
+	
+	/**
+	 * erase - takes the input node and "erases" its parent, color, and children array. 
+	 * 		All else remains the same. 
+	 * 
+	 * @param slate: the node to be erased
+	 */
+	protected void erase(Node slate)
+	{
+		prune(slate);
+		orphan(slate);
+		slate.unColor();
+	}
+	
+	/**
+	 * kill - removes the indicated child node from the children array, shifts the
+	 * 		other children leftward after removing. Subtracts one from kids.
+	 * 
+	 * @param child: the node to be "killed"
+	 */
+	protected void kill(Node child)
+	{
+		for (int i = 0; i < getKids(); i++)
+		{
+			if (children[i].getName() == child.getName())
+			{
+				for (int j = i; j < getKids(); j++)
+				{
+					children[j] = children[j + 1];
+				}
+			}
+		}
+		setKids(getKids() - 1);
+	}
+	
+	/**
+	 * orphan - resets the input node's parent to null. Erases node from parent,
+	 * 		sets depth to 0;
+	 * 
+	 * @param child: the node to be orphaned.
+	 */
+	protected void orphan(Node child)
+	{
+		child.parent.kill(child);
+		child.parent = null;
+		child.setDepth(0);
+	}
+	
+	/**
+	 * prune - replaces a parent node's child array with an empty array of length
+	 * 		allKids and sets kids to 0; id est, makes the node a leaf. Sets children's
+	 * 		parent field to null;
+	 * 
+	 * @param parent: the node to be pruned
+	 */
+	protected void prune(Node parent)
+	{
+		for (int i = 0; i < kids; i++)
+		{
+			parent.children[i].parent = null;
+		}
+		
+		setKids(0);
+		parent.children = new Node[getAllKids()];
+	}
+	
+	/**
+	 * reset - completely resets the input node to a standard, parentless default node, 
+	 * 		with  only its name as an identifier.
+	 * 
+	 * @param blankSlate: the node to be reset
+	 */
+	protected void reset(Node blankSlate)
+	{
+		blankSlate = new Node(getName());
 	}
 	
 	/**
@@ -469,8 +574,16 @@ public class Node extends Exception implements Cloneable
 	public String toString()
 	{
 		String s = "";
-		
+		//TODO
 		return s;
+	}
+	
+	/**
+	 * unColor - resets the node's color to the default White (0).
+	 */
+	protected void unColor()
+	{
+		setColor(DEFAULT_COLOR);
 	}
 	
 	/**
@@ -487,6 +600,7 @@ public class Node extends Exception implements Cloneable
 	{
 		Node[] temp = new Node[getAllKids()];
 		int marker = 0;
+		int depth = children[0].getDepth();
 		
 		for (int i = marker; i < getKids(); i++, marker++)
 		{
@@ -496,6 +610,7 @@ public class Node extends Exception implements Cloneable
 		for (int i = marker, j = 0; j < children.length; i++, j++, marker++)
 		{
 			temp[i] = array[j].deepCopy();
+			temp[i].setDepth(depth);
 			if (i == temp.length)
 			{
 				setKids(temp.length);
