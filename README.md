@@ -14,3 +14,8 @@ _Classes of Trees_, to be completed c. May 2017.
       Tried to maintain future flexibility while considering code integrity. Provided four different constructors, the standard helper
       methods (minus toString(), which will be added when I decide upon what it should print and how), along with union, secede, deep
       clone, and deep copy methods.
+
+*14FEB16_v1*
+      Made additions to NODE CLASS, adding the "name" variable (to be passed into the constructor(s) from the eventual Tree Class)).
+      Added the COLORTEST CLASS for JUnit testing of COLOR ENUM. Passes 4/4 tests. Added the NODETEST CLASS for JUnit testing of COLOR
+      CLASS. Passes 0/0 tests.
