@@ -9,56 +9,62 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class ColorTest {
+public class ColorTest 
+{
 
 	@Test
-	public void testPrintColor() 
+	public void testColor() 
 	{
-		System.out.println("Test PrintColor");
-		System.out.println();
-		System.out.println(Color.getColor(Color.WHITE));
-		System.out.println(Color.getColor(Color.GREEN));
-		System.out.println(Color.getColor(Color.MINT));
-		System.out.println(Color.getColor(Color.YELLOW));
-		System.out.println("----------\n");
+		String s = Color.getColor(Color.WHITE);
+		assertEquals("WHITE", s);
+		s = Color.getColor(Color.GREEN);
+		assertEquals("GREEN", s);
+		s = Color.getColor(Color.MINT);
+		assertEquals("MINT", s);
+		s = Color.getColor(Color.YELLOW);
+		assertEquals("YELLOW", s);
 	}
 	
 	@Test
-	public void testPrintHex() 
+	public void testHex() 
 	{
-		System.out.println("Test PrintHex");
-		System.out.println();
-		System.out.println(Color.getHex(Color.WHITE));
-		System.out.println(Color.getHex(Color.GREEN));
-		System.out.println(Color.getHex(Color.MINT));
-		System.out.println(Color.getHex(Color.YELLOW));
-		System.out.println("----------\n");
+		int i = Color.getHex(Color.WHITE);
+		assertEquals(16777215, i);
+		i = Color.getHex(Color.GREEN);
+		assertEquals(3843669, i);
+		i = Color.getHex(Color.MINT);
+		assertEquals(9691064, i);
+		i = Color.getHex(Color.YELLOW);
+		assertEquals(16771840, i);
 	}
 	
 	@Test
 	public void testGetRadius1() 
 	{
-		System.out.println("Test GetRadius1");
-		System.out.println();
-		System.out.println(Color.getRadius(Color.WHITE));
-		System.out.println(Color.getRadius(Color.GREEN));
-		System.out.println(Color.getRadius(Color.MINT));
-		System.out.println(Color.getRadius(Color.YELLOW));
-		System.out.println("----------\n");
+		int i = Color.getRadius(Color.WHITE);
+		assertEquals(0, i);
+		i = Color.getRadius(Color.GREEN);
+		assertEquals(3, i);
+		i = Color.getRadius(Color.MINT);
+		assertEquals(20, i);
+		i = Color.getRadius(Color.YELLOW);
+		assertEquals(4, i);
 	}
 	
 	@Test
 	public void testGetRadius2() 
 	{
-		System.out.println("Test GetRadius2");
-		System.out.println();
-		System.out.println(Color.GOLD.getRadius());
-		System.out.println(Color.JADE.getRadius());
-		System.out.println(Color.BLUE.getRadius());
-		System.out.println(Color.NAVY.getRadius());
-		System.out.println("----------\n");
+		int i = Color.GOLD.getRadius();
+		assertEquals(8, i);
+		i = Color.JADE.getRadius();
+		assertEquals(12, i);
+		i = Color.BLUE.getRadius();
+		assertEquals(2, i);
+		i = Color.NAVY.getRadius();
+		assertEquals(19, i);
 	}
 	
 	@Test

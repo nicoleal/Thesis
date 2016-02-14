@@ -18,10 +18,10 @@ public class Node extends Exception implements Cloneable
 	public static final int DEFAULT_DEGREE = 20;
 	
 	private int color;
-	private int allKids; //maxKids++;
+	private int allKids; 
 	private int depth;
 	private int kids;
-	private int maxDegree; //allKids++;
+	private int maxDegree; 
 	private int maxKids;
 	private int name;
 	private Node parent;
@@ -69,7 +69,7 @@ public class Node extends Exception implements Cloneable
 		maxDegree = DEFAULT_DEGREE;
 		allKids = maxDegree - 1;
 		maxKids = allKids;
-		depth = parent.depth + 1;
+		depth = parent.getDepth() + 1;
 		kids = 0;
 		this.parent = parent;
 		children = new Node[allKids];
@@ -98,8 +98,8 @@ public class Node extends Exception implements Cloneable
 	
 	/**
 	 * THREE-ARG CONSTRUCTOR for Nodes in which only the parent and maxDegree is given. Sets
-	 * 		color to WHITE (0) and maxKids to (input - 2), so that the node can have up to
-	 * 		(input - 2) children / degree-(input).
+	 * 		color to WHITE (0) and maxKids to (input - 1), so that the node can have up to
+	 * 		(input - 1) children / degree-(input).
 	 * 
 	 * @param parent: the parent Node
 	 * @param maxDegree: the maximum number of edges which can extend from the Node, INCLUDING
@@ -112,7 +112,7 @@ public class Node extends Exception implements Cloneable
 		this.name = name;
 		this.maxDegree = maxDegree;
 		allKids = maxDegree - 1;
-		maxKids = allKids - 1;
+		maxKids = allKids;
 		depth = parent.depth + 1;
 		kids = 0;
 		this.parent = parent;
@@ -159,7 +159,7 @@ public class Node extends Exception implements Cloneable
 	{
 		if (hasKids())
 		{
-			this.children = union(children);
+			union(children);
 		}
 		else
 		{
@@ -301,14 +301,21 @@ public class Node extends Exception implements Cloneable
 	{
 		setDegree(degree);
 		setAllKids(degree - 1);
-		
-		if (p)
+		if (degree == 1)
 		{
-			setMaxKids(degree - 2);
+			prune(this);
+			setMaxKids(0);
 		}
 		else
 		{
-			setMaxKids(degree - 1);
+			if (p)
+			{
+				setMaxKids(degree - 2);
+			}
+			else
+			{
+				setMaxKids(degree - 1);
+			}
 		}
 	}
 	
@@ -368,7 +375,7 @@ public class Node extends Exception implements Cloneable
 		{
 			throw new Exception("This node already has a parent.");
 		}
-		else if ((kids + 1) == maxDegree)
+		else if ((parent.getKids() + 1) == maxDegree)
 		{
 			throw new Exception("This node is already at its max degree.");
 		}
@@ -527,11 +534,6 @@ public class Node extends Exception implements Cloneable
 	 */
 	protected void prune(Node parent)
 	{
-		for (int i = 0; i < kids; i++)
-		{
-			parent.children[i].parent = null;
-		}
-		
 		setKids(0);
 		parent.children = new Node[getAllKids()];
 	}
@@ -540,11 +542,11 @@ public class Node extends Exception implements Cloneable
 	 * reset - completely resets the input node to a standard, parentless default node, 
 	 * 		with  only its name as an identifier.
 	 * 
-	 * @param blankSlate: the node to be reset
+	 * @returns a new node from Node(name) constructor
 	 */
-	protected void reset(Node blankSlate)
+	protected Node reset()
 	{
-		blankSlate = new Node(getName());
+		return new Node(getName());
 	}
 	
 	/**
@@ -596,30 +598,22 @@ public class Node extends Exception implements Cloneable
 	 * @return the unioned array
 	 * @throws CloneNotSupportedException
 	 */
- 	private Node[] union(Node[] array) throws CloneNotSupportedException
+ 	private void union(Node[] array) throws CloneNotSupportedException
 	{
-		Node[] temp = new Node[getAllKids()];
-		int marker = 0;
+		int marker = getAllKids();
+		int start = getKids();
 		int depth = children[0].getDepth();
 		
-		for (int i = marker; i < getKids(); i++, marker++)
+		for (int i = start, j = 0; i < marker; i++, j++)
 		{
-			temp[i] = children[i].deepCopy();
-		}
-		
-		for (int i = marker, j = 0; j < children.length; i++, j++, marker++)
-		{
-			temp[i] = array[j].deepCopy();
-			temp[i].setDepth(depth);
-			if (i == temp.length)
+			children[i] = array[j].deepCopy();
+			children[i].setDepth(depth);
+			if (j == array.length)
 			{
-				setKids(temp.length);
-				return temp;
-			}		
+				i = marker;
+			}
 		}
-		setKids(marker);
-		
-		return temp;
+		setKids(start + array.length);
 	}
 	
 }
