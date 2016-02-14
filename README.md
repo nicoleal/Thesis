@@ -19,3 +19,7 @@ _Classes of Trees_, to be completed c. May 2017.
       Made additions to NODE CLASS, adding the "name" variable (to be passed into the constructor(s) from the eventual Tree Class)).
       Added the COLORTEST CLASS for JUnit testing of COLOR ENUM. Passes 4/4 tests. Added the NODETEST CLASS for JUnit testing of COLOR
       CLASS. Passes 0/0 tests.
+
+*14FEB16_v2*
+      Tweaked NODE CLASS, COLOR ENUM, and COLORTEST CLASS. Added NODETEST CLASS for JUnit testing of NODE CLASS. Passes 11/11 tests.
+      Tests for addChildren(), union(), and other adding/modifying of array methods still need to be written.
