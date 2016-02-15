@@ -323,4 +323,27 @@ public class NodeTest
 		
 		node1.prune(node1);
 	}
+	
+	@Test
+	public void testSingle() throws CloneNotSupportedException
+	{
+		Node node11 = new Node(11);
+		int i = node11.getAllKids();
+		assertEquals(20, i);
+		node11.bachelor();
+		i = node11.getAllKids();
+		assertEquals(0, i);
+		i = node11.getMaxKids();
+		assertEquals(-1, i);
+		i = node11.getKids();
+		assertEquals(0, i);
+	}
+	
+	public void testAllKids()
+	{
+		Node node11 = new Node(3, 11);
+		Node node12 = new Node(node11, 3, 12);
+		int i = node12.getAllKids();
+		assertEquals(2, i);
+	}
 }

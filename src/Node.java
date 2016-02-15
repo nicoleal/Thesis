@@ -182,7 +182,10 @@ public class Node extends Exception implements Cloneable
 		else
 		{
 			this.children = array;
-			setKids(children.length);
+			if (array != null)
+			{
+				setKids(children.length);
+			}
 		}
 	}
 	
@@ -247,7 +250,7 @@ public class Node extends Exception implements Cloneable
 	}
 	
 	/**
-	 * getName - standard getter for name
+	 * getName - standard getter for name.
 	 * 
 	 * @return the name of the node
 	 */
@@ -255,6 +258,16 @@ public class Node extends Exception implements Cloneable
 	{
 		return name;
 	}
+	
+	/**
+	 * getNode - returns a reference of the calling node.
+	 * 
+	 * @return returns a reference to the node
+	 */
+	protected Node getNode()
+ 	{
+ 		return this;
+ 	}
 	
 	/**
 	 * setAllKids - standard setter for allKids, which also copies and creates a new
@@ -448,8 +461,20 @@ public class Node extends Exception implements Cloneable
 	 *                                                                            *
 	 ******************************************************************************/
 
-	
-	
+	/**
+	 * bachelor - ensures node is always a leaf, unless specifically stated otherwise,
+	 * 		thereby preventing accidental propagation. Sets allKids and kids to 0,
+	 * 		maxKids to -1, and children array to null.
+	 * 
+	 * @throws CloneNotSupportedException
+	 */
+	protected void bachelor() throws CloneNotSupportedException
+	{
+		this.addChildren(null);
+		this.setAllKids(0);
+		this.setMaxKids(-1);
+		this.setKids(0);
+	}
 	
 	/**
 	 * copyKids - a copy method which takes the children array and kids as input and
@@ -583,6 +608,11 @@ public class Node extends Exception implements Cloneable
 		return temp;
 	}
 	
+	/**
+	 * toString - 
+	 * 
+	 * @return the String
+	 */
 	public String toString()
 	{
 		String s = "";
@@ -619,4 +649,7 @@ public class Node extends Exception implements Cloneable
 			setKids(kidsTemp + array.length);
 	}
 	
+
+ 	
+ 	
 }
