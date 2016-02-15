@@ -23,3 +23,7 @@ _Classes of Trees_, to be completed c. May 2017.
 *14FEB16_v2*
       Tweaked NODE CLASS, COLOR ENUM, and COLORTEST CLASS. Added NODETEST CLASS for JUnit testing of NODE CLASS. Passes 11/11 tests.
       Tests for addChildren(), union(), and other adding/modifying of array methods still need to be written.
+
+*15FEB16_v1*
+      Fixed bugs with union() and addChildren() in NODE CLASS. Added 3 tests to NODETEST CLASS. Passes 14/14 tests. Added templates
+      for the TREE CLASS and TREETEST CLASS for JUnit testing of TREE CLASS. Passes 0/0 tests. 
