@@ -2,10 +2,10 @@
  * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
  * 
  * 		Node Class TEST CLASS
- * 			Some basic tests for the Node Class
+ * 			Some basic tests for the Node Class.
  * 
  * @author Nicole Loew
- * @version CS5999 Graduate Thesis Spring 2017; 14 February 2016
+ * @version CS5999 Graduate Thesis Spring 2017; 15 February 2016
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -240,5 +240,87 @@ public class NodeTest
 		node1 = node1.reset();
 		i = node1.getDegree();
 		assertEquals(20, i);
+	}
+	
+	@Test
+	public void testCopy() throws CloneNotSupportedException
+	{
+		Node node11 = new Node(11);
+		Node node12 = new Node(12);
+		Node node13 = new Node(13);
+		Node[] array1 = new Node[3];
+		array1[0] = node11;
+		array1[1] = node12;
+		array1[2] = node13;
+		
+		Node[] array2 = node11.copyKids(array1, 3, 3);
+		assertEquals(array2[0].getName(), node11.getName());
+	}
+	
+	@Test
+	public void testAddKids() throws Exception
+	{
+		Node node11 = new Node(11);
+		Node node12 = new Node(12);
+		Node node13 = new Node(13);
+				
+		node1.prune(node1);
+		node1.addChild(node11);
+		node1.addChild(node12);
+		node1.addChild(node13);
+		int i = node1.getKids();
+		assertEquals(3, i);
+		i = node1.getDegree();
+		assertEquals(20, i);
+		
+		Node node14 = new Node(14);
+		Node node15 = new Node(15);
+		Node node16 = new Node(16);
+		Node[] array1 = new Node[3];
+		array1[0] = node14;
+		array1[1] = node15;
+		array1[2] = node16;
+		
+		node1.addChildren(array1);
+		i = node1.getKids();
+		assertEquals(6, i);
+		i = node1.getDegree();
+		assertEquals(20, i);
+		node1.kill(node16);
+		i = node1.getKids();
+		assertEquals(5, i);
+		node1.prune(node1);
+	}
+	
+	@Test
+	public void testCivilWar() throws CloneNotSupportedException
+	{
+		Node node11 = new Node(11);
+		Node node12 = new Node(12);
+		Node node13 = new Node(13);
+		Node node14 = new Node(14);
+		Node node15 = new Node(15);
+		Node node16 = new Node(16);
+		Node[] array1 = new Node[6];
+		array1[0] = node11;
+		array1[1] = node12;
+		array1[2] = node13;
+		array1[3] = node14;
+		array1[4] = node15;
+		array1[5] = node16;
+		node1.prune(node1);
+		node1.addChildren(array1);
+		int i = node1.getKids();
+		assertEquals(6, i);
+		
+		Node[] array2 = node1.secede(4);
+		i = node1.getKids();
+		assertEquals(4, i);
+		i = array2.length;
+		assertEquals(20, i);
+		Node n = array2[2];
+		assertEquals(null, n);
+		
+		node1.prune(node1);
 	}
 }

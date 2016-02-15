@@ -7,7 +7,7 @@
  * 			number of branches/children, et hoc genus omne. 
  * 
  * @author Nicole Loew
- * @version CS5999 Graduate Thesis Spring 2017; 13 February 2016
+ * @version CS5999 Graduate Thesis Spring 2017; 15 February 2016
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -34,6 +34,24 @@ public class Node extends Exception implements Cloneable
 	 *                                                                            *
 	 ******************************************************************************/
 	
+	
+	/**
+	 * N0-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
+	 * 		parent to null, and maxDegree to 20, so that the node can have up to 20 children /
+	 * 		degree-20, as Eclipse insisted on a default constructor.
+	 */
+	public Node()
+	{
+		color = DEFAULT_COLOR;
+		name = -1;
+		parent = null;
+		depth = 0;
+		kids = 0;
+		maxDegree = DEFAULT_DEGREE;
+		allKids = maxDegree;
+		maxKids = allKids;
+		children = new Node[allKids];
+	}
 	
 	/**
 	 * ONE-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
@@ -155,15 +173,15 @@ public class Node extends Exception implements Cloneable
 	 * @param children: a new, full array
 	 * @throws CloneNotSupportedException 
 	 */
-	protected void addChildren(Node[] children) throws CloneNotSupportedException
+	protected void addChildren(Node[] array) throws CloneNotSupportedException
 	{
 		if (hasKids())
 		{
-			union(children);
+			this.union(array);
 		}
 		else
 		{
-			this.children = children;
+			this.children = array;
 			setKids(children.length);
 		}
 	}
@@ -266,7 +284,6 @@ public class Node extends Exception implements Cloneable
 		this.color = color.getRadius();
 	}
 	
-	
 	/**
 	 * setColor - sets the color of Node to the input color. RADIUS-GIVEN VERSION.
 	 * 
@@ -276,7 +293,6 @@ public class Node extends Exception implements Cloneable
 	{
 		color = radius;
 	}
-	
 	
 	/**
 	 * setDegree - a private method only accessible by its 2-arg version, sets maxDegree
@@ -288,7 +304,6 @@ public class Node extends Exception implements Cloneable
 	{
 		maxDegree = degree;
 	}
-	
 	
 	/**
 	 * setDegree - "Mask" for 1-arg setDegree, allowing maxDegree to be modified without
@@ -319,7 +334,6 @@ public class Node extends Exception implements Cloneable
 		}
 	}
 	
-	
 	/**
 	 * setDepth - standard setter for depth.
 	 * 
@@ -330,7 +344,6 @@ public class Node extends Exception implements Cloneable
 		this.depth = depth;
 	}
 	
-	
 	/**
 	 * setKids - allows for artificial setting of kids (manyItems).
 	 * 
@@ -340,7 +353,6 @@ public class Node extends Exception implements Cloneable
 	{
 		this.kids = kids;
 	}
-	
 	
 	/**
 	 * setMaxKids - standard setter method for maxKids.
@@ -406,8 +418,7 @@ public class Node extends Exception implements Cloneable
 	{
 		return (kids != children.length);
 	}
-	
-	
+		
 	
 	/**
 	 * hasKids - determines if the node has any children
@@ -418,7 +429,6 @@ public class Node extends Exception implements Cloneable
 	{
 		return (kids > 0);
 	}
-	
 	
 	/**
 	 * hasParent - determines if the node has a parent.
@@ -449,7 +459,7 @@ public class Node extends Exception implements Cloneable
 	 * @param manyItems: kids
 	 * @return the new children array
 	 */
-	private Node[] copyKids(Node[] array, int manyItems, int length) throws CloneNotSupportedException
+	protected Node[] copyKids(Node[] array, int manyItems, int length) throws CloneNotSupportedException
 	{
 		Node[] temp = new Node[length]; 
 		
@@ -555,7 +565,7 @@ public class Node extends Exception implements Cloneable
 	 * 		The values in the children now in temp are set to null.
 	 *  
 	 * @param breakpoint: the value at which to break, exclusive of the child array
-	 * @return the new array from the breakpoint thru the final value in children
+	 * @return the new array from the breakpoint inclusive thru the final value in children
 	 * @throws CloneNotSupportedException
 	 */
 	protected Node[] secede(int breakpoint) throws CloneNotSupportedException
@@ -600,20 +610,13 @@ public class Node extends Exception implements Cloneable
 	 */
  	private void union(Node[] array) throws CloneNotSupportedException
 	{
-		int marker = getAllKids();
-		int start = getKids();
-		int depth = children[0].getDepth();
-		
-		for (int i = start, j = 0; i < marker; i++, j++)
-		{
-			children[i] = array[j].deepCopy();
-			children[i].setDepth(depth);
-			if (j == array.length)
-			{
-				i = marker;
+		int kidsTemp = getKids();
+			for (int i = kidsTemp; i < children.length; i++)
+			{		
+				this.children[i] = array[0];
+				kill(array[0]);
 			}
-		}
-		setKids(start + array.length);
+			setKids(kidsTemp + array.length);
 	}
 	
 }
