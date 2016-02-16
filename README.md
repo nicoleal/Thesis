@@ -32,4 +32,10 @@ _Classes of Trees_, to be completed c. May 2017.
       Added 2 tests to NODETEST CLASS. Passes 16/16 tests. Wrote standard helper methods for TREE CLASS as well as buildCat1(n) method
       which will construct a TYPE 1 (|v| <= 3) CATERPILLAR TREE of length n, with a spine of n/2 and n/2 branches of length 1 each.
       Flexibility written into code for eventual addition of other types of trees while hopefully maintaining code integrity. Added
-      4 tests to TREETEST CLASS. Passes 4/4 tests/ 
+      4 tests to TREETEST CLASS. Passes 4/4 tests.
+      
+*16FEB16_v1*
+      Added toString methods to COLOR ENUM and NODE CLASS. Added 1 test each to COLORTEST CLASS and NODETEST CLASS. Pass 6/6 and 17/17
+      tests respectively. Added MENU CLASS for simple console decision making. Added MENUTEST CLASS for JUnit testing. Passes 1/1 tests.
+      
+      
