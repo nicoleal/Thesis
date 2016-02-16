@@ -71,7 +71,8 @@ public class Menu
 			case 1:
 			{
 				t = t.buildCat1(t, n);
-				cat1Printer(t, n);
+				t = cat1MenuPrinter(t, n);
+				cat1TreePrinter(t, n);
 				break;
 			}
 			case 2: // ADD MORE CASES HERE
@@ -155,13 +156,14 @@ public class Menu
 	
 	
 	/**
-	 * cat1Printer - after a T1 Caterpillar is chosen, prints the algorithms menu, sets
+	 * cat1MenuPrinter - after a T1 Caterpillar is chosen, prints the algorithms menu, sets
 	 * 		third to input, and runs the algorithm. 
 	 *  
-	 * @param t
-	 * @param n
+	 * @param t: the tree in question
+	 * @param n: the number of vertices
+	 * @return the colored tree
 	 */
-	public void cat1Printer(Tree t, int n)
+	public Tree cat1MenuPrinter(Tree t, int n)
 	{
 		cat1Menu();
 		third = s.nextInt();
@@ -171,17 +173,117 @@ public class Menu
 		{
 			case 1:
 			{
-				break;
+				return Coloring.womenAndChildrenFirst(t, n);
 			}
 			case 2: 
 			{	
-				break;
+				return t;
 			}
 			case 3:	// ADD MORE CASES HERE
 			default:
 			{
 				System.exit(0);
 			}
+		}
+		return t;
+	}
+	
+	
+	/**
+	 * cat1TreePrinter - provides a "graphical" tree on the console for T1 
+	 * 		Caterpillar trees only. 
+	 * 
+	 * @param t: the tree to print
+	 * @param n: the number of vertices 
+	 */
+	public void cat1TreePrinter(Tree t, int n)
+	{
+		for (int i = 0; i < n; i = i + 2)
+		{
+			int v = t.getLeaf(t, i).getName();
+			if (v < 10)
+			{
+				System.out.print("--V0" + v + "--   ");
+			}
+			else
+			{
+				System.out.print("--V" + v + "--   ");
+			}
+		}
+		System.out.print("\n");
+		for (int i = 0; i < n - 2; i = i + 2)
+		{
+			System.out.print("|     |---");
+		}
+		System.out.print("|     |");
+		System.out.print("\n");
+		for (int i = 0; i < n; i = i + 2)
+		{
+			int c = t.getLeaf(t, i).getColor();
+			if (c < 10)
+			{
+				System.out.print("|  " + c + "  |   ");
+			}
+			else
+			{
+				System.out.print("|  " + c + " |   ");
+			}
+		}
+		System.out.print("\n");
+		for (int i = 0; i < n/2; i++)
+		{
+			System.out.print("-------   ");
+		}
+		System.out.print("\n");
+		
+		
+		for (int i = 0; i < n/2; i++)
+		{
+			System.out.print("   |      ");
+		}
+		System.out.print("\n");
+		for (int i = 0; i < n/2; i++)
+		{
+			System.out.print("   |      ");
+		}
+		System.out.print("\n");
+		
+		
+		for (int i = 1; i < n; i = i + 2)
+		{
+			int v = t.getLeaf(t, i).getName();
+			if (v < 10)
+			{
+				System.out.print("--V0" + v + "--   ");
+			}
+			else
+			{
+				System.out.print("--V" + v + "--   ");
+			}
+		}
+		System.out.print("\n");
+		for (int i = 1; i < n - 2; i = i + 2)
+		{
+			System.out.print("|     |   ");
+		}
+		System.out.print("|     |");
+		System.out.print("\n");
+		for (int i = 1; i < n; i = i + 2)
+		{
+			int c = t.getLeaf(t, i).getColor();
+			if (c < 10)
+			{
+				System.out.print("|  " + c + "  |   ");
+			}
+			else
+			{
+				System.out.print("|  " + c + " |   ");
+			}
+		}
+		System.out.print("\n");
+		for (int i = 0; i < n/2; i++)
+		{
+			System.out.print("-------   ");
 		}
 	}
 }

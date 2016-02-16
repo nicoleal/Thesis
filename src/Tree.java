@@ -56,15 +56,16 @@ public class Tree extends Node
 		{
 			if (isOdd(i))
 			{
-				t.tree[i] = birth(t.tree[i - 1].getNode(), d);
+				t.tree[i] = birth(t, t.tree[i - 1].getNode(), d);
 				t.tree[i].bachelor();
 				t.tree[i].setDepth(1);
 			}
 			else
 			{
-				t.tree[i] = birth(t.tree[i - 2].getNode(), d);
+				t.tree[i] = birth(t, t.tree[i - 2].getNode(), d);
 				t.tree[i].setDepth(0);
 			}
+			t.counter++;
 		}
 		
 		return t;
@@ -215,9 +216,9 @@ public class Tree extends Node
 	 * @return the new node
 	 * @throws Exception
 	 */
-	private Node birth(Node n, int degree) throws Exception
+	private Node birth(Tree t, Node n, int degree) throws Exception
 	{
-		node = new Node(n, degree, counter);
+		node = new Node(n, degree, t.counter);
 		n.addChild(node);
 		return node;
 	}

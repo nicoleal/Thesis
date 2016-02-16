@@ -23,5 +23,17 @@ public class MenuTest
 	{
 		m.setup();
 	}
+	
+	/*@Test
+	public void testPrint1() throws Exception
+	{
+		Tree t = new Tree();
+		t = t.buildCat1(t, 20);
+		t.getLeaf(t, 4).setColor(17);
+		t.getLeaf(t, 8).setColor(12);
+		t.getLeaf(t, 14).setColor(8);
+		t.getLeaf(t, 16).setColor(2);
+		m.cat1TreePrinter(t, 20);
+	}*/
 
 }

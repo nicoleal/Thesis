@@ -611,14 +611,19 @@ public class Node extends Exception implements Cloneable
 	/**
 	 * toString - returns the name and color of the node in the following format:
 	 * 	
-	 * 		Name:	XXXX
-	 * 		Color:	XXXX
+	 * 		--VXX--
+	 *		|     |
+	 *		|  X  |
+	 *		-------
 	 * 
 	 * @return the String
 	 */
 	public String toString()
 	{
-		String s = "Name:\t" + this.getName() +"\nColor:\t" + this.getColor();
+		String s = "--V" + this.getName() + "--\n";
+		s += "|     |\n";
+		s += "|  " + this.getColor() + "  |\n";
+		s += "-------\n";
 		return s;
 	}
 	
