@@ -70,6 +70,8 @@ public class ColorTest
 	@Test
 	public void testToString() 
 	{
-		//TODO
+		String s = Color.WHITE.toString();
+		assertEquals("0", s);
+		
 	}
 }

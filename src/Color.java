@@ -14,7 +14,7 @@
 
 public enum Color 
 {
-	WHITE 		(0,  0xFFFFFF), 
+	WHITE 		(0,  0xFFFFFF),
 	RED 		(1,  0xED0A3F), 
 	BLUE 		(2,  0x0066FF),
 	GREEN 		(3,  0x3AA655), 
@@ -119,7 +119,6 @@ public enum Color
 	 */
 	public String toString()
 	{
-		//TODO
 		return Integer.toString(radius);
 	}
 }

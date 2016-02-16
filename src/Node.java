@@ -609,14 +609,16 @@ public class Node extends Exception implements Cloneable
 	}
 	
 	/**
-	 * toString - 
+	 * toString - returns the name and color of the node in the following format:
+	 * 	
+	 * 		Name:	XXXX
+	 * 		Color:	XXXX
 	 * 
 	 * @return the String
 	 */
 	public String toString()
 	{
-		String s = "";
-		//TODO
+		String s = "Name:\t" + this.getName() +"\nColor:\t" + this.getColor();
 		return s;
 	}
 	

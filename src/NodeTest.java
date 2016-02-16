@@ -339,11 +339,25 @@ public class NodeTest
 		assertEquals(0, i);
 	}
 	
+	@Test
 	public void testAllKids()
 	{
 		Node node11 = new Node(3, 11);
 		Node node12 = new Node(node11, 3, 12);
 		int i = node12.getAllKids();
 		assertEquals(2, i);
+	}
+	
+	@Test
+	public void testString()
+	{
+		Node node11 = new Node(11);
+		node11.setColor(5);
+		String s = node11.toString();
+		//System.out.println(s);
+		Node node12 = new Node(12);
+		node12.setColor(17);
+		s = node12.toString();
+		//System.out.println(s);
 	}
 }
