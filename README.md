@@ -38,4 +38,6 @@ _Classes of Trees_, to be completed c. May 2017.
       Added toString methods to COLOR ENUM and NODE CLASS. Added 1 test each to COLORTEST CLASS and NODETEST CLASS. Pass 6/6 and 17/17
       tests respectively. Added MENU CLASS for simple console decision making. Added MENUTEST CLASS for JUnit testing. Passes 1/1 tests.
       
-      
+*16FEB16_v2*
+      Reworked NODE CLASS toString. Added console printer for T1 Caterpillar graphs in MENU CLASS. Added COLORING CLASS for housing
+      tree coloring algorithims. Must rework algorithim 1 for better bigOh. 
