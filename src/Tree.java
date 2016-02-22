@@ -200,6 +200,19 @@ public class Tree extends Node
 		return ((i & 1) != 0);
 	}
 	
+	/**
+	 * isLeaf - returns whether the node in question is a leaf or not.
+	 * 		id est, has no kids.
+	 * 
+	 * @param t: the tree
+	 * @param i: the number of the node in question
+	 * @return TRUE if leaf, FALSE otherwise
+	 */
+	public Boolean isLeaf(Tree t, int i)
+	{
+		return (t.getLeaf(t, i).getKids() == 0);
+	}
+	
 	
 	/******************************************************************************
 	 *                                                                            *

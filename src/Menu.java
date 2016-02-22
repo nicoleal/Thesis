@@ -70,9 +70,7 @@ public class Menu
 		{
 			case 1:
 			{
-				t = t.buildCat1(t, n);
-				t = cat1MenuPrinter(t, n);
-				cat1TreePrinter(t, n);
+				cat1TreePrinter(cat1MenuPrinter(t.buildCat1(t, n), n), n);
 				break;
 			}
 			case 2: // ADD MORE CASES HERE
@@ -104,7 +102,7 @@ public class Menu
 		System.out.println("*     What Algorithim Would You Like to Examine?                               *");
 		System.out.println("*                                                                              *");
 		System.out.println("*     1) V1 Children                                                           *");
-		System.out.println("*     2) V1-V2-V1-V3-V1-V2 Spine                                               *");
+		System.out.println("*     2) V1-V2-V1-V3 Spine                                                     *");
 		System.out.println("*     3) Exit                                                                  *");
 		System.out.println("*                                                                              *");
 		System.out.println("********************************************************************************");
@@ -177,7 +175,7 @@ public class Menu
 			}
 			case 2: 
 			{	
-				return t;
+				return Coloring.backbone(t, n);
 			}
 			case 3:	// ADD MORE CASES HERE
 			default:

@@ -23,38 +23,80 @@ public class Coloring
 	public static Tree womenAndChildrenFirst(Tree t, int n)
 	{
 		t.getLeaf(t, 0).setColor(2);
-		int maxSeen = 2;
+		//TODO
 		
-		for (int i = 1; i < n; i++)
-		{
-			int workingColor;
-			
-			if(isEven(i))
-			{
-				workingColor = 2;
-				int j = i - workingColor;
-				if (j > 0)
-				{
-					if (t.getLeaf(t, j).getColor() == workingColor)
-					{
-						workingColor++;
-					}
-					else
-					{
-						while (j != i + workingColor)
-						{
-							
-						}
-					}
-				}
-				
-			}
-			else
-			{
-				t.getLeaf(t, i).setColor(1);
-			}
-		}
 		return t;
+	}
+	
+	public static Tree backbone(Tree t, int n)
+	{
+		Tree tree = t;
+		for (int i = 0; i < n - 6; i += 8)
+		{
+			tree.getLeaf(tree, i).setColor(1);
+			tree.getLeaf(tree, i + 2).setColor(2);
+			tree.getLeaf(tree, i + 4).setColor(1);
+			tree.getLeaf(tree, i + 6).setColor(3);	
+		}
+		int j = n % 8;
+		if (!isEven(j))
+		{
+			j++;
+			n++;
+		}
+		
+		if (j < 3)
+		{
+			tree.getLeaf(tree, n - 2).setColor(4);
+		}
+		else if (j < 6)
+		{
+			tree.getLeaf(tree, n - 4).setColor(1);
+			tree.getLeaf(tree, n - 2).setColor(4);
+		}
+		else if (j < 8)
+		{
+			tree.getLeaf(tree, n - 6).setColor(1);
+			tree.getLeaf(tree, n - 4).setColor(2);
+			tree.getLeaf(tree, n - 2).setColor(4);
+		}
+		n--;
+		
+		
+		for (int i = 1; i < n - 6; i += 8)
+		{
+			tree.getLeaf(tree, i).setColor(4);
+			tree.getLeaf(tree, i + 2).setColor(5);
+			tree.getLeaf(tree, i + 4).setColor(4);
+			tree.getLeaf(tree, i + 6).setColor(6);	
+		
+		}
+		
+		j = n % 8;
+		if (!isEven(j))
+		{
+			n--;
+		}
+		int maxColor = 6;
+		if (j < 3)
+		{
+			tree.getLeaf(tree, n - 1).setColor(1);
+		}
+		else if (j < 6)
+		{
+			tree.getLeaf(tree, n - 3).setColor(5);
+			tree.getLeaf(tree, n - 1).setColor(1);
+		}
+		else if (j < 8)
+		{
+			tree.getLeaf(tree, n - 5).setColor(5);
+			tree.getLeaf(tree, n - 3).setColor(1);
+			tree.getLeaf(tree, n - 1).setColor(7);
+			maxColor = 7;
+		}
+		System.out.println("\nXb(T) = " + maxColor);
+		
+		return tree;
 	}
 	
 	
