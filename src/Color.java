@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number
  * 
  * 		Color Enum
  * 			Because it is sometimes easier to refer to a V-i by its color rather
