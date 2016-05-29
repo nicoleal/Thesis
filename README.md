@@ -40,3 +40,7 @@ A repository for everything code-related to do with my master's thesis, _Approxi
 *16FEB16_v2*
       Reworked NODE CLASS toString. Added console printer for T1 Caterpillar graphs in MENU CLASS. Added COLORING CLASS for housing
       tree coloring algorithims. Must rework algorithim 1 for better bigOh. 
+
+*27MAY16_v1*
+      Reworked TREE CLASS. Added additional builder methods T2 CATERPILLAR and T1/T2 CATERPILLAR graphs in TREE CLASS. Created
+      RANDOMGRAPHGENERATOR CLASS for building of random non-cyclic graphs.  
