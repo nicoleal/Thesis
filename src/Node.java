@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Node Class
  * 			An implementation of the most general TreeNode class possible,
@@ -7,7 +7,7 @@
  * 			number of branches/children, et hoc genus omne. 
  * 
  * @author Nicole Loew
- * @version CS5999 Graduate Thesis Spring 2017; 15 February 2016
+ * @version CS5999 Graduate Thesis Spring 2017; 27 May 2016
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -21,7 +21,7 @@ public class Node extends Exception implements Cloneable
 	private int allKids; 
 	private int depth;
 	private int kids;
-	private int maxDegree; 
+	private static int maxDegree; 
 	private int maxKids;
 	private int name;
 	private Node parent;
