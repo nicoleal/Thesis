@@ -4,7 +4,7 @@
  * 		Coloring Class
  * 			A "Math Class"-like home for some of the algorithims I'd like
  * 			to study. I anticipate there will be quite a lot of them by the
- * 			end, so it may end up being Coloring Class 1 of X, et hoc genus omne. 
+ * 			end, so it may end up being Coloring Class 1 of X, et hoc genus omne.
  * 
  * @author Nicole Loew
  * @version CS5999 Graduate Thesis Spring 2017; 16 February 2016

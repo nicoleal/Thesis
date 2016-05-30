@@ -268,6 +268,7 @@ public class TreeTest
 		assertEquals(4, i);
 	}
 	
+<<<<<<< HEAD
 	@Test
 	public void testRand1() throws Exception
 	{
@@ -289,4 +290,6 @@ public class TreeTest
 		t.buildInput(t);
 	}
 	
+=======
+>>>>>>> origin/master
 }

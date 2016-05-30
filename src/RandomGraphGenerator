@@ -1,0 +1,48 @@
+import java.util.Random;
+
+/**
+ * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * 
+ * 		RandomGraphGenerator Class
+ * 			An method of random graph generation while working within the confines
+ * 			described elsewhere in the program, et hoc genus omne. 
+ * 
+ * @author Nicole Loew
+ * @version CS5999 Graduate Thesis Spring 2017; 27 May 2016
+ * {@link https://github.com/nicoleal/Thesis}
+ */
+
+@SuppressWarnings("serial")
+public class RandomGraphGenerator extends Tree
+{
+	private Boolean b[];
+	private int counter = 000;
+	private int treeDegree;
+	private int numNodes;
+	private Node node;
+	private Node root;
+	private Node[] tree;
+	public static Random r1 = new Random();
+	public static Random r2 = new Random();
+	
+	protected static Tree makeRandom(Tree t, int numNodes)
+	{
+		int d = r1.nextInt(20);
+		setTreeDegree(t, d);
+		t.makeRoot(t, numNodes, d);
+		
+		int mother;
+		for (int i = 1; i < numNodes; i++)
+		{
+			mother =  r2.nextInt(i);
+			while (!t.tree[mother].canHaveKids());
+			{
+				mother =  r2.nextInt(i);
+			}
+			t.tree[i] = birth(t, t.tree[mother].getNode(), d);
+		}
+		
+	
+		return t;
+	}
+}
