@@ -5,7 +5,7 @@
  * 			Some basic tests for the Tree Class. 
  * 
  * @author Nicole Loew
- * @version CS5999 Graduate Thesis Spring 2017; 15 February 2016
+ * @version CS5999 Graduate Thesis Spring 2017; 30 May 2016
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -268,7 +268,6 @@ public class TreeTest
 		assertEquals(4, i);
 	}
 	
-<<<<<<< HEAD
 	@Test
 	public void testRand1() throws Exception
 	{
@@ -290,6 +289,4 @@ public class TreeTest
 		t.buildInput(t);
 	}
 	
-=======
->>>>>>> origin/master
 }
