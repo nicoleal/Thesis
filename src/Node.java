@@ -7,11 +7,7 @@
  * 			number of branches/children, et hoc genus omne. 
  * 
  * @author Nicole Loew
-<<<<<<< HEAD
  * @version CS5999 Graduate Thesis Spring 2017; 30 May 2016
-=======
- * @version CS5999 Graduate Thesis Spring 2017; 27 May 2016
->>>>>>> origin/master
  * {@link https://github.com/nicoleal/Thesis}
  */
 
