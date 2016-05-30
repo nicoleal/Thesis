@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Menu Class Test Class
  * 			Some basic tests for the Menu Class.
@@ -24,8 +24,8 @@ public class MenuTest
 		m.setup();
 	}
 	
-	/*@Test
-	public void testPrint1() throws Exception
+	//@Test
+	/**public void testPrint1() throws Exception
 	{
 		Tree t = new Tree();
 		t = t.buildCat1(t, 20);
@@ -34,6 +34,6 @@ public class MenuTest
 		t.getLeaf(t, 14).setColor(8);
 		t.getLeaf(t, 16).setColor(2);
 		m.cat1TreePrinter(t, 20);
-	}*/
+	}**/
 
 }

@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Menu Class
  * 			A console-style menu for deciding which graph / algorithm to run.
@@ -70,7 +70,7 @@ public class Menu
 		{
 			case 1:
 			{
-				cat1TreePrinter(cat1MenuPrinter(t.buildCat1(t, n), n), n);
+				PrintGraph.cat1TreePrinter(cat1MenuPrinter(t.buildCat1(t, n), n), n);
 				break;
 			}
 			case 2: // ADD MORE CASES HERE
@@ -187,101 +187,5 @@ public class Menu
 	}
 	
 	
-	/**
-	 * cat1TreePrinter - provides a "graphical" tree on the console for T1 
-	 * 		Caterpillar trees only. 
-	 * 
-	 * @param t: the tree to print
-	 * @param n: the number of vertices 
-	 */
-	public void cat1TreePrinter(Tree t, int n)
-	{
-		for (int i = 0; i < n; i = i + 2)
-		{
-			int v = t.getLeaf(t, i).getName();
-			if (v < 10)
-			{
-				System.out.print("--V0" + v + "--   ");
-			}
-			else
-			{
-				System.out.print("--V" + v + "--   ");
-			}
-		}
-		System.out.print("\n");
-		for (int i = 0; i < n - 2; i = i + 2)
-		{
-			System.out.print("|     |---");
-		}
-		System.out.print("|     |");
-		System.out.print("\n");
-		for (int i = 0; i < n; i = i + 2)
-		{
-			int c = t.getLeaf(t, i).getColor();
-			if (c < 10)
-			{
-				System.out.print("|  " + c + "  |   ");
-			}
-			else
-			{
-				System.out.print("|  " + c + " |   ");
-			}
-		}
-		System.out.print("\n");
-		for (int i = 0; i < n/2; i++)
-		{
-			System.out.print("-------   ");
-		}
-		System.out.print("\n");
-		
-		
-		for (int i = 0; i < n/2; i++)
-		{
-			System.out.print("   |      ");
-		}
-		System.out.print("\n");
-		for (int i = 0; i < n/2; i++)
-		{
-			System.out.print("   |      ");
-		}
-		System.out.print("\n");
-		
-		
-		for (int i = 1; i < n; i = i + 2)
-		{
-			int v = t.getLeaf(t, i).getName();
-			if (v < 10)
-			{
-				System.out.print("--V0" + v + "--   ");
-			}
-			else
-			{
-				System.out.print("--V" + v + "--   ");
-			}
-		}
-		System.out.print("\n");
-		for (int i = 1; i < n - 2; i = i + 2)
-		{
-			System.out.print("|     |   ");
-		}
-		System.out.print("|     |");
-		System.out.print("\n");
-		for (int i = 1; i < n; i = i + 2)
-		{
-			int c = t.getLeaf(t, i).getColor();
-			if (c < 10)
-			{
-				System.out.print("|  " + c + "  |   ");
-			}
-			else
-			{
-				System.out.print("|  " + c + " |   ");
-			}
-		}
-		System.out.print("\n");
-		for (int i = 0; i < n/2; i++)
-		{
-			System.out.print("-------   ");
-		}
-	}
+	
 }

@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Node Class TEST CLASS
  * 			Some basic tests for the Node Class.

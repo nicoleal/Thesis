@@ -1,5 +1,5 @@
 /**
- * An Exploration of Broadcast Chromatic Numbers in Restricted Trees
+ * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Coloring Class
  * 			A "Math Class"-like home for some of the algorithims I'd like
