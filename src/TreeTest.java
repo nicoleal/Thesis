@@ -5,7 +5,7 @@
  * 			Some basic tests for the Tree Class. 
  * 
  * @author Nicole Loew
- * @version CS5999 Graduate Thesis Spring 2017; 15 February 2016
+ * @version CS5999 Graduate Thesis Spring 2017; 31 May 2016
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -268,8 +268,7 @@ public class TreeTest
 		assertEquals(4, i);
 	}
 	
-<<<<<<< HEAD
-	@Test
+	/**@Test
 	public void testRand1() throws Exception
 	{
 		Tree t = new Tree();
@@ -281,15 +280,71 @@ public class TreeTest
 	{
 		Tree t = new Tree();
 		t.buildRand(t, 50);
-	}
+	}*/
 	
-	@Test
+	/**@Test
 	public void testInput1() throws Exception
 	{
 		Tree t = new Tree();
 		t.buildInput(t);
+	}*/
+	
+	@Test
+	public void testBinary1() throws Exception
+	{
+		Tree t = new Tree();
+		t.buildBinary(t, 10);
+		int i = t.getNumNodes(t);
+		assertEquals(10, i);
+		i = t.getRoot(t).getKids();
+		assertEquals(2, i);
+		i = t.getLeaf(t, 9).getKids();
+		assertEquals(0, i);
+		i = t.getLeaf(t, 2).getKids();
+		assertEquals(2, i);
+		i = t.getLeaf(t, 6).getKids();
+		assertEquals(0, i);
+		Boolean b = t.isLeaf(t, 3);
+		assertEquals(false, b);
 	}
 	
-=======
->>>>>>> origin/master
+	@Test
+	public void testBinary2() throws Exception
+	{
+		Tree t = new Tree();
+		t.buildBinary(t, 50);
+		int i = t.getNumNodes(t);
+		assertEquals(50, i);
+		i = t.getRoot(t).getKids();
+		assertEquals(2, i);
+		i = t.getLeaf(t, 49).getKids();
+		assertEquals(0, i);
+		i = t.getLeaf(t, 22).getKids();
+		assertEquals(2, i);
+		i = t.getLeaf(t, 30).getKids();
+		assertEquals(0, i);
+		Boolean b = t.isLeaf(t, 15);
+		assertEquals(false, b);
+		b = t.isLeaf(t, 31);
+		assertEquals(true, b);
+	}
+	
+	@Test
+	public void testSpine1() throws Exception
+	{
+		Tree t = new Tree();
+		t.buildSpine(t, 10);
+		int i = t.getNumNodes(t);
+		assertEquals(10, i);
+		i = t.getRoot(t).getKids();
+		assertEquals(1, i);
+		i = t.getLeaf(t, 9).getKids();
+		assertEquals(0, i);
+		i = t.getLeaf(t, 2).getKids();
+		assertEquals(1, i);
+		Boolean b = t.isLeaf(t, 3);
+		assertEquals(false, b);
+		b = t.isLeaf(t, 9);
+		assertEquals(true, b);
+	}
 }
