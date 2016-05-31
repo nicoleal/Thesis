@@ -10,8 +10,14 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 public class PrintGraph 
 {
+	static PrintWriter writer;
+	
 	/******************************************************************************
 	 *                                                                            *
 	 *                         Numerical   Methods                                *
@@ -43,6 +49,27 @@ public class PrintGraph
 			}
 		}
 		System.out.println();
+	}
+	
+	protected static void printToFile(Tree t, int numNodes, String fileName) throws FileNotFoundException, UnsupportedEncodingException
+	{
+		writer = new PrintWriter(fileName, "UTF-8");
+		
+		for (int i = 0; i < numNodes; i++)
+		{
+			if (t.tree[i].hasKids())
+			{
+				writer.print(t.tree[i].getName() + ": ");
+				for (int j = 0; j < t.tree[i].getKids(); j++)
+				{
+				
+					writer.print(t.tree[i].children[j].getName() + " ");
+				}
+				writer.println();
+			}
+		}
+		writer.println();
+		writer.close();
 	}
 	
 	/******************************************************************************
