@@ -5,7 +5,11 @@
  * 			Some basic tests for the Tree Class. 
  * 
  * @author Nicole Loew
+<<<<<<< HEAD
  * @version CS5999 Graduate Thesis Spring 2017; 31 May 2016
+=======
+ * @version CS5999 Graduate Thesis Spring 2017; 30 May 2016
+>>>>>>> origin/master
  * {@link https://github.com/nicoleal/Thesis}
  */
 
@@ -268,7 +272,11 @@ public class TreeTest
 		assertEquals(4, i);
 	}
 	
+<<<<<<< HEAD
 	/**@Test
+=======
+	@Test
+>>>>>>> origin/master
 	public void testRand1() throws Exception
 	{
 		Tree t = new Tree();
@@ -308,6 +316,7 @@ public class TreeTest
 		assertEquals(false, b);
 	}
 	
+<<<<<<< HEAD
 	@Test
 	public void testBinary2() throws Exception
 	{
@@ -347,4 +356,6 @@ public class TreeTest
 		b = t.isLeaf(t, 9);
 		assertEquals(true, b);
 	}
+=======
+>>>>>>> origin/master
 }

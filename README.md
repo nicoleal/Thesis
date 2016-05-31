@@ -44,3 +44,6 @@ A repository for everything code-related to do with my master's thesis, _Approxi
 *27MAY16_v1*
       Reworked TREE CLASS. Added additional builder methods T2 CATERPILLAR and T1/T2 CATERPILLAR graphs in TREE CLASS. Created
       RANDOMGRAPHGENERATOR CLASS for building of random non-cyclic graphs.  
+
+*30MAY16_v1*
+      Reworked TREE CLASS and RANDOMGRAPHGENERATOR CLASS. Created USERINPUTGRAPH CLASS and PRINTGRAPH CLASS. Added tests to TREETEST CLASS. Must debug user input at later date.
