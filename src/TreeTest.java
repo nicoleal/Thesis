@@ -2,7 +2,7 @@
  * Approximating the Broadcast Chromatic Number of Graphs
  * 
  * 		Tree Class TEST CLASS
- * 			Some basic tests for the Tree Class. 
+ * 			Some basic tests for the Tree Class and its sub-graphs. 
  * 
  * @author Nicole Loew
  * @version CS5999 Graduate Thesis Spring 2017; 31 May 2016
@@ -283,12 +283,12 @@ public class TreeTest
 		t.buildRand(t, 50);
 	}
 	
-	/**@Test
+	@Test
 	public void testInput1() throws Exception
 	{
 		Tree t = new Tree();
-		t.buildInput(t);
-	}*/
+		t.buildInput(t, "InputTest1");
+	}
 	
 	@Test
 	public void testBinary1() throws Exception

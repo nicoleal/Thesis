@@ -45,7 +45,7 @@ public class RandomGraphGenerator extends Tree
 		}
 		
 		//PrintGraph.printList(t, numNodes);
-		//PrintGraph.printToFile(t, numNodes, "TestFiles\\TestOne.txt");
+		//PrintGraph.printToFile(t, numNodes, "OutputTest2");
 		
 		return t;
 	}

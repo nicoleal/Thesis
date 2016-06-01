@@ -167,7 +167,7 @@ public class Menu
 		third = s.nextInt();
 		System.out.println(third);
 		
-		switch(third)
+		/*switch(third)
 		{
 			case 1:
 			{
@@ -182,7 +182,7 @@ public class Menu
 			{
 				System.exit(0);
 			}
-		}
+		}*/
 		return t;
 	}
 	

@@ -257,9 +257,9 @@ public class Tree extends Node
 	 * @return the new USER INPUT GRAPH
 	 * @throws Exception
 	 */
-	protected Tree buildInput(Tree t) throws Exception
+	protected Tree buildInput(Tree t, String fileName) throws Exception
 	{
-		return UserInputGraph.makeInput(t);
+		return UserInputGraph.makeInput(t, fileName);
 	}
 	
 	/**

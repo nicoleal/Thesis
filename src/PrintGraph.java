@@ -53,6 +53,7 @@ public class PrintGraph
 	
 	protected static void printToFile(Tree t, int numNodes, String fileName) throws FileNotFoundException, UnsupportedEncodingException
 	{
+		fileName = "TestFiles\\" + fileName + ".txt";
 		writer = new PrintWriter(fileName, "UTF-8");
 		
 		for (int i = 0; i < numNodes; i++)

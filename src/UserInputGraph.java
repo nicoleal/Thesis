@@ -11,7 +11,9 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Scanner;
 
 @SuppressWarnings("serial")
@@ -22,6 +24,9 @@ public class UserInputGraph extends Tree
 	protected static int degree;
 	protected static int numNodes;
 	protected static Scanner scanner;
+	protected static String line;
+	private static FileReader fileReader;
+	private static BufferedReader bufferedReader;
 	
 	/**
 	 * makeInput - reads from an input file a series of parents and
@@ -36,19 +41,22 @@ public class UserInputGraph extends Tree
 	 * @param t - the tree
 	 * @param numNodes - manyItems
 	 */
-	protected static Tree makeInput(Tree t) throws Exception
+	protected static Tree makeInput(Tree t, String fileName) throws Exception
 	{
-		//f = new File("InputTest1.txt");
-		scanner = new Scanner("TestFiles\\InputTest1.txt");	
-		degree = scanner.nextInt();
-		numNodes = scanner.nextInt();
+		fileName = "TestFiles\\" + fileName + ".txt";
+		fileReader = new FileReader(fileName);
+		bufferedReader = new BufferedReader(fileReader);
 		
-		setTreeDegree(t, degree);
-			
-		while (scanner.hasNextLine())
+		line = bufferedReader.readLine();
+		degree = Integer.parseInt(line.substring(0, line.indexOf(' ')));
+		numNodes = Integer.parseInt(line.substring(line.indexOf(' ') + 1));
+		
+		int mother;
+		int kid;
+		while ((line = bufferedReader.readLine()) != null)
 		{
-			int mother = scanner.nextInt();
-			
+			mother = Integer.parseInt(line.substring(0, line.indexOf(':')));
+
 			if (mother > numNodes)
 			{
 				e = new Exception("Too many nodes in input graph.");
@@ -59,25 +67,36 @@ public class UserInputGraph extends Tree
 				t.makeRoot(t, numNodes, degree);
 			}
 			
-			int kid;
-			while (scanner.next() != "\n")
+			line = line.substring(line.indexOf(':') + 2);
+			
+			while (line != null)
 			{
-				kid = scanner.nextInt();
+				int i = line.indexOf(',');
 				
-				if (kid > numNodes)
+				if (i != -1)
 				{
-					e = new Exception("Too many nodes in input graph.");
+					kid = Integer.parseInt(line.substring(0, i));
+
+					if ((kid > numNodes) || (kid < mother))
+					{
+						e = new Exception("Incorrect input format.");
+					}
+
+					t.tree[kid] = birth(t, t.tree[mother].getNode(), degree);
+					t.tree[kid].setName(kid);
+					line = line.substring(line.indexOf(',') + 2);
 				}
-				else if (kid < mother)
+				else
 				{
-					e = new Exception("Incorrect input format.");
+					t.tree[Integer.parseInt(line)] = birth(t, t.tree[mother].getNode(), degree);
+					t.tree[Integer.parseInt(line)].setName(Integer.parseInt(line));
+					line = null;
 				}
-				
-				t.tree[kid] = birth(t, t.tree[mother].getNode(), degree);
 			}
 		}
-		PrintGraph.printList(t, numNodes);
-		scanner.close();
+		
+		//PrintGraph.printList(t, numNodes);
+		bufferedReader.close();
 		return t;
 	}
 	
