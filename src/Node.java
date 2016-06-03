@@ -270,6 +270,16 @@ public class Node extends Exception implements Cloneable
  	}
 	
 	/**
+	 * getParent - returns a reference to the calling node's parent.
+	 * 
+	 * @return returns a reference to the node's parent
+	 */
+	protected Node getParent()
+	{
+		return parent.getNode();
+	}
+	
+	/**
 	 * setAllKids - standard setter for allKids, which also copies and creates a new
 	 * 		children array IFF the array is not empty. 
 	 * 
