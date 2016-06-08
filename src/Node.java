@@ -11,21 +11,16 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
-@SuppressWarnings("serial")
-public class Node extends Exception implements Cloneable
+public class Node implements Cloneable
 {
 	public static final int DEFAULT_COLOR = Color.WHITE.getRadius();
 	public static final int DEFAULT_DEGREE = 20;
 	
-	private int color;
-	private int allKids; 
-	private int depth;
-	private int kids;
-	private static int maxDegree; 
-	private int maxKids;
-	private int name;
-	private Node parent;
-	public Node[] children;
+	private int color;					// The color of the node, WHITE if not-yet-colored
+	private static int maxDegree; 		// The maximum number of connections the node can have
+	private int metNeighbors;			// The "manyItems" for the neighbors array
+	private int name;					// The name of the node, expressed as a numeral
+	public int[] neighbors;				// The array holding references to the node's neighbors
 	
 	
 	/******************************************************************************
@@ -37,104 +32,86 @@ public class Node extends Exception implements Cloneable
 	
 	/**
 	 * N0-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
-	 * 		parent to null, and maxDegree to 20, so that the node can have up to 20 children /
-	 * 		degree-20, as Eclipse insisted on a default constructor.
+	 * 		and maxDegree to 20, so that the node can have up to 20 neighbors / degree-20, 
+	 * 		as Eclipse insisted on a default constructor.
 	 */
 	public Node()
 	{
 		color = DEFAULT_COLOR;
-		name = -1;
-		parent = null;
-		depth = 0;
-		kids = 0;
 		maxDegree = DEFAULT_DEGREE;
-		allKids = maxDegree;
-		maxKids = allKids;
-		children = new Node[allKids];
+		name = -1;
+		neighbors = new int[maxDegree];
+		metNeighbors = 0;
 	}
 	
 	/**
-	 * ONE-ARG CONSTRUCTOR for Nodes in which no information is given. Sets color to WHITE (0),
-	 * 		parent to null, and maxDegree to 20, so that the node can have up to 20 children /
-	 * 		degree-20.
+	 * ONE-ARG CONSTRUCTOR for Nodes in which no information is given beyond the name
+	 * 		Sets color to WHITE (0), and maxDegree to 20, so that the node can have 
+	 * 		up to 20 children / degree-20.
 	 * 
-	 * @param name: the name assignment from TREE
+	 * @param name: the name assignment
 	 */
 	public Node(int name)
 	{
 		color = DEFAULT_COLOR;
-		this.name = name;
-		parent = null;
-		depth = 0;
-		kids = 0;
 		maxDegree = DEFAULT_DEGREE;
-		allKids = maxDegree;
-		maxKids = allKids;
-		children = new Node[allKids];
+		this.name = name;
+		neighbors = new int[maxDegree];
+		metNeighbors = 0;
 	}
 	
 	/**
-	 * TWO-ARG CONSTRUCTOR for Nodes in which only the parent is given. Sets color to WHITE (0),
-	 * 		and maxDegree to 20, so that the node can have up to 19 children / degree-20.
+	 * TWO-ARG CONSTRUCTOR for Nodes in which only one of it's neighbors is given. Sets 
+	 * 		color to WHITE (0), and maxDegree to 20, so that the node can have up to other 
+	 * 		neighbors / degree-20.
 	 * 
-	 * @param parent: the parent Node
-	 * @param name: the name assignment from TREE
+	 * @param sponsor: the pre-existing node to which the new node is being attached
+	 * @param name: the name assignment
 	 */
-	public Node(Node parent, int name)
+	public Node(Node sponsor, int name)
 	{
 		color = DEFAULT_COLOR;
 		this.name = name;
 		maxDegree = DEFAULT_DEGREE;
-		allKids = maxDegree - 1;
-		maxKids = allKids;
-		depth = parent.getDepth() + 1;
-		kids = 0;
-		this.parent = parent;
-		children = new Node[allKids];
+		neighbors = new int[maxDegree];
+		neighbors[0] = sponsor.getName();
+		metNeighbors = 1;
 	}
 	
 	/**
-	 * TWO-ARG CONSTRUCTOR for Nodes in which only the max degree is known. Sets color to
-	 * 		WHITE (0) and maxKids to input, so that each node can have up to input children 
-	 * 		/ degree-(input).
+	 * TWO-ARG CONSTRUCTOR for Nodes in which only the maxDegree is known. Sets color to
+	 * 		WHITE (0) and maxKids to INPUT, so that each node can have up to INPUT children 
+	 * 		/ degree-(INPUT).
 	 *  
 	 * @param maxDegree: the maximum number of edges which can extend from the Node
-	 * @param name: the name assignment from TREE
+	 * @param name: the name assignment
 	 */
 	public Node(int maxDegree, int name)
 	{
 		color = DEFAULT_COLOR;
 		this.name = name;
-		Node.maxDegree = maxDegree;
-		allKids = maxDegree;
-		maxKids = allKids;
-		depth = 0;
-		kids = 0;
-		parent = null;
-		children = new Node[allKids];
+		setDegree(maxDegree);
+		neighbors = new int[maxDegree];
+		metNeighbors = 0;
 	}
 	
 	/**
-	 * THREE-ARG CONSTRUCTOR for Nodes in which only the parent and maxDegree is given. Sets
-	 * 		color to WHITE (0) and maxKids to (input - 1), so that the node can have up to
-	 * 		(input - 1) children / degree-(input).
+	 * THREE-ARG CONSTRUCTOR for Nodes in which only the conecting node and maxDegree is given. 
+	 * 		Sets color to WHITE (0) and maxDegree to INPUT, so that the node can have up to
+	 * 		INPUT children / degree-(INPUT).
 	 * 
-	 * @param parent: the parent Node
-	 * @param maxDegree: the maximum number of edges which can extend from the Node, INCLUDING
-	 * 		the parent-this.Node edge
-	 * @param name: the name assignment from TREE
+	 * @param sponsor: the pre-existing node to which the new node is being attached
+	 * @param maxDegree: the maximum number of edges which can extend from the node
+	 * @param name: the name assignment
 	 */
-	public Node(Node parent, int maxDegree, int name)
+	public Node(Node sponsor, int maxDegree, int name)
 	{
 		color = DEFAULT_COLOR;
 		this.name = name;
-		Node.maxDegree = maxDegree;
-		allKids = maxDegree - 1;
-		maxKids = allKids;
-		depth = parent.depth + 1;
-		kids = 0;
-		this.parent = parent;
-		children = new Node[allKids];
+		setDegree(maxDegree);
+		neighbors = new int[maxDegree];
+		neighbors[0] = sponsor.getName();
+		metNeighbors = 1;
 	}
 	
 	
@@ -152,11 +129,11 @@ public class Node extends Exception implements Cloneable
 	 * @param child: the child to be added
 	 * @throws Exception: node cannot add more children
 	 */
-	protected void addChild(Node child) throws Exception
+	protected void addNeighbor(Node newNeighbor) throws Exception
 	{
 		if (canHaveKids())
 		{
-			children[getKids()] = child;
+			neighbors[getKids()] = newNeighbor.getName();
 			setKids(getKids() + 1);
 		}
 		else
@@ -188,17 +165,7 @@ public class Node extends Exception implements Cloneable
 			}
 		}
 	}
-	
-	/**
-	 * getAllKids - standard getter for allKids.
-	 * 
-	 * @return allKids
-	 */
-	public int getAllKids()
-	{
-		return allKids;
-	}
-	
+
 	/**
 	 * getColor - standard getter for the color/broadcast radius.
 	 * 
@@ -218,35 +185,15 @@ public class Node extends Exception implements Cloneable
 	{
 		return maxDegree;
 	}
-	
+
 	/**
-	 * getDepth - standard getter for depth.
-	 * 
-	 * @return the depth of the node from the root
-	 */
-	public int getDepth()
-	{
-		return depth;
-	}
-	
-	/**
-	 * getKids - standard getter for kids (manyItems).
+	 * getMetNeighbors - standard getter for metNeighbors (manyItems).
 	 * 
 	 * @return kids
 	 */
-	public int getKids()
+	public int getMetNeighbors()
 	{
-		return kids;
-	}
-	
-	/**
-	 * getMaxKids - standard getter for maxKids.
-	 * 
-	 * @return maxKids
-	 */
-	public int getMaxKids()
-	{
-		return maxKids;
+		return metNeighbors;
 	}
 	
 	/**
@@ -268,24 +215,6 @@ public class Node extends Exception implements Cloneable
  	{
  		return this;
  	}
-	
-	/**
-	 * setAllKids - standard setter for allKids, which also copies and creates a new
-	 * 		children array IFF the array is not empty. 
-	 * 
-	 * @param degree: the value to which allKids is to be set
-	 */
-	protected void setAllKids(int degree) throws CloneNotSupportedException
-	{
-		allKids = degree;
-		
-		if (kids != 0)
-		{
-			Node[] temp = new Node[allKids];
-			temp = copyKids(children, kids, degree);
-			children = temp;
-		}
-	}
 	
 	/**
 	 * setColor - sets the color of Node to the input color. COLOR-GIVEN VERSION.
@@ -319,62 +248,13 @@ public class Node extends Exception implements Cloneable
 	}
 	
 	/**
-	 * setDegree - "Mask" for 1-arg setDegree, allowing maxDegree to be modified without
-	 * 		disturbing dependences and cascades accordingly.
+	 * setMetNeighbors - allows for artificial setting of setMetNeighbors (manyItems).
 	 * 
-	 * @param degree: the degree to which maxDegree is to be set
-	 * @param p: TRUE if node has a parent, FALSE otherwise
+	 * @param MetNeighbors: the number of neighbors a vertex actually has
 	 */
-	protected void setDegree(int degree, boolean p) throws CloneNotSupportedException
+	protected void setMetNeighbors(int metNeighbors)
 	{
-		setDegree(degree);
-		setAllKids(degree - 1);
-		if (degree == 1)
-		{
-			prune(this);
-			setMaxKids(0);
-		}
-		else
-		{
-			if (p)
-			{
-				setMaxKids(degree - 2);
-			}
-			else
-			{
-				setMaxKids(degree - 1);
-			}
-		}
-	}
-	
-	/**
-	 * setDepth - standard setter for depth.
-	 * 
-	 * @param depth: the depth of the node
-	 */
-	protected void setDepth(int depth)
-	{
-		this.depth = depth;
-	}
-	
-	/**
-	 * setKids - allows for artificial setting of kids (manyItems).
-	 * 
-	 * @param kids: the number of kids a vertex actually has
-	 */
-	protected void setKids(int kids)
-	{
-		this.kids = kids;
-	}
-	
-	/**
-	 * setMaxKids - standard setter method for maxKids.
-	 * 
-	 * @param degree: the degree which to set maxKids
-	 */
-	protected void setMaxKids(int degree)
-	{
-		maxKids = degree;
+		this.metNeighbors = metNeighbors;
 	}
 	
 	/**
@@ -385,33 +265,7 @@ public class Node extends Exception implements Cloneable
 	protected void setName(int name)
 	{
 		this.name = name;
-	}
-
-	/**
-	 * setParent - sets the parent and adjusts depth of node if 1) node doesn't already
-	 * 		have a parent and 2) isn't already at its max degree.
-	 * 
-	 * @param parent: the parent to be attached to the node
-	 * @throws Exception: if node already has parent / has reached max degree
-	 */
-	protected void setParent(Node parent) throws Exception
-	{
-		if (hasParent())
-		{
-			throw new Exception("This node already has a parent.");
-		}
-		else if ((parent.getKids() + 1) == maxDegree)
-		{
-			throw new Exception("This node is already at its max degree.");
-		}
-		else
-		{
-			this.parent = parent;
-			setDepth(parent.getDepth() + 1);
-		}
-	}
-	
-	
+	}	
 	
 	/******************************************************************************
 	 *                                                                            *
@@ -423,37 +277,25 @@ public class Node extends Exception implements Cloneable
 	
 	
 	/**
-	 * canHaveKids - determines if the maximum degree of the vertex has been reached.
+	 * canAddNeighbors - determines if the maximum degree of the vertex has been reached.
 	 * 
-	 * @return true if children is not full, false otherwise
+	 * @return true if neighbors is NOT full, false otherwise
 	 */
-	public Boolean canHaveKids()
+	public Boolean canAddNeighbors()
 	{
-		return (kids != children.length);
+		return (metNeighbors != neighbors.length);
 	}
 		
 	
 	/**
-	 * hasKids - determines if the node has any children
+	 * hasNeighbors - determines if the node has any neighbors
 	 * 
 	 * @return true if has children, false otherwise
 	 */
-	public Boolean hasKids()
+	public Boolean hasNeighbors()
 	{
-		return (kids > 0);
+		return (metNeighbors > 0);
 	}
-	
-	/**
-	 * hasParent - determines if the node has a parent.
-	 * 
-	 * @return true if has parent, false otherwise
-	 */
-	public Boolean hasParent()
-	{
-		return (parent != null);
-	}
-	
-	
 	
 	/******************************************************************************
 	 *                                                                            *
@@ -462,53 +304,36 @@ public class Node extends Exception implements Cloneable
 	 ******************************************************************************/
 
 	/**
-	 * bachelor - ensures node is always a leaf, unless specifically stated otherwise,
-	 * 		thereby preventing accidental propagation. Sets allKids and kids to 0,
-	 * 		maxKids to -1, and children array to null.
+	 * leaf - ensures node is always a leaf, unless specifically stated otherwise,
+	 * 		thereby preventing accidental propagation. Sets metNeighbors to 1 and
+	 * 		neighbors array to null.
 	 * 
 	 * @throws CloneNotSupportedException
 	 */
-	protected void bachelor() throws CloneNotSupportedException
+	protected void leaf() throws CloneNotSupportedException
 	{
 		this.addChildren(null);
-		this.setAllKids(0);
-		this.setMaxKids(-1);
-		this.setKids(0);
+		this.setMetNeighbors(1);
 	}
 	
 	/**
-	 * copyKids - a copy method which takes the children array and kids as input and
-	 * 		returns a new array of length allKids with the deep copied data in place.
+	 * copyNeighbors - a copy method which takes the neighbors array and metNeighbors as 
+	 * 		input and returns a new array of INPUT length with the deep copied data in place.
+	 * 		NOTE, if length is smaller than metNeighbors, some of the neighbors array will
+	 * 		not be copied, only those in neighbors[0] - neighbors[length - 1].
 	 * 
-	 * @param array: the original children array
-	 * @param manyItems: kids
-	 * @return the new children array
+	 * @param array: the original neighbors array
+	 * @param metNeighbors: manyItems
+	 * @return the new neighbors array
 	 */
-	protected Node[] copyKids(Node[] array, int manyItems, int length) throws CloneNotSupportedException
+	protected int[] copyNeighbors(int[] array, int metNeighbors, int length) throws CloneNotSupportedException
 	{
-		Node[] temp = new Node[length]; 
+		int[] temp = new int[length]; 
 		
-		for (int i = 0; i < manyItems; i++)
+		for (int i = 0; i < metNeighbors; i++)
 		{
-			temp[i] = array[i].deepCopy();
+			temp[i] = neighbors[i];
 		}
-		
-		return temp;
-	}
-	
-	/**
-	 * deepCopy - a deep copy of the Node, with own Objects.
-	 * 
-	 * @return the copy-made Node
-	 * @throws CloneNotSupportedException
-	 */
-	private Node deepCopy() throws CloneNotSupportedException
-	{
-		Node temp = new Node(getName());
-		
-		temp = (Node) super.clone();
-		temp.parent = parent;
-		temp.children = children;
 		
 		return temp;
 	}
