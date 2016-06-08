@@ -16,7 +16,7 @@ public class Node implements Cloneable
 	public static final int DEFAULT_COLOR = Color.WHITE.getRadius();
 	public static final int DEFAULT_DEGREE = 20;
 	
-	private int color;					// The color of the node, WHITE if not-yet-colored
+	private int color;					// The color of the node, WHITE (0) if not-yet-colored
 	private static int maxDegree; 		// The maximum number of connections the node can have
 	private int metNeighbors;			// The "manyItems" for the neighbors array
 	private int name;					// The name of the node, expressed as a numeral
@@ -123,18 +123,18 @@ public class Node implements Cloneable
 
 	
 	/**
-	 * addChild - adds a child to the node and updates kids IFF it has not reached its
-	 * 		maximum degree.
+	 * addNeighbor - adds a new neighbor to the node and updates metNeighbors IFF 
+	 * 		the original node has not reached its maximum degree.
 	 * 
-	 * @param child: the child to be added
-	 * @throws Exception: node cannot add more children
+	 * @param newNeighbor: the node to be added
+	 * @throws Exception: node cannot add more nodes
 	 */
 	protected void addNeighbor(Node newNeighbor) throws Exception
 	{
-		if (canHaveKids())
+		if (canAddNeighbors())
 		{
-			neighbors[getKids()] = newNeighbor.getName();
-			setKids(getKids() + 1);
+			neighbors[getMetNeighbors()] = newNeighbor.getName();
+			setMetNeighbors(getMetNeighbors() + 1);
 		}
 		else
 		{
@@ -143,25 +143,25 @@ public class Node implements Cloneable
 	}
 	
 	/**
-	 * addChildren - replaces the children array of nodes IFF the node is empty, else
-	 * 		unions original children array with new array. Assumes the new array is 
+	 * addNeighbors - replaces the neighbors array of nodes IFF the node is empty, else
+	 * 		unions original neighbors array with new array. Assumes the new array is 
 	 * 		full, with no empty cells. 
 	 * 
-	 * @param children: a new, full array
+	 * @param newNeighbors: a new, full array
 	 * @throws CloneNotSupportedException 
 	 */
-	protected void addChildren(Node[] array) throws CloneNotSupportedException
+	protected void addNeighbors(int[] newNeighbors) throws CloneNotSupportedException
 	{
-		if (hasKids())
+		if (hasNeighbors())
 		{
-			this.union(array);
+			this.union(newNeighbors);
 		}
 		else
 		{
-			this.children = array;
-			if (array != null)
+			setNeighbors(newNeighbors);
+			if (newNeighbors != null)
 			{
-				setKids(children.length);
+				setMetNeighbors(neighbors.length);
 			}
 		}
 	}
@@ -217,37 +217,6 @@ public class Node implements Cloneable
  	}
 	
 	/**
-<<<<<<< HEAD
-=======
-	 * getParent - returns a reference to the calling node's parent.
-	 * 
-	 * @return returns a reference to the node's parent
-	 */
-	protected Node getParent()
-	{
-		return parent.getNode();
-	}
-	
-	/**
-	 * setAllKids - standard setter for allKids, which also copies and creates a new
-	 * 		children array IFF the array is not empty. 
-	 * 
-	 * @param degree: the value to which allKids is to be set
-	 */
-	protected void setAllKids(int degree) throws CloneNotSupportedException
-	{
-		allKids = degree;
-		
-		if (kids != 0)
-		{
-			Node[] temp = new Node[allKids];
-			temp = copyKids(children, kids, degree);
-			children = temp;
-		}
-	}
-	
-	/**
->>>>>>> origin/master
 	 * setColor - sets the color of Node to the input color. COLOR-GIVEN VERSION.
 	 * 
 	 * @param color: the desired Node color/broadcast area/radius
@@ -279,16 +248,6 @@ public class Node implements Cloneable
 	}
 	
 	/**
-	 * setMetNeighbors - allows for artificial setting of setMetNeighbors (manyItems).
-	 * 
-	 * @param MetNeighbors: the number of neighbors a vertex actually has
-	 */
-	protected void setMetNeighbors(int metNeighbors)
-	{
-		this.metNeighbors = metNeighbors;
-	}
-	
-	/**
 	 * setName - standard setter for name.
 	 * 
 	 * @param name the name to be given to the node
@@ -298,24 +257,46 @@ public class Node implements Cloneable
 		this.name = name;
 	}	
 	
+	/**
+	 * setNeighbors - standard setter for neighbors
+	 * 
+	 * @param array: the new neighbors array
+	 */
+	protected void setNeighbors(int[] array)
+	{
+		neighbors = array;
+	}
+	
+	/**
+	 * setMetNeighbors - allows for artificial setting of setMetNeighbors (manyItems).
+	 * 
+	 * @param MetNeighbors: the number of neighbors a vertex actually has
+	 */
+	protected void setMetNeighbors(int metNeighbors)
+	{
+		this.metNeighbors = metNeighbors;
+	}
+	
+	
+	
+	
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Boolean  Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
-
-	
 	
 	
 	/**
 	 * canAddNeighbors - determines if the maximum degree of the vertex has been reached.
 	 * 
 	 * @return true if neighbors is NOT full, false otherwise
-	 */
+	 */ 
 	public Boolean canAddNeighbors()
 	{
 		return (metNeighbors != neighbors.length);
 	}
+	
 		
 	
 	/**
@@ -333,25 +314,12 @@ public class Node implements Cloneable
 	 *                            Helper   Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
-
-	/**
-	 * leaf - ensures node is always a leaf, unless specifically stated otherwise,
-	 * 		thereby preventing accidental propagation. Sets metNeighbors to 1 and
-	 * 		neighbors array to null.
-	 * 
-	 * @throws CloneNotSupportedException
-	 */
-	protected void leaf() throws CloneNotSupportedException
-	{
-		this.addChildren(null);
-		this.setMetNeighbors(1);
-	}
 	
 	/**
 	 * copyNeighbors - a copy method which takes the neighbors array and metNeighbors as 
 	 * 		input and returns a new array of INPUT length with the deep copied data in place.
-	 * 		NOTE, if length is smaller than metNeighbors, some of the neighbors array will
-	 * 		not be copied, only those in neighbors[0] - neighbors[length - 1].
+	 * 		NOTE BENE, if length is smaller than metNeighbors, some of the neighbors array
+	 * 		will not be copied, only those in neighbors[0] - neighbors[length - 1].
 	 * 
 	 * @param array: the original neighbors array
 	 * @param metNeighbors: manyItems
@@ -370,95 +338,84 @@ public class Node implements Cloneable
 	}
 	
 	/**
-	 * erase - takes the input node and "erases" its parent, color, and children array. 
+	 * erase - takes the input node and "erases" its color and neighbors array. 
 	 * 		All else remains the same. 
 	 * 
-	 * @param slate: the node to be erased
+	 * @param slate: the node to be erased / get a "clean slate"
 	 */
 	protected void erase(Node slate)
 	{
-		prune(slate);
-		orphan(slate);
+		emptyNeighborhood(slate);
 		slate.unColor();
 	}
 	
 	/**
-	 * kill - removes the indicated child node from the children array, shifts the
-	 * 		other children leftward after removing. Subtracts one from kids.
+	 * kill - removes the indicated node node from the neighbors array, shifts the
+	 * 		other neighbors leftward after removing. Subtracts one from metNeighbors.
 	 * 
-	 * @param child: the node to be "killed"
+	 * @param oldNeighbor: the node to be "killed"
 	 */
-	protected void kill(Node child)
+	protected void kill(Node oldNeighbor)
 	{
-		for (int i = 0; i < getKids(); i++)
+		for (int i = 0; i < getMetNeighbors(); i++)
 		{
-			if (children[i].getName() == child.getName())
+			if (neighbors[i] == oldNeighbor.getName())
 			{
-				for (int j = i; j < getKids(); j++)
+				for (int j = i; j < getMetNeighbors(); j++)
 				{
-					children[j] = children[j + 1];
+					neighbors[j] = neighbors[j + 1];
 				}
 			}
 		}
-		setKids(getKids() - 1);
+		setMetNeighbors(getMetNeighbors() - 1);
 	}
 	
 	/**
-	 * orphan - resets the input node's parent to null. Erases node from parent,
-	 * 		sets depth to 0;
-	 * 
-	 * @param child: the node to be orphaned.
-	 */
-	protected void orphan(Node child)
-	{
-		child.parent.kill(child);
-		child.parent = null;
-		child.setDepth(0);
-	}
-	
-	/**
-	 * prune - replaces a parent node's child array with an empty array of length
+	 * emptyNeighborhood - replaces a node's neighbors array with an empty array of length
 	 * 		allKids and sets kids to 0; id est, makes the node a leaf. Sets children's
 	 * 		parent field to null;
 	 * 
-	 * @param parent: the node to be pruned
+	 * @param node: the node to be pruned / lose its neighborhood
 	 */
-	protected void prune(Node parent)
+	protected void emptyNeighborhood(Node node)
 	{
-		setKids(0);
-		parent.children = new Node[getAllKids()];
+		setMetNeighbors(0);
+		setNeighbors(new int[getDegree()]);
 	}
 	
 	/**
-	 * reset - completely resets the input node to a standard, parentless default node, 
-	 * 		with  only its name as an identifier.
+	 * leaf - ensures node is always a leaf, unless specifically stated otherwise,
+	 * 		thereby preventing accidental propagation. Sets metNeighbors to 1 and
+	 * 		neighbors array to null.
 	 * 
-	 * @returns a new node from Node(name) constructor
-	 */
-	protected Node reset()
-	{
-		return new Node(getName());
-	}
-	
-	/**
-	 * secede - breaks the children array in two: children[0, breakpoint) and 
-	 * 		temp[breakpoint, kids). Updates kids and returns  the temp array.
-	 * 		The values in the children now in temp are set to null.
-	 *  
-	 * @param breakpoint: the value at which to break, exclusive of the child array
-	 * @return the new array from the breakpoint inclusive thru the final value in children
 	 * @throws CloneNotSupportedException
 	 */
-	protected Node[] secede(int breakpoint) throws CloneNotSupportedException
+	protected void leaf() throws CloneNotSupportedException
 	{
-		Node[] temp = new Node[getAllKids()];
-		int tempKids = getKids();
+		this.addNeighbors(new int[1]);
+
+		this.setMetNeighbors(1);
+	}
+	
+	/**
+	 * newNeighborhood - breaks the neighbors array in two: neighbors[0, breakpoint) and 
+	 * 		temp[breakpoint, metNeighbors). Updates metNeighbors and returns the temp array.
+	 * 		Sets the value of the ints after the breakpoint in the original array to -1.
+	 *  
+	 * @param breakpoint: the value at which to break, exclusive, in the neighbors array
+	 * @return the new array from the breakpoint inclusive thru the final value in neighbors
+	 * @throws CloneNotSupportedException
+	 */
+	protected int[] newNeighborhood(int breakpoint) throws CloneNotSupportedException
+	{
+		int[] temp = new int[getDegree()];
+		int tempKids = getMetNeighbors();
 		
 		for (int i = breakpoint, j = 0; i < tempKids; i++, j++)
 		{
-			temp[j] = children[i].deepCopy();
-			children[i] = null;
-			setKids(getKids() - 1);
+			temp[j] = neighbors[i];
+			neighbors[i] = -1;
+			setMetNeighbors(getMetNeighbors() - 1);
 		}
 		
 		return temp;
@@ -467,20 +424,39 @@ public class Node implements Cloneable
 	/**
 	 * toString - returns the name and color of the node in the following format:
 	 * 	
-	 * 		--VXX--
-	 *		|     |
-	 *		|  X  |
+	 * 		--VXX--	
+	 *		|     |		
+	 *		|  X  |		
 	 *		-------
 	 * 
 	 * @return the String
 	 */
 	public String toString()
 	{
-		String s = "--V" + this.getName() + "--\n";
-		s += "|     |\n";
-		s += "|  " + this.getColor() + "  |\n";
-		s += "-------\n";
+		String s;
+		
+		if (name < getName())
+		{
+			s = "--V" + getName() + "---\n";
+		}
+		else
+		{
+			s = "--V" + getName() + "--\n";
+		}
+		s += "|     |\n|  " + getColor() + "  |\n-------\n";
+		
 		return s;
+	}
+	
+	/**
+	 * reset - completely resets the input node to a standard default node, 
+	 * 		with  only its name as an identifier.
+	 * 
+	 * @returns a new node from Node(name) constructor
+	 */
+	protected Node reset()
+	{
+		return new Node(getName());
 	}
 	
 	/**
@@ -497,22 +473,16 @@ public class Node implements Cloneable
 	 * 		contents of the new array at any point causes the array to reach capacity,
 	 * 		the temp array is returned without whatever remains in the new array.
 	 * 
-	 * @param array: the new, full array
-	 * @return the unioned array
+	 * @param array: the array to be added to the current neighbors array
+	 * @return the new, unioned array
 	 * @throws CloneNotSupportedException
 	 */
- 	private void union(Node[] array) throws CloneNotSupportedException
+ 	private void union(int[] array) throws CloneNotSupportedException
 	{
-		int kidsTemp = getKids();
-			for (int i = kidsTemp; i < children.length; i++)
-			{		
-				this.children[i] = array[0];
-				kill(array[0]);
-			}
-			setKids(kidsTemp + array.length);
-	}
-	
-
- 	
- 	
+ 		for (int i = getMetNeighbors(), j = 0; i < neighbors.length; i++, j++)
+		{		
+			neighbors[i] = array[j];
+			setMetNeighbors(i + 1);
+		}
+	}	
 }
