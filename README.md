@@ -47,3 +47,6 @@ A repository for everything code-related to do with my master's thesis, _Approxi
 
 *30MAY16_v1*
       Reworked TREE CLASS and RANDOMGRAPHGENERATOR CLASS. Created USERINPUTGRAPH CLASS and PRINTGRAPH CLASS. Added tests to TREETEST CLASS. Must debug user input at later date.
+      
+*1JUNE16_v1*
+      Reworked TREE and USERINPUTGRAPH CLASSES. Added BRUTEFORCECOLORING, KNOWNCOLORINGS, and their respective TEST CLASSES.

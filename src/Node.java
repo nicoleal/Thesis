@@ -217,6 +217,37 @@ public class Node implements Cloneable
  	}
 	
 	/**
+<<<<<<< HEAD
+=======
+	 * getParent - returns a reference to the calling node's parent.
+	 * 
+	 * @return returns a reference to the node's parent
+	 */
+	protected Node getParent()
+	{
+		return parent.getNode();
+	}
+	
+	/**
+	 * setAllKids - standard setter for allKids, which also copies and creates a new
+	 * 		children array IFF the array is not empty. 
+	 * 
+	 * @param degree: the value to which allKids is to be set
+	 */
+	protected void setAllKids(int degree) throws CloneNotSupportedException
+	{
+		allKids = degree;
+		
+		if (kids != 0)
+		{
+			Node[] temp = new Node[allKids];
+			temp = copyKids(children, kids, degree);
+			children = temp;
+		}
+	}
+	
+	/**
+>>>>>>> origin/master
 	 * setColor - sets the color of Node to the input color. COLOR-GIVEN VERSION.
 	 * 
 	 * @param color: the desired Node color/broadcast area/radius
