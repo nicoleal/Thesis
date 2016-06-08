@@ -11,7 +11,7 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
-public class Node implements Cloneable
+public class Node
 {
 	public static final int DEFAULT_COLOR = Color.WHITE.getRadius();
 	public static final int DEFAULT_DEGREE = 20;
@@ -129,7 +129,7 @@ public class Node implements Cloneable
 	 * @param newNeighbor: the node to be added
 	 * @throws Exception: node cannot add more nodes
 	 */
-	protected void addNeighbor(Node newNeighbor) throws Exception
+	protected void addNeighbor(Node newNeighbor)
 	{
 		if (canAddNeighbors())
 		{
@@ -138,7 +138,8 @@ public class Node implements Cloneable
 		}
 		else
 		{
-			throw new Exception("This node is already at its max degree.");
+			Exception e = new Exception("This node is already at its max degree.");
+			System.out.println(e);
 		}
 	}
 	
@@ -150,7 +151,7 @@ public class Node implements Cloneable
 	 * @param newNeighbors: a new, full array
 	 * @throws CloneNotSupportedException 
 	 */
-	protected void addNeighbors(int[] newNeighbors) throws CloneNotSupportedException
+	protected void addNeighbors(int[] newNeighbors)
 	{
 		if (hasNeighbors())
 		{
@@ -242,7 +243,7 @@ public class Node implements Cloneable
 	 *  
 	 * @param degree: the degree to which maxDegree is to be set.
 	 */
-	private void setDegree(int degree)
+	protected void setDegree(int degree)
 	{
 		maxDegree = degree;
 	}
@@ -256,6 +257,23 @@ public class Node implements Cloneable
 	{
 		this.name = name;
 	}	
+	
+	/**
+	 * setNeighbor - adds a new node to the neighbors array
+	 */
+	protected void setNeighbor(Node node)
+	{
+		if (canAddNeighbors())
+		{
+			neighbors[getMetNeighbors()] = node.getName();
+			setMetNeighbors(getMetNeighbors() + 1);
+		}
+		else
+		{
+			Exception e = new Exception("This node is already at its max degree.");
+			System.out.println(e);
+		}
+	}
 	
 	/**
 	 * setNeighbors - standard setter for neighbors
@@ -475,9 +493,8 @@ public class Node implements Cloneable
 	 * 
 	 * @param array: the array to be added to the current neighbors array
 	 * @return the new, unioned array
-	 * @throws CloneNotSupportedException
 	 */
- 	private void union(int[] array) throws CloneNotSupportedException
+ 	private void union(int[] array)
 	{
  		for (int i = getMetNeighbors(), j = 0; i < neighbors.length; i++, j++)
 		{		
