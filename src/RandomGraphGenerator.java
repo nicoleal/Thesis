@@ -12,36 +12,65 @@
 
 import java.util.Random;
 
-@SuppressWarnings("serial")
-public class RandomGraphGenerator extends Tree
+public class RandomGraphGenerator
 {
-	public static Random r1 = new Random();
-	public static Random r2 = new Random();
+	public static Random r1 = new Random();				// An instance of Random, for degree
+	public static Random r2 = new Random();				// An instance of Random, for making neighbors
+	
+	/**
+	 * makeRandom - constructs a random, non-cyclic graph
+	 * 
+	 * @param numNodes: the N of the graph
+	 * @return the generated graph
+	 * @throws Exception
+	 */
+	protected static Graph makeRandom(int numNodes) throws Exception
+	{
+		int degree = r1.nextInt(Graph.DEFAULT_DEGREE);
+		Graph g = new Graph(numNodes, degree);
+		g.graph[0] = new Node(degree, 0);
+
+		int sponsor;
+		for (int i = 1; i < numNodes; i++)
+		{
+			g.setCounter(i);
+			sponsor =  r2.nextInt(i);
+			while (!g.graph[sponsor].canAddNeighbors());
+			{
+				sponsor =  r2.nextInt(i);
+			}
+			g.graph[i] = Graph.newNode(g.graph[sponsor].getNode(), degree);
+		}
+		
+		//PrintGraph.printList(t, numNodes);
+		//PrintGraph.printToFile(t, numNodes, "OutputTest2");
+		
+		return g;
+	}
 	
 	/**
 	 * makeRandom - constructs a random, non-cyclic tree
 	 * 
-	 * @param t - the tree
-	 * @param numNodes - manyItems
-	 * @return the generated tree
+	 * @param numNodes: the N of the tree
+	 * @return the generated graph
 	 * @throws Exception
 	 */
-	protected static Tree makeRandom(Tree t, int numNodes) throws Exception
+	protected static Tree makeRandomTree(int numNodes) throws Exception
 	{
-		int d = r1.nextInt(20);
-		setTreeDegree(t, d);
-		t.makeRoot(t, numNodes, d);
-		
-		int mother;
+		int degree = r1.nextInt(Graph.DEFAULT_DEGREE);
+		Tree t = new Tree(numNodes, degree);
+		t.graph[0] = new TreeNode(degree, 0);
+
+		int parent;
 		for (int i = 1; i < numNodes; i++)
 		{
-			t.setCounter(t, i);
-			mother =  r2.nextInt(i);
-			while (!t.tree[mother].canHaveKids());
+			t.setCounter(i);
+			parent =  r2.nextInt(i);
+			while (!((TreeNode) t.graph[parent]).canAddChildren());
 			{
-				mother =  r2.nextInt(i);
+				parent =  r2.nextInt(i);
 			}
-			t.tree[i] = birth(t, t.tree[mother].getNode(), d);
+			t.graph[i] = Tree.newNode(t.graph[parent].getNode(), degree);
 		}
 		
 		//PrintGraph.printList(t, numNodes);
@@ -49,6 +78,4 @@ public class RandomGraphGenerator extends Tree
 		
 		return t;
 	}
-	
-	
 }

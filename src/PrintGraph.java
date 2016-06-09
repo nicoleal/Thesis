@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 public class PrintGraph 
 {
-	static PrintWriter writer;
+	static PrintWriter writer;						// An instance of PrintWriter
 	
 	/******************************************************************************
 	 *                                                                            *
@@ -25,25 +25,24 @@ public class PrintGraph
 	 ******************************************************************************/
 	
 	/**
-	 * printList - prints a specified tree as a series of parents
-	 * 		and their children in the following manner:
+	 * printList - prints a specified graph as a series of nodes and their neighbors 
+	 * 		in the following manner:
 	 * 
 	 * 		X: XX XX XX
+	 * 		X: XX XX ....
 	 * 
-	 * @param t - the tree
-	 * @param numNodes - manyItems
+	 * @param g: the graph to be printed
 	 */
-	protected static void printList(Tree t, int numNodes)
+	protected static void printList(Graph g)
 	{
-		for (int i = 0; i < numNodes; i++)
+		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (t.tree[i].hasKids())
+			if (g.getNeighbor(i).hasNeighbors())
 			{
-				System.out.print(t.tree[i].getName() + ": ");
-				for (int j = 0; j < t.tree[i].getKids(); j++)
+				System.out.print(g.getNeighbor(i).getName() + ": ");
+				for (int j = 0; j < g.getNeighbor(i).getMetNeighbors(); j++)
 				{
-				
-					System.out.print(t.tree[i].children[j].getName() + " ");
+					System.out.print(g.getNeighbor(i).neighbors[j] + " ");
 				}
 				System.out.println();
 			}
@@ -51,20 +50,29 @@ public class PrintGraph
 		System.out.println();
 	}
 	
-	protected static void printToFile(Tree t, int numNodes, String fileName) throws FileNotFoundException, UnsupportedEncodingException
+	/**
+	 * printToFile - prints a specified graph as a series of nodes
+	 * 		and their neighbors to a file in the following manner:
+	 * 
+	 * 		X: XX XX XX
+	 * 		X: XX XX ... 
+	 * 
+	 * @param g: the graph
+	 * @param fileName: the file name - sans extension - to be printed to
+	 */
+	protected static void printToFile(Graph g, String fileName) throws FileNotFoundException, UnsupportedEncodingException
 	{
 		fileName = "TestFiles\\" + fileName + ".txt";
 		writer = new PrintWriter(fileName, "UTF-8");
 		
-		for (int i = 0; i < numNodes; i++)
+		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (t.tree[i].hasKids())
+			if (g.getNeighbor(i).hasNeighbors())
 			{
-				writer.print(t.tree[i].getName() + ": ");
-				for (int j = 0; j < t.tree[i].getKids(); j++)
+				writer.print(g.getNeighbor(i).getName() + ": ");
+				for (int j = 0; j < g.getNeighbor(i).getMetNeighbors(); j++)
 				{
-				
-					writer.print(t.tree[i].children[j].getName() + " ");
+					writer.print(g.getNeighbor(i).neighbors[j] + " ");
 				}
 				writer.println();
 			}
@@ -85,7 +93,7 @@ public class PrintGraph
 	 * 
 	 * @param t: the tree to print
 	 * @param n: the number of vertices 
-	 */
+	 *
 	public static void cat1TreePrinter(Tree t, int n)
 	{
 		for (int i = 0; i < n; i = i + 2)
@@ -175,5 +183,5 @@ public class PrintGraph
 		{
 			System.out.print("-------   ");
 		}
-	}
+	}*/
 }
