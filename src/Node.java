@@ -275,6 +275,7 @@ public class Node
 	protected void setName(int name)
 	{
 		this.name = name;
+<<<<<<< HEAD
 	}
 	
 	/**
@@ -322,6 +323,34 @@ public class Node
 	 */
 	protected void setNeighbors(int[] array)
 	{
+=======
+	}	
+	
+	/**
+	 * setNeighbor - adds a new node to the neighbors array
+	 */
+	protected void setNeighbor(Node node)
+	{
+		if (canAddNeighbors())
+		{
+			neighbors[getMetNeighbors()] = node.getName();
+			setMetNeighbors(getMetNeighbors() + 1);
+		}
+		else
+		{
+			Exception e = new Exception("This node is already at its max degree.");
+			System.out.println(e);
+		}
+	}
+	
+	/**
+	 * setNeighbors - standard setter for neighbors
+	 * 
+	 * @param array: the new neighbors array
+	 */
+	protected void setNeighbors(int[] array)
+	{
+>>>>>>> origin/master
 		neighbors = array;
 	}
 	
@@ -334,12 +363,22 @@ public class Node
 	{
 		this.metNeighbors = metNeighbors;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+>>>>>>> origin/master
 	
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Boolean  Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
+<<<<<<< HEAD
+=======
+	
+>>>>>>> origin/master
 	
 	/**
 	 * canAddNeighbors - determines if the maximum degree of the vertex has been reached.
@@ -350,6 +389,11 @@ public class Node
 	{
 		return (metNeighbors != neighbors.length);
 	}
+<<<<<<< HEAD
+=======
+	
+		
+>>>>>>> origin/master
 	
 	/**
 	 * hasNeighbors - determines if the node has any neighbors
@@ -444,8 +488,14 @@ public class Node
 	 */
 	protected void leaf() throws CloneNotSupportedException
 	{
+<<<<<<< HEAD
 		newNeighborhood(1);
 		setMetNeighbors(1);
+=======
+		this.addNeighbors(new int[1]);
+
+		this.setMetNeighbors(1);
+>>>>>>> origin/master
 	}
 	
 	/**
@@ -525,8 +575,14 @@ public class Node
 	 * 		the union is finished and the remainder of nodes in array are not added.
 	 * 
 	 * @param array: the array to be added to the current neighbors array
+<<<<<<< HEAD
 	 */
  	protected void union(int[] array)
+=======
+	 * @return the new, unioned array
+	 */
+ 	private void union(int[] array)
+>>>>>>> origin/master
 	{
  		for (int i = getMetNeighbors(), j = 0; i < neighbors.length; i++, j++)
 		{		
