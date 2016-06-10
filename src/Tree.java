@@ -76,11 +76,11 @@ public class Tree extends Graph
 	{
 		int degree = 3;
 		Graph g = new Tree(numNodes, degree);
-		g.graph[0] = new TreeNode(degree, 0);
+		Graph.getGraph()[0] = new TreeNode(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			g.graph[i] = newNode(g.graph[((i - 1) / 2)], degree);
+			Graph.getGraph()[i] = newNode(Graph.getGraph()[((i - 1) / 2)], degree);
 			g.setCounter(getCounter() + 1);
 		}
 		
