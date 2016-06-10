@@ -50,3 +50,8 @@ A repository for everything code-related to do with my master's thesis, _Approxi
       
 *1JUNE16_v1*
       Reworked TREE and USERINPUTGRAPH CLASSES. Added BRUTEFORCECOLORING, KNOWNCOLORINGS, and their respective TEST CLASSES.
+
+*10JUNE16_v1*
+      Continued to make changes per Instructor suggestion. Added HELPER CLASS. Converted TREE CLASS to GRAPH CLASS with TREE SUBCLASS.
+      Divided NODE CLASS into NODE CLASS and TREENODE SUBCLASS. Updated NODETEST CLASS, which is still throwing errors with 
+      get/setDegree(), but otherwise functional. Began adding methods to KNOWNCOLORINGS CLASS. 
