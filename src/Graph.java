@@ -22,7 +22,7 @@ public class Graph
 	private static int graphDegree;			// The maximum degree any node in this graph can have, if any
 	private int numNodes;					// The total number of nodes in graph
 	private static Node node;				// An all-purpose node, to limit memory drain
-	public Node[] graph;					// The graph, as a collection of ordered nodes in an array
+	public static Node[] graph;					// The graph, as a collection of ordered nodes in an array
 	
 	
 	/******************************************************************************
@@ -99,18 +99,18 @@ public class Graph
 	{
 		int degree = 3;
 		Graph g = new Graph(numNodes, degree);
-		g.graph[0] = new Node(degree, 0);
+		Graph.getGraph()[0] = new Node(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			if (isOdd(i))
+			if (Helper.isOdd(i))
 			{
-				g.graph[i] = newNode(g.graph[i - 1].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 1].getNode(), degree);
 				makeLeaf(i);
 			}
 			else
 			{
-				g.graph[i] = newNode(g.graph[i - 2].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 2].getNode(), degree);
 			}
 			g.setCounter(getCounter() + 1);
 		}	
@@ -137,7 +137,7 @@ public class Graph
 	{
 		int degree = 4;
 		Graph g = new Graph(numNodes, degree);
-		g.graph[0] = new Node(degree, 0);
+		Graph.getGraph()[0] = new Node(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
@@ -145,11 +145,11 @@ public class Graph
 			
 			if (j == 0)
 			{
-				g.graph[i] = newNode(g.graph[i - 3].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 3].getNode(), degree);
 			}
 			else 
 			{
-				g.graph[i] = newNode(g.graph[i - j].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
 				makeLeaf(i);
 			}
 			g.setCounter(getCounter() + 1);
@@ -178,7 +178,7 @@ public class Graph
 	{
 		int degree = 3;
 		Graph g = new Graph(numNodes, degree);
-		g.graph[0] = new Node(degree, 0);
+		Graph.getGraph()[0] = new Node(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
@@ -186,15 +186,15 @@ public class Graph
 			
 			if (j == 0)
 			{
-				g.graph[i] = newNode(g.graph[i - 4].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 4].getNode(), degree);
 			}
 			else if (j == 1)
 			{
-				g.graph[i] = newNode(g.graph[i - j].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
 			}
 			else
 			{
-				g.graph[i] = newNode(g.graph[(i - j + 1)].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 1)].getNode(), degree);
 				makeLeaf(i);
 			}
 			g.setCounter(getCounter() + 1);
@@ -223,7 +223,7 @@ public class Graph
 	{
 		int degree = 4;
 		Graph g = new Graph(numNodes, degree);
-		g.graph[0] = new Node(degree, 0);
+		Graph.getGraph()[0] = new Node(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
@@ -231,20 +231,20 @@ public class Graph
 			
 			if (j == 0)
 			{
-				g.graph[i] = newNode(g.graph[i - 7].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 7].getNode(), degree);
 			}
 			else if ((j == 1) || (j == 4))
 			{
-				g.graph[i] = newNode(g.graph[i - j].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
 			}
 			else if (j > 4)
 			{
-				g.graph[i] = newNode(g.graph[(i - j + 4)].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 4)].getNode(), degree);
 				makeLeaf(i);
 			}
 			else
 			{
-				g.graph[i] = newNode(g.graph[(i - j + 1)].getNode(), degree);
+				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 1)].getNode(), degree);
 				makeLeaf(i);
 			}
 			g.setCounter(getCounter() + 1);
@@ -291,11 +291,11 @@ public class Graph
 	{
 		int degree = 2;
 		Graph g = new Graph(numNodes, degree);
-		g.graph[0] = new Node(degree, 0);
+		Graph.getGraph()[0] = new Node(degree, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			g.graph[i] = newNode(g.graph[(i - 1)], degree);
+			Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - 1)], degree);
 			g.setCounter(getCounter() + 1);
 		}
 		
@@ -324,7 +324,7 @@ public class Graph
 	 * 
 	 * @return the node at graph[i]
 	 */
-	protected Node getLeaf(int i)
+	protected static Node getLeaf(int i)
 	{
 		return graph[i].getNode();
 	}
@@ -334,7 +334,7 @@ public class Graph
 	 * 
 	 * @return the array that holds the graph
 	 */
-	public Node[] getGraph()
+	public static Node[] getGraph()
 	{
 		return graph;
 	}
@@ -380,6 +380,16 @@ public class Graph
 	}
 	
 	/**
+	 * setGraph - standard setter for graph.
+	 * 
+	 * @param array: the array to set graph to
+	 */
+	public static void setGraph(Node[] array)
+	{
+		graph = array;
+	}
+	
+	/**
 	 * setGraphDegree - standard setter for degree.
 	 * 
 	 * @param i: the number which to set degree to, if not default
@@ -408,37 +418,6 @@ public class Graph
 	{
 		setCounter(0);
 	}
-	
-	
-	/******************************************************************************
-	 *                                                                            *
-	 *                            Boolean  Methods                                *
-	 *                                                                            *
-	 ******************************************************************************/
-	
-	/**
-	 * isLeaf - returns whether the node in question is a leaf or not.
-	 * 		id est, has only one neighbor.
-	 * 
-	 * @param i: the name of the node in question
-	 * @return TRUE if leaf, FALSE otherwise
-	 */
-	public Boolean isLeaf(int i)
-	{
-		return (getLeaf(i).getMetNeighbors() == 1);
-	}
-	
-	/**
-	 * isEven - a bitwise and to see if a number is odd or even.
-	 * 
-	 * @param i: the value whose oddness/evenness is to be calculated
-	 * @return TRUE if even, FALSE otherwise
-	 */
-	public static Boolean isOdd(int i)
-	{
-		return ((i & 1) == 0);
-	}
-	
 	
 	/******************************************************************************
 	 *                                                                            *
