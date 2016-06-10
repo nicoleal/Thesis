@@ -300,49 +300,6 @@ public class BruteForceColoring
 	 * @return the int value of the vertex
 	 */
 	private static int whatColor(Tree t, Node node, int potentialColor)
-<<<<<<< HEAD
 	{	
-		if (node.hasParent())
-		{
-			if (coloring[node.getParent().getName()] == potentialColor)
-			{
-				return 1 + whatColor(t, node.getParent().getParent(), potentialColor++);
-=======
-	{
-		int c = 0;
-		
-		if (node.hasParent())
-		{
-			if (node.getParent().getColor() == potentialColor)
-			{
-				c = 1 + whatColor(t, node.getParent().getParent(), potentialColor++);
->>>>>>> origin/master
-			}
-		}
-		
-		if (node.hasKids())
-		{
-			for (int i = 0; i < node.getKids();)
-			{
-<<<<<<< HEAD
-				if (coloring[node.children[i].getName()] == potentialColor)
-				{
-					return 1 + whatColor(t, t.tree[node.children[i].getName()].getNode(), potentialColor++);
-=======
-				if (node.children[i].getColor() == potentialColor)
-				{
-					//c = 1 + whatColor(t, t.tree[node.children[i].getName()].getNode(), potentialColor++);
->>>>>>> origin/master
-				}
-			}
-		}
-
-		System.out.println(coloring[0] + " " + coloring[1]);
-<<<<<<< HEAD
-		return 1;
-=======
-		return c;
->>>>>>> origin/master
 	}
-	
 }
