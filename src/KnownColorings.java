@@ -23,9 +23,16 @@ public class KnownColorings
 	 ******************************************************************************/
 	
 	/**
+<<<<<<< HEAD
 	 * knownFourDiamTree - Colors the graph according to the known Broadcast Chromatic
 	 * 		coloring of a diameter-4 Tree. Formula taken from <i>"BROADCAST CHROMATIC</i>
 	 * 		<i>NUMBERS OF GRAPHS"</i> by Goddard et al., page 10-12. 
+=======
+	 * knownSmallTree - Colors the graph according to the known Broadcast Chromatic
+	 * 		coloring of a Small (diameter-3) Tree, whereby the root and leaves are 
+	 * 		colored 1 and the middle layer 2. Formula taken from <i>"BROADCAST CHROMATIC</i>
+	 * 		<i>NUMBERS OF GRAPHS"</i> by Goddard et al., page 10. 
+>>>>>>> origin/master
 	 * 
 	 * {@link http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.140.2341&rep=rep1&type=pdf}
 	 * @param g: the graph to color
@@ -42,11 +49,14 @@ public class KnownColorings
 		int[] small = new int[g.getNumNodes()];		// An array to hold all small nodes
 		int[] large = new int[g.getNumNodes()];		// An array to hold all large nodes
 		
+<<<<<<< HEAD
 		/*
 		 * Sorts and counts the types of nodes - n1, n2, n3, and L
 		 * 		- and places them into their respective arrays - 
 		 * 		large (for degree-4 or more) or small (up to degree-3).
 		 */
+=======
+>>>>>>> origin/master
 		for (int i = 0, j = 0, k = 0; i < g.getNumNodes(); i++)
 		{
 			degree = Graph.getGraph()[i].getMetNeighbors();
@@ -77,7 +87,10 @@ public class KnownColorings
 		}
 		s = n1 + n2 + n3;
 		
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		/*
 		 * Center first coloring, ideal for (n1 = n2 = 0) and either
 		 * 		(L = 0 and 2 <= n3 <= 3) or (L > 0 and n3 < 3).
@@ -90,16 +103,24 @@ public class KnownColorings
 			{
 				Graph.getGraph()[large[0]].setColor(Color.RED);			// RED (1), V1
 				
+<<<<<<< HEAD
 				int j = Color.BLUE.getRadius();
 				for (int i = 0; i < s; i++)
 				{
 					if (Helper.isLeaf(small[i]) && (!Helper.areNeighbors(small[i], large[0])))
+=======
+				int j = 2;
+				for (int i = 0; i < s; i++)
+				{
+					if (Helper.isLeaf(small[i]));
+>>>>>>> origin/master
 					{
 						Graph.getGraph()[small[i]].setColor(Color.RED);		// RED (1), V1
 					}
 					else
 					{
 						Graph.getGraph()[small[i]].setColor(j);		// (2+), unique colors
+<<<<<<< HEAD
 						j++;
 					}
 				}
@@ -193,6 +214,20 @@ public class KnownColorings
 		
 		setChi(j);
 		System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+=======
+					}
+				}
+
+				for (int i = 1; i < L; i++)
+				{
+					Graph.getGraph()[large[i]].setColor(j);			// (2+), unique colors
+				}
+			}
+		}
+				
+		
+		
+>>>>>>> origin/master
 		return g;
 	} 
 	
@@ -266,6 +301,10 @@ public class KnownColorings
 		}
 		
 		System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+<<<<<<< HEAD
+=======
+		
+>>>>>>> origin/master
 		return g;
 	}
 	
@@ -323,12 +362,20 @@ public class KnownColorings
 		{
 			return knownFourDiamTree(g);
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	}
 	
 	
 	/******************************************************************************
 	 *                                                                            *
+<<<<<<< HEAD
 	 *                            Standard   Methods                              *
+=======
+	 *                            Helper   Methods                                *
+>>>>>>> origin/master
 	 *                                                                            *
 	 ******************************************************************************/
 
