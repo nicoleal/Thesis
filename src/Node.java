@@ -17,7 +17,7 @@ public class Node
 	public static final int DEFAULT_DEGREE = 20;
 	
 	private int color;					// The color of the node, WHITE (0) if not-yet-colored
-	private static int maxDegree; 		// The maximum number of connections the node can have
+	private int maxDegree; 		// The maximum number of connections the node can have
 	private int metNeighbors;			// The "manyItems" for the neighbors array
 	private int name;					// The name of the node, expressed as a numeral
 	public int[] neighbors;				// The array holding references to the node's neighbors
@@ -72,7 +72,7 @@ public class Node
 	{
 		color = DEFAULT_COLOR;
 		this.name = name;
-		setDegree(maxDegree);
+		this.maxDegree = maxDegree;
 		neighbors = new int[maxDegree];
 		metNeighbors = 0;
 	}
@@ -108,7 +108,7 @@ public class Node
 	{
 		color = DEFAULT_COLOR;
 		this.name = name;
-		setDegree(maxDegree);
+		this.maxDegree = maxDegree;
 		neighbors = new int[maxDegree];
 		neighbors[0] = sponsor;
 		metNeighbors = 1;
@@ -544,4 +544,5 @@ public class Node
  			}
  		}
 	}	
+ 	
 }
