@@ -10,6 +10,7 @@
  */
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -25,18 +26,22 @@ public class NodeTest
 	public Node node8 = new Node(1, 8);
 	
 	@Test
-	public void testNode1() 
+	public void testNode1() throws Exception 
 	{
-		int i = node1.getDegree();
-		assertEquals(20, i);
+		int i = node1.getMetNeighbors();
+		assertEquals(0, i);
 		i = node1.getColor();
 		assertEquals(0, i);
+		node1.addNeighbor(node3);
 		i = node1.getDegree();
 		assertEquals(20, i);
 		i = node1.getMetNeighbors();
-		assertEquals(0, i);
+		assertEquals(1, i);
+		i = node1.neighbors.length;
+		assertEquals(20, i);
 		i = node1.getName();
 		assertEquals(1, i);
+		node1.emptyNeighborhood(node1);
 		Boolean b = node1.hasNeighbors();
 		assertEquals(false, b);
 		b = node1.canAddNeighbors();
@@ -182,12 +187,12 @@ public class NodeTest
 		Node node12 = new Node(12);
 		Node node13 = new Node(13);
 		int[] array1 = new int[3];
-		array1[0] = node11.getName();
-		array1[1] = node12.getName();
-		array1[2] = node13.getName();
+		array1[0] = 11;
+		array1[1] = 12;
+		array1[2] = 13;
 		
 		int[] array2 = node11.copyNeighbors(array1, 3, 3);
-		assertEquals(array2[0], node11.getName());
+		assertEquals(11, array2[0]);
 	}
 	
 	@Test
@@ -252,7 +257,7 @@ public class NodeTest
 		i = array2.length;
 		assertEquals(20, i);
 		i = array2[2];
-		assertEquals(null, i);
+		assertEquals(0, i);
 		
 		node1.emptyNeighborhood(node1);
 	}
@@ -264,10 +269,12 @@ public class NodeTest
 		int i = node11.getDegree();
 		assertEquals(20, i);
 		node11.leaf();
-		i = node11.getDegree();
+		i = node11.getMetNeighbors();
 		assertEquals(1, i);
 		i = node11.getMetNeighbors() + 1;
 		assertEquals(2, i);
+		i = node11.getDegree();
+		assertEquals(1, i);
 	}
 	
 		

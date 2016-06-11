@@ -148,7 +148,7 @@ public class Node
 	 * @param newNeighbor: the node to be added
 	 * @throws Exception: node cannot add more nodes
 	 */
-	protected void addNeighbor(Node newNeighbor)
+	protected void addNeighbor(Node newNeighbor) throws Exception
 	{
 		if (canAddNeighbors())
 		{
@@ -174,7 +174,7 @@ public class Node
 	{
 		if (hasNeighbors())
 		{
-			this.union(newNeighbors);
+			union(newNeighbors);
 		}
 		else
 		{
@@ -275,7 +275,6 @@ public class Node
 	protected void setName(int name)
 	{
 		this.name = name;
-<<<<<<< HEAD
 	}
 	
 	/**
@@ -315,7 +314,7 @@ public class Node
 			System.out.println(e);
 		}
 	}
-	
+		
 	/**
 	 * setNeighbors - standard setter for neighbors
 	 * 
@@ -323,34 +322,6 @@ public class Node
 	 */
 	protected void setNeighbors(int[] array)
 	{
-=======
-	}	
-	
-	/**
-	 * setNeighbor - adds a new node to the neighbors array
-	 */
-	protected void setNeighbor(Node node)
-	{
-		if (canAddNeighbors())
-		{
-			neighbors[getMetNeighbors()] = node.getName();
-			setMetNeighbors(getMetNeighbors() + 1);
-		}
-		else
-		{
-			Exception e = new Exception("This node is already at its max degree.");
-			System.out.println(e);
-		}
-	}
-	
-	/**
-	 * setNeighbors - standard setter for neighbors
-	 * 
-	 * @param array: the new neighbors array
-	 */
-	protected void setNeighbors(int[] array)
-	{
->>>>>>> origin/master
 		neighbors = array;
 	}
 	
@@ -363,22 +334,13 @@ public class Node
 	{
 		this.metNeighbors = metNeighbors;
 	}
-<<<<<<< HEAD
-=======
-	
-	
-	
->>>>>>> origin/master
+
 	
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Boolean  Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/master
 	
 	/**
 	 * canAddNeighbors - determines if the maximum degree of the vertex has been reached.
@@ -389,12 +351,7 @@ public class Node
 	{
 		return (metNeighbors != neighbors.length);
 	}
-<<<<<<< HEAD
-=======
-	
-		
->>>>>>> origin/master
-	
+
 	/**
 	 * hasNeighbors - determines if the node has any neighbors
 	 * 
@@ -427,7 +384,7 @@ public class Node
 		
 		for (int i = 0; i < metNeighbors; i++)
 		{
-			temp[i] = neighbors[i];
+			temp[i] = array[i];
 		}
 		
 		return temp;
@@ -482,21 +439,17 @@ public class Node
 	/**
 	 * leaf - ensures node is always a leaf, unless specifically stated otherwise,
 	 * 		thereby preventing accidental propagation. Sets metNeighbors to 1 and
-	 * 		neighbors array to null.
+	 * 		neighbors array to the "parent" only.
 	 * 
 	 * @throws CloneNotSupportedException
 	 */
 	protected void leaf() throws CloneNotSupportedException
 	{
-<<<<<<< HEAD
 		newNeighborhood(1);
+		setDegree(1);
 		setMetNeighbors(1);
-=======
-		this.addNeighbors(new int[1]);
-
-		this.setMetNeighbors(1);
->>>>>>> origin/master
 	}
+
 	
 	/**
 	 * newNeighborhood - breaks the neighbors array in two: neighbors[0, breakpoint) and 
@@ -563,6 +516,7 @@ public class Node
 	/**
 	 * unColor - resets the node's color to the default White (0).
 	 */
+	
 	protected void unColor()
 	{
 		setColor(DEFAULT_COLOR);
@@ -575,19 +529,19 @@ public class Node
 	 * 		the union is finished and the remainder of nodes in array are not added.
 	 * 
 	 * @param array: the array to be added to the current neighbors array
-<<<<<<< HEAD
 	 */
  	protected void union(int[] array)
-=======
-	 * @return the new, unioned array
-	 */
- 	private void union(int[] array)
->>>>>>> origin/master
 	{
- 		for (int i = getMetNeighbors(), j = 0; i < neighbors.length; i++, j++)
-		{		
-			neighbors[i] = array[j];
-			setMetNeighbors(i + 1);
-		}
+ 		if (getMetNeighbors() < neighbors.length)
+ 		{
+ 			for (int i = getMetNeighbors(), j = 0; i < neighbors.length; i++, j++)
+ 			{
+ 				if (j < array.length)
+ 				{
+ 					neighbors[i] = array[j];
+ 					setMetNeighbors(i + 1);
+ 				}
+ 			}
+ 		}
 	}	
 }
