@@ -83,7 +83,6 @@ public class Helper
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * isColored - determines if the node has been colored / has
 	 * 		a color other than WHITE (1). INT-NAME VERSION
 	 * 
@@ -108,8 +107,7 @@ public class Helper
 	}
 	
 	/**
-=======
->>>>>>> origin/master
+
 	 * isEven - a bitwise and to see if a number is odd or even.
 	 * 
 	 * @param i: the value whose oddness/evenness is to be calculated
