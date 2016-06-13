@@ -262,7 +262,7 @@ public class Graph
 	 * @return the new USER INPUT GRAPH
 	 * @throws Exception
 	 */
-	protected Graph buildInput(String fileName) throws Exception
+	protected static Graph buildInput(String fileName) throws Exception
 	{
 		return UserInputGraph.makeInput(fileName);
 	}
@@ -276,7 +276,7 @@ public class Graph
 	 * @return the new RANDOMLY GENERATED GRAPH.
 	 * @throws Exception
 	 */
-	protected Graph buildRand(int numNodes) throws Exception
+	protected static Graph buildRand(int numNodes) throws Exception
 	{
 		return RandomGraphGenerator.makeRandom(numNodes);
 	}

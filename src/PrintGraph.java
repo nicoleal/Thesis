@@ -37,13 +37,23 @@ public class PrintGraph
 	{
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			Node name = g.getNode(i);
-			if (name.getMetNeighbors() > 1)
+			if (Graph.getGraph()[i].getMetNeighbors() > 1)
 			{
-				System.out.print(name.getName() + ": ");
-				for (int j = 1; j < name.getMetNeighbors(); j++)
+				System.out.print(Graph.getGraph()[i].getName() + ": ");
+				
+				if (Graph.getGraph()[i].getName() == 0)
 				{
-					System.out.print(name.getNeighbor(i) + " ");
+					for (int j = 0; j < Graph.getGraph()[i].getMetNeighbors(); j++)
+					{
+						System.out.print(Graph.getGraph()[i].neighbors[0] + " ");
+					}
+				}
+				else
+				{
+					for (int j = 1; j < Graph.getGraph()[i].getMetNeighbors(); j++)
+					{
+						System.out.print(Graph.getGraph()[i].neighbors[0] + " ");
+					}
 				}
 				System.out.println();
 			}

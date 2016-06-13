@@ -94,8 +94,7 @@ public class UserInputGraph
 				}
 			}
 		}
-		System.out.println(Graph.graph[0].neighbors[1]);
-		//PrintGraph.printList(g);
+		
 		bufferedReader.close();
 		fileReader.close();
 		

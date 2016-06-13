@@ -11,6 +11,7 @@
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class GraphTest 
 {
@@ -186,23 +187,46 @@ public class GraphTest
 	@Test
 	public void testRand1() throws Exception
 	{
-		Tree t = new Tree();
-		t.buildRand(10);
+		Tree t = t.buildRand(10);
 	}
-	
 	
 	@Test
 	public void testRand2() throws Exception
 	{
-		Tree t = new Tree();
-		t.buildRand(50);
-	}
-	*/
+		Tree t = t.buildRand(50);
+	}*/
+	
 	@Test
 	public void testInput1() throws Exception
 	{
-		Tree t = new Tree();
-		t.buildInput("InputTest1");
+		PrintGraph.printList(Graph.buildInput("InputTest1"));
+	}
+	
+	@Test(expected = Exception.class)
+	public void testInput2() throws Exception
+	{
+		ExpectedException thrown = ExpectedException.none();
+		Graph t = Graph.buildInput("InputTest2");
+		thrown.expect(Exception.class);
+		thrown.expectMessage("Incorrect input format.");
+	}
+	
+	@Test(expected = Exception.class)
+	public void testInput3() throws Exception
+	{
+		ExpectedException thrown = ExpectedException.none();
+		Graph t = Graph.buildInput("InputTest3");
+		thrown.expect(Exception.class);
+		thrown.expectMessage("Too many nodes in input graph.");
+	}
+	
+	@Test(expected = Exception.class)
+	public void testInput4() throws Exception
+	{
+		ExpectedException thrown = ExpectedException.none();
+		Graph t = Graph.buildInput("InputTest4");
+		thrown.expect(Exception.class);
+		thrown.expectMessage("Incorrect input format.");
 	}
 	
 	@Test
