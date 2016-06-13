@@ -205,6 +205,17 @@ public class Node
 	{
 		return maxDegree;
 	}
+	
+	/**
+	 * getNeighbor - standard getter for neighbors[i]
+	 * 
+	 * @param i: the position of the neighbor
+	 */
+	public int getNeighbor(int i)
+	{
+		return neighbors[i];
+	}
+	
 
 	/**
 	 * getMetNeighbors - standard getter for metNeighbors (manyItems).

@@ -62,7 +62,7 @@ public class UserInputGraph
 			
 			if (sponsor == 0)
 			{
-				g.graph[0] = new Node(degree, 0);
+				Graph.graph[0] = new Node(degree, 0);
 			}
 			
 			line = line.substring(line.indexOf(':') + 2);
@@ -70,31 +70,32 @@ public class UserInputGraph
 			while (line != null)
 			{
 				int i = line.indexOf(',');
-				
+
 				if (i != -1)
 				{
 					newNode = Integer.parseInt(line.substring(0, i));
-
+					
 					if ((newNode > numNodes) || (newNode < sponsor))
 					{
 						Exception e = new Exception("Incorrect input format.");
 						System.out.println(e);
 					}
 
-					g.graph[i] = Graph.newNode(g.graph[sponsor].getNode(), degree);
-					g.graph[newNode].setName(newNode);
+					Graph.graph[newNode] = Graph.newNode(Graph.graph[sponsor].getNode(), degree);
+					Graph.graph[newNode].setName(newNode);
 					line = line.substring(line.indexOf(',') + 2);
 				}
 				else
 				{
-					g.graph[Integer.parseInt(line)] = Graph.newNode(g.graph[sponsor].getNode(), degree);
-					g.graph[Integer.parseInt(line)].setName(Integer.parseInt(line));
+					newNode = Integer.parseInt(line);
+					Graph.graph[newNode] = Graph.newNode(Graph.graph[sponsor].getNode(), degree);
+					Graph.graph[newNode].setName(newNode);
 					line = null;
 				}
 			}
 		}
-		
-		//PrintGraph.printList(t, numNodes);
+		System.out.println(Graph.graph[0].neighbors[1]);
+		//PrintGraph.printList(g);
 		bufferedReader.close();
 		fileReader.close();
 		

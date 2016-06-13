@@ -37,12 +37,13 @@ public class PrintGraph
 	{
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (g.getNeighbor(i).hasNeighbors())
+			Node name = g.getNode(i);
+			if (name.getMetNeighbors() > 1)
 			{
-				System.out.print(g.getNeighbor(i).getName() + ": ");
-				for (int j = 0; j < g.getNeighbor(i).getMetNeighbors(); j++)
+				System.out.print(name.getName() + ": ");
+				for (int j = 1; j < name.getMetNeighbors(); j++)
 				{
-					System.out.print(g.getNeighbor(i).neighbors[j] + " ");
+					System.out.print(name.getNeighbor(i) + " ");
 				}
 				System.out.println();
 			}
@@ -67,12 +68,12 @@ public class PrintGraph
 		
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (g.getNeighbor(i).hasNeighbors())
+			if (g.getNode(i).hasNeighbors())
 			{
-				writer.print(g.getNeighbor(i).getName() + ": ");
-				for (int j = 0; j < g.getNeighbor(i).getMetNeighbors(); j++)
+				writer.print(g.getNode(i).getName() + ": ");
+				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
 				{
-					writer.print(g.getNeighbor(i).neighbors[j] + " ");
+					writer.print(g.getNode(i).neighbors[j] + " ");
 				}
 				writer.println();
 			}

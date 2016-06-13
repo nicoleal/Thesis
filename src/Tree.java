@@ -99,5 +99,21 @@ public class Tree extends Graph
 	protected Graph buildRandTree(int numNodes) throws Exception
 	{
 		return RandomGraphGenerator.makeRandom(numNodes);
-	}	
+	}
+	
+	/******************************************************************************
+	 *                                                                            *
+	 *                            Standard Methods                                *
+	 *                                                                            *
+	 ******************************************************************************/
+	
+	/**
+	 * getRoot - standard getter for a root node / node-0.
+	 * 
+	 * @return the node at graph[0]
+	 */
+	protected static Node getRoot()
+	{
+		return graph[0].getNode();
+	}
 }

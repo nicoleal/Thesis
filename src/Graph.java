@@ -95,7 +95,7 @@ public class Graph
 	 * 		(numNodes/2) branches of length 1 each.
 	 * @throws Exception
 	 */
-	protected Graph buildCat1(int numNodes) throws Exception
+	protected static Graph buildCat1(int numNodes) throws Exception
 	{
 		int degree = 3;
 		Graph g = new Graph(numNodes, degree);
@@ -113,7 +113,8 @@ public class Graph
 				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 2].getNode(), degree);
 			}
 			g.setCounter(getCounter() + 1);
-		}	
+		}
+		
 		return g;
 	}
 	
@@ -133,7 +134,7 @@ public class Graph
 	 * 		(2*numNodes/3) branches of length 1 each.
 	 * @throws Exception
 	 */
-	protected Graph buildCat2(int numNodes) throws Exception
+	protected static Graph buildCat2(int numNodes) throws Exception
 	{
 		int degree = 4;
 		Graph g = new Graph(numNodes, degree);
@@ -174,7 +175,7 @@ public class Graph
 	 * 		(numNodes/4) branches of length 2 each.
 	 * @throws Exception
 	 */
-	protected Graph buildLob1(int numNodes) throws Exception
+	protected static Graph buildLob1(int numNodes) throws Exception
 	{
 		int degree = 3;
 		Graph g = new Graph(numNodes, degree);
@@ -219,7 +220,7 @@ public class Graph
 	 * 		and (2*numNodes/7) branches of length 2.
 	 * @throws Exception
 	 */
-	protected Graph buildLob2(int numNodes) throws Exception
+	protected static Graph buildLob2(int numNodes) throws Exception
 	{
 		int degree = 4;
 		Graph g = new Graph(numNodes, degree);
@@ -354,7 +355,7 @@ public class Graph
 	 * 
 	 * @return the Node named i
 	 */
-	public Node getNeighbor(int name)
+	public Node getNode(int name)
 	{
 		return graph[name];
 	}
@@ -448,7 +449,7 @@ public class Graph
 	 * @param i: the name of the node
 	 * @throws CloneNotSupportedException 
 	 */
-	protected void makeLeaf(int i) throws CloneNotSupportedException
+	protected static void makeLeaf(int i) throws CloneNotSupportedException
 	{
 		graph[i].leaf();
 	}
