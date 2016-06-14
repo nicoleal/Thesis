@@ -35,25 +35,25 @@ public class PrintGraph
 	 */
 	protected static void printList(Graph g)
 	{
+		
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (Graph.getGraph()[i].getMetNeighbors() > 1)
+			if (i == 0)
 			{
-				System.out.print(Graph.getGraph()[i].getName() + ": ");
-				
-				if (Graph.getGraph()[i].getName() == 0)
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
 				{
-					for (int j = 0; j < Graph.getGraph()[i].getMetNeighbors(); j++)
-					{
-						System.out.print(Graph.getGraph()[i].neighbors[0] + " ");
-					}
+					System.out.print(g.getNode(i).neighbors[j] + " ");
 				}
-				else
+				System.out.println();
+			}
+			else if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
 				{
-					for (int j = 1; j < Graph.getGraph()[i].getMetNeighbors(); j++)
-					{
-						System.out.print(Graph.getGraph()[i].neighbors[0] + " ");
-					}
+					System.out.print(g.getNode(i).neighbors[j] + " ");
 				}
 				System.out.println();
 			}
@@ -78,10 +78,19 @@ public class PrintGraph
 		
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (g.getNode(i).hasNeighbors())
+			if (i == 0)
 			{
 				writer.print(g.getNode(i).getName() + ": ");
 				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					writer.print(g.getNode(i).neighbors[j] + " ");
+				}
+				writer.println();
+			}
+			else if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				writer.print(g.getNode(i).getName() + ": ");
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
 				{
 					writer.print(g.getNode(i).neighbors[j] + " ");
 				}

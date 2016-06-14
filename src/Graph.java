@@ -426,6 +426,18 @@ public class Graph
 	 *                                                                            *
 	 ******************************************************************************/
 	
+	/**
+	 * addNode - adds a pre-existing node to its sponsor
+	 * 
+	 * @param sponsor: an existing node which to attach the new node
+	 * @param node: the node to attach to the sponsor
+	 * @throws Exception
+	 */
+	protected static void addNode(Node sponsor, Node node) throws Exception
+	{
+		sponsor.addNeighbor(node);
+		node.addNeighbor(sponsor);
+	}
 	
 	/**
 	 * newNode - creates a new node and attaches it to a pre-existing node.

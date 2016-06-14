@@ -3,7 +3,7 @@
  * 
  * 		UserInputGraph Class
  * 			A subclass for taking graphs as input into the program that
- * 			fall under the strictures described  in the TREE CLASS, 
+ * 			fall under the strictures described  in the GRAPH CLASS, 
  * 			et hoc genus omne. 
  * 
  * @author Nicole Loew
@@ -62,11 +62,11 @@ public class UserInputGraph
 			
 			if (sponsor == 0)
 			{
-				Graph.graph[0] = new Node(degree, 0);
+				Graph.getGraph()[0] = new Node(degree, 0);
 			}
 			
 			line = line.substring(line.indexOf(':') + 2);
-			
+						
 			while (line != null)
 			{
 				int i = line.indexOf(',');
@@ -81,15 +81,15 @@ public class UserInputGraph
 						System.out.println(e);
 					}
 
-					Graph.graph[newNode] = Graph.newNode(Graph.graph[sponsor].getNode(), degree);
-					Graph.graph[newNode].setName(newNode);
+					Graph.getGraph()[newNode] = new Node(degree, newNode);
+					Graph.addNode(Graph.getGraph()[sponsor], Graph.getGraph()[newNode]);
 					line = line.substring(line.indexOf(',') + 2);
 				}
 				else
 				{
 					newNode = Integer.parseInt(line);
-					Graph.graph[newNode] = Graph.newNode(Graph.graph[sponsor].getNode(), degree);
-					Graph.graph[newNode].setName(newNode);
+					Graph.getGraph()[newNode] = new Node(degree, newNode);
+					Graph.addNode(Graph.getGraph()[sponsor], Graph.getGraph()[newNode]);
 					line = null;
 				}
 			}
