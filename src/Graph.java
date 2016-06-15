@@ -22,7 +22,7 @@ public class Graph
 	private static int graphDegree;			// The maximum degree any node in this graph can have, if any
 	private int numNodes;					// The total number of nodes in graph
 	private static Node node;				// An all-purpose node, to limit memory drain
-	public static Node[] graph;					// The graph, as a collection of ordered nodes in an array
+	public static Node[] graph;				// The graph, as a collection of ordered nodes in an array
 	
 	
 	/******************************************************************************
@@ -281,14 +281,14 @@ public class Graph
 		return RandomGraphGenerator.makeRandom(numNodes);
 	}
 	
-	/**SpineBinary - builds a SPINE GRAPH. Which is to say line of nodes 
+	/**buildSpine - builds a SPINE GRAPH. Which is to say line of nodes 
 	 * 		with a root of zero and at most one child.
 	 * 
 	 * @param numNodes: the desired N of the graph
 	 * @return the new SPINE GRAPH with length N
 	 * @throws Exception
 	 */
-	protected Graph buildSpine(int numNodes) throws Exception
+	protected static Graph buildSpine(int numNodes) throws Exception
 	{
 		int degree = 2;
 		Graph g = new Graph(numNodes, degree);
@@ -296,8 +296,30 @@ public class Graph
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - 1)], degree);
 			g.setCounter(getCounter() + 1);
+			Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - 1)], degree);
+			
+		}
+		
+		return g;
+	}
+	
+	/**buildStar - builds a STAR GRAPH. Which is to say 1 central node 
+	 * 		with (n - 1) leaves branching from it.
+	 * 
+	 * @param numNodes: the desired N of the graph
+	 * @return the new STAR GRAPH
+	 * @throws Exception
+	 */
+	protected static Graph buildStar(int numNodes) throws Exception
+	{
+		Graph g = new Graph(numNodes);
+		Graph.getGraph()[0] = new Node((numNodes - 1), 0);
+		
+		for (int i = 1; i < numNodes; i++)
+		{
+			g.setCounter(getCounter() + 1);
+			Graph.getGraph()[i] = newNode(Graph.getGraph()[0], 1);
 		}
 		
 		return g;

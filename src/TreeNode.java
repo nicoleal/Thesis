@@ -325,7 +325,7 @@ public class TreeNode extends Node
 	
 	/******************************************************************************
 	 *                                                                            *
-	 *                            Boolean  Methods                                *
+	 *                            boolean  Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
 	
@@ -334,7 +334,7 @@ public class TreeNode extends Node
 	 * 
 	 * @return true if children is NOT full, false otherwise
 	 */ 
-	public Boolean canAddChildren()
+	public boolean canAddChildren()
 	{
 		return (myChildren != children.length);
 	}
@@ -344,7 +344,7 @@ public class TreeNode extends Node
 	 * 
 	 * @return true if has children, false otherwise
 	 */
-	public Boolean hasChildren()
+	public boolean hasChildren()
 	{
 		return (myChildren > 0);
 	}

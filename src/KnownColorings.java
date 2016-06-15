@@ -14,7 +14,7 @@
 
 public class KnownColorings 
 {
-	private int chi;									// The BCN, pronounced "kai"
+	private static int chi;									// The BCN, pronounced "kai"
 	
 	/******************************************************************************
 	 *                                                                            *
@@ -222,7 +222,7 @@ public class KnownColorings
 	 * @param g: the graph to color
 	 * @return the colored graph
 	 */
-	public Graph knownSpine(Graph g)
+	public static Graph knownSpine(Graph g)
 	{		
 		int remainder = g.getNumNodes() % 4;
 		int setsOfFour = g.getNumNodes() - remainder;
@@ -248,23 +248,23 @@ public class KnownColorings
 		{
 			if (remainder == 1)							// (1, 2, 1, 3 1, 2, 1, ... 3, 4)
 			{
-				Graph.getGraph()[setsOfFour + 1].setColor(Color.YELLOW);	// YELLOW (4), V4
+				Graph.getGraph()[setsOfFour].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
 			else if (remainder == 2)					// (1, 2, 1, 3, 1, 2, 1, ... 3, 1, 4)
 			{
-				Graph.getGraph()[setsOfFour + 1].setColor(Color.RED);		// RED (1), V1
-				Graph.getGraph()[setsOfFour + 2].setColor(Color.YELLOW);	// YELLOW (4), V4
+				Graph.getGraph()[setsOfFour].setColor(Color.RED);		// RED (1), V1
+				Graph.getGraph()[setsOfFour + 1].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
 			else										// (1, 2, 1, 3, 1, 2, 1, ... 3, 1, 2, 4)
 			{
-				Graph.getGraph()[setsOfFour + 1].setColor(Color.RED);		// RED (1), V1
-				Graph.getGraph()[setsOfFour + 2].setColor(Color.BLUE);		// BLUE (2), V2
-				Graph.getGraph()[setsOfFour + 3].setColor(Color.YELLOW);	// YELLOW (4), V4
+				Graph.getGraph()[setsOfFour].setColor(Color.RED);		// RED (1), V1
+				Graph.getGraph()[setsOfFour + 1].setColor(Color.BLUE);		// BLUE (2), V2
+				Graph.getGraph()[setsOfFour + 2].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
 			setChi(Color.YELLOW.getRadius());
 		}
 		
-		System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 		return g;
 	}
 	
@@ -278,7 +278,7 @@ public class KnownColorings
 	 * @param g: the graph to color
 	 * @return the colored graph
 	 */
-	public Graph knownStar(Graph g)
+	public static Graph knownStar(Graph g)
 	{
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
@@ -293,7 +293,7 @@ public class KnownColorings
 		}
 		
 		setChi(Color.BLUE.getRadius());
-		System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+		System.out.println("\nThe Broadcast Chromatic Number is: " + getChi() + ".\n");
 		
 		return g;
 	}
@@ -336,7 +336,7 @@ public class KnownColorings
 	 * 
 	 * @return chi: the broadcast chromatic number
 	 */
-	public int getChi()
+	public static int getChi()
 	{
 		return chi;
 	}
@@ -346,8 +346,8 @@ public class KnownColorings
 	 * 
 	 * @param chi: the value to be set to the broadcast chromatic number
 	 */
-	private void setChi(int chi)
+	private static void setChi(int chi1)
 	{
-		this.chi = chi;
+		chi = chi1;
 	}
 }

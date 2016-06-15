@@ -62,6 +62,43 @@ public class PrintGraph
 	}
 	
 	/**
+	 * printListWithColors - prints a specified graph as a series of colored nodes and 
+	 * 		their neighbors in the following manner:
+	 * 
+	 * 		0(Y)
+	 * 		X: XX(Y) XX(Y) XX(Y)
+	 * 		X: XX(Y) XX(Y) ....
+	 * 
+	 * @param g: the graph to be printed
+	 */
+	protected static void printListWithColors(Graph g)
+	{
+		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{		
+			if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+				}
+			}
+			else if ((g.getNode(i).getMetNeighbors() == 1) && (i != (g.getNumNodes() - 1)) 
+					&& (i < g.getNode(i).neighbors[0]))
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+				}
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	/**
 	 * printToFile - prints a specified graph as a series of nodes
 	 * 		and their neighbors to a file in the following manner:
 	 * 
@@ -93,6 +130,48 @@ public class PrintGraph
 				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
 				{
 					writer.print(g.getNode(i).neighbors[j] + " ");
+				}
+				writer.println();
+			}
+		}
+		writer.println();
+		writer.close();
+	}
+	
+	/**
+	 * printToFileWithColors - prints a specified graph as a series of colored nodes and 
+	 * 		their neighbors to a file in the following manner:
+	 * 
+	 * 		0(Y)
+	 * 		X: XX(Y) XX(Y) XX(Y)
+	 * 		X: XX(Y) XX(Y) ....
+	 * 
+	 * @param g: the graph to be printed
+	 */
+	protected static void printToFileWithColors(Graph g, String fileName) throws FileNotFoundException, UnsupportedEncodingException
+	{
+		fileName = "TestFiles\\" + fileName + ".txt";
+		writer = new PrintWriter(fileName, "UTF-8");
+		
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{
+			if (i == 0)
+			{
+				writer.println(g.getNode(i).getName() + "(" + g.getNode(i).getColor() + ")");
+				writer.print(g.getNode(i).getName() + ": ");
+				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					writer.print(g.getNode(i).neighbors[j] + "(" + g.getNode(i).getColor() + ") ");
+				}
+				writer.println();
+			}
+			else if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				writer.print(g.getNode(i).getName() + ": ");
+				
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					writer.print(g.getNode(i).neighbors[j] + "(" + g.getNode(i).getColor() + ") ");
 				}
 				writer.println();
 			}

@@ -42,7 +42,7 @@ public class NodeTest
 		i = node1.getName();
 		assertEquals(1, i);
 		node1.emptyNeighborhood(node1);
-		Boolean b = node1.hasNeighbors();
+		boolean b = node1.hasNeighbors();
 		assertEquals(false, b);
 		b = node1.canAddNeighbors();
 		assertEquals(true, b);
@@ -61,7 +61,7 @@ public class NodeTest
 		assertEquals(20, i);
 		i = node2.getName();
 		assertEquals(2, i);
-		Boolean b = node2.canAddNeighbors();
+		boolean b = node2.canAddNeighbors();
 		assertEquals(true, b); 
 		b = node2.hasNeighbors();
 		assertEquals(false, b);
@@ -81,7 +81,7 @@ public class NodeTest
 		assertEquals(1, i);
 		i = node1.getName();
 		assertEquals(1, i);
-		Boolean b = node1.hasNeighbors();
+		boolean b = node1.hasNeighbors();
 		assertEquals(true, b);
 		b = !node1.canAddNeighbors();
 		assertEquals(false, b);
@@ -100,7 +100,7 @@ public class NodeTest
 		assertEquals(3, i);
 		i = node3.getMetNeighbors();
 		assertEquals(0, i);
-		Boolean b = node3.hasNeighbors();
+		boolean b = node3.hasNeighbors();
 		assertEquals(false, b);
 		b = node3.canAddNeighbors();
 		assertEquals(true, b);
@@ -119,7 +119,7 @@ public class NodeTest
 		assertEquals(4, i);
 		i = node4.getMetNeighbors();
 		assertEquals(0, i);
-		Boolean b = node4.hasNeighbors();
+		boolean b = node4.hasNeighbors();
 		assertEquals(false, b);
 		b = node4.canAddNeighbors();
 		assertEquals(true, b);
@@ -161,7 +161,7 @@ public class NodeTest
 	public void exception5() throws Exception
 	{
 		node1.addNeighbor(node2);
-		Boolean b = node1.hasNeighbors();
+		boolean b = node1.hasNeighbors();
 		assertEquals(b, true);
 		node1.kill(node2);
 		b = node1.hasNeighbors();

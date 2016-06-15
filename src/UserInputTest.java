@@ -53,4 +53,16 @@ public class UserInputTest
 	{
 		PrintGraph.printToFile(Graph.buildInput("InputTest1"), "OutputTest3");
 	}
+	
+	@Test
+	public void testInput6() throws Exception
+	{
+		PrintGraph.printListWithColors(Graph.buildInput("InputTest1"));
+	}
+	
+	@Test
+	public void testInput7() throws Exception
+	{
+		PrintGraph.printToFileWithColors(Graph.buildInput("InputTest1"), "OutputTest4");
+	}
 }

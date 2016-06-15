@@ -14,7 +14,7 @@ public class Helper
 {
 	/******************************************************************************
 	 *                                                                            *
-	 *                            Boolean  Methods                                *
+	 *                            boolean  Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
 	
@@ -26,7 +26,7 @@ public class Helper
 	 * @param node2: the name of the second node to be compared.
 	 * return TRUE if neighbors, false otherwise
 	 */
-	public static Boolean areNeighbors(int node1, int node2)
+	public static boolean areNeighbors(int node1, int node2)
 	{
 		boolean one = false;
 		boolean two = false;
@@ -58,7 +58,7 @@ public class Helper
 	 * @param node2: the second node to be compared.
 	 * return TRUE if neighbors, false otherwise
 	 */
-	public static Boolean areNeighbors(Node node1, Node node2)
+	public static boolean areNeighbors(Node node1, Node node2)
 	{
 		boolean one = false;
 		boolean two = false;
@@ -89,7 +89,7 @@ public class Helper
 	 * @param i: the name of the node
 	 * @return TRUE if colored, FALSE otherwise
 	 */
-	public static Boolean isColored(int i)
+	public static boolean isColored(int i)
 	{
 		return (Graph.getLeaf(i).getColor() != Color.WHITE.getRadius());
 	}
@@ -101,7 +101,7 @@ public class Helper
 	 * @param i: the name of the node
 	 * @return TRUE if colored, FALSE otherwise
 	 */
-	public static Boolean isColored(Node node)
+	public static boolean isColored(Node node)
 	{
 		return (node.getColor() != Color.WHITE.getRadius());
 	}
@@ -113,7 +113,7 @@ public class Helper
 	 * @param i: the value whose oddness/evenness is to be calculated
 	 * @return TRUE if even, FALSE otherwise
 	 */
-	public static Boolean isEven(int i)
+	public static boolean isEven(int i)
 	{
 		return ((i & 1) == 0);
 	}
@@ -125,7 +125,7 @@ public class Helper
 	 * @param i: the name of the node in question
 	 * @return TRUE if leaf, FALSE otherwise
 	 */
-	public static Boolean isLeaf(int i)
+	public static boolean isLeaf(int i)
 	{
 		return (Graph.getLeaf(i).getMetNeighbors() == 1);
 	}
@@ -136,7 +136,7 @@ public class Helper
 	 * @param i: the value whose oddness/evenness is to be calculated
 	 * @return TRUE if odd, FALSE otherwise
 	 */
-	public static Boolean isOdd(int i)
+	public static boolean isOdd(int i)
 	{
 		return !isEven(i);
 	}

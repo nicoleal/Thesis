@@ -83,7 +83,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(1).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(3);
+		boolean b = Helper.isLeaf(3);
 		assertEquals(false, b);
 		i = Graph.getLeaf(3).getDegree();
 		assertEquals(4, i);
@@ -102,7 +102,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(1).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(3);
+		boolean b = Helper.isLeaf(3);
 		assertEquals(false, b);
 		i = Graph.getLeaf(16).getMetNeighbors();
 		assertEquals(1, i);
@@ -119,7 +119,7 @@ public class GraphTest
 		assertEquals(2, i);
 		i = Graph.getLeaf(3).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(4);
+		boolean b = Helper.isLeaf(4);
 		assertEquals(false, b);
 		i = Graph.getLeaf(6).getMetNeighbors();
 		assertEquals(1, i);
@@ -139,7 +139,7 @@ public class GraphTest
 		assertEquals(2, i);
 		i = Graph.getLeaf(39).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(32);
+		boolean b = Helper.isLeaf(32);
 		assertEquals(false, b);;
 		i = Graph.getLeaf(38).getMetNeighbors();
 		assertEquals(1, i);
@@ -158,7 +158,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(5).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(7);
+		boolean b = Helper.isLeaf(7);
 		assertEquals(false, b);
 		i = Graph.getLeaf(7).getDegree();
 		assertEquals(4, i);
@@ -175,7 +175,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(48).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(28);
+		boolean b = Helper.isLeaf(28);
 		assertEquals(false, b);
 		i = Graph.getLeaf(9).getMetNeighbors();
 		assertEquals(1, i);
@@ -211,7 +211,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(6).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(3);
+		boolean b = Helper.isLeaf(3);
 		assertEquals(false, b);
 	}
 
@@ -230,7 +230,7 @@ public class GraphTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(30).getMetNeighbors();
 		assertEquals(1, i);
-		Boolean b = Helper.isLeaf(15);
+		boolean b = Helper.isLeaf(15);
 		assertEquals(false, b);
 		b = Helper.isLeaf(31);
 		assertEquals(true, b);
@@ -239,19 +239,28 @@ public class GraphTest
 	@Test
 	public void testSpine1() throws Exception
 	{
-		Tree t = new Tree();
-		t.buildSpine(10);
-		int i = t.getNumNodes();
-		assertEquals(10, i);
-		i = Tree.getRoot().getMetNeighbors();
+		Graph.buildSpine(10);
+		int i = Tree.getRoot().getMetNeighbors();
 		assertEquals(1, i);
 		i = Graph.getLeaf(9).getMetNeighbors();
 		assertEquals(1, i);
 		i = Graph.getLeaf(2).getMetNeighbors();
 		assertEquals(2, i);
-		Boolean b = Helper.isLeaf(3);
+		boolean b = Helper.isLeaf(3);
 		assertEquals(false, b);
 		b = Helper.isLeaf(9);
 		assertEquals(true, b);
+	}
+	
+	@Test
+	public void testStar1() throws Exception
+	{
+		Graph.buildStar(10);
+		int i = Graph.getLeaf(9).getMetNeighbors();
+		assertEquals(1, i);
+		i = Graph.getLeaf(0).getMetNeighbors();
+		assertEquals(9, i);
+		i = Graph.getLeaf(8).getMetNeighbors();
+		assertEquals(1, i);
 	}
 }
