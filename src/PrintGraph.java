@@ -99,6 +99,84 @@ public class PrintGraph
 	}
 	
 	/**
+	 * printListWithColors_Stars - prints a specified graph as a series of colored nodes and 
+	 * 		their neighbors in the following manner suitable for STAR GRAPHS:
+	 * 
+	 * 		0(Y)
+	 * 		X: XX(Y) XX(Y) XX(Y)
+	 * 		X: XX(Y) XX(Y) ....
+	 * 
+	 * @param g: the graph to be printed
+	 */
+	protected static void printListWithColors_Stars(Graph g)
+	{
+		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{		
+			if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+				}
+			}
+			else if ((g.getNode(i).getMetNeighbors() == 1) && (i != (g.getNumNodes() - 1)) 
+					&& (i < g.getNode(i).neighbors[0]))
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+				}
+			}
+				System.out.print(g.getNode(i).getName() + ": ");
+				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				{
+					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+				}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * printListWithColors_ZeroFirst - prints a specified graph as a series of colored nodes and 
+	 * 		their neighbors in the following manner suitable for NON-SPINE GRAPHS:
+	 * 
+	 * 		0(Y)
+	 * 		X: XX(Y) XX(Y) XX(Y)
+	 * 		X: XX(Y) XX(Y) ....
+	 * 
+	 * @param g: the graph to be printed
+	 */
+	protected static void printListWithColors_ZeroFirst(Graph g)
+	{
+		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{		
+			if (g.getNode(i).getMetNeighbors() > 1)
+			{
+				System.out.print(g.getNode(i).getName() + ": ");
+				if (g.getNode(i).neighbors[0] == 0)
+				{
+					for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+					{
+						System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+					}
+				}
+				else
+					for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+					{
+						System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+					}
+				System.out.println();
+			}
+		}
+		System.out.println();
+	}
+	
+	/**
 	 * printToFile - prints a specified graph as a series of nodes
 	 * 		and their neighbors to a file in the following manner:
 	 * 

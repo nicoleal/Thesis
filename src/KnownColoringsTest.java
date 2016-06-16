@@ -103,7 +103,7 @@ public class KnownColoringsTest
 		assertEquals(3, i);
 		i = Graph.getLeaf(26).getColor();
 		assertEquals(1, i);
-		PrintGraph.printListWithColors(t);
+		//PrintGraph.printListWithColors(t);
 	}
 	
 	@Test
@@ -118,6 +118,32 @@ public class KnownColoringsTest
 		assertEquals(9, i);
 		i = Graph.getLeaf(3).getColor();
 		assertEquals(1, i);
-		//PrintGraph.printListWithColors(g);
+		//PrintGraph.printListWithColors_Star(g);
 	}
+
+	@Test
+	public void test4Diam1() throws Exception
+	{
+		Graph g = KnownColorings.knownFourDiamTree(UserInputGraph.makeInput("T5_Graph"));
+		//PrintGraph.printListWithColors_ZeroFirst(g);
+		int i = Graph.getLeaf(6).getColor();
+		assertEquals(4, i);
+		i = Graph.getLeaf(11).getColor();
+		assertEquals(1, i);
+		i = Graph.getLeaf(5).getColor();
+		assertEquals(2, i);
+		i = Graph.getLeaf(0).getColor();
+		assertEquals(6, i);
+		i = Graph.getLeaf(7).getColor();
+		assertEquals(5, i);
+		i = Graph.getLeaf(16).getColor();
+		assertEquals(1, i);
+		i = Graph.getLeaf(3).getColor();
+		assertEquals(3, i);
+		i = Graph.getLeaf(4).getColor();
+		assertEquals(1, i);
+		i = Graph.getLeaf(2).getColor();
+		assertEquals(2, i);
+	}
+	
 }

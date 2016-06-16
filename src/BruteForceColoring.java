@@ -13,293 +13,108 @@
 
 public class BruteForceColoring 
 {
-	private static int bestColoring[];
-	private static int coloring[];
-	private static int maxColors;
-	private static int maxUsed;
-	private static Tree tree;
+	public static int[] theirNeighbors;						// A holder for the neighbors' neighbors
+	public static int[] moreNeighbors;						// a holder for more neighbors
 	
 	/**
-	 * ONE-ARG CONSTRUCTOR for BruteForceColoring in which every possible coloring is
-	 * 		checked - until that coloring exceeds the maxUsed value for the current
-	 * 		best (smallest) coloring. 
-	 * 
-	 * @param numNodes: the number of nodes in the graph, also the upper bound for
-	 * 			number of colors that can be used to color that graph.
-	 */
-	public BruteForceColoring(int numNodes)
-	{
-		coloring = new int[numNodes];
-		maxColors = numNodes;
-	}
-	
-	/**
-	 * bruteForce - takes a graph and, giving one vertex a starting color of 1,
-	 * 		colors the remainder of the graph accordingly. It will stop the
-	 * 		process and return a value of -1 if the highest locally used color ever
-	 * 		exceeds the current global highest used color, otherwise it will return
-	 * 		the minimal broadcast chromatic number.
-	 * 
-	 * @param start: the vertex to be colored 1 from the start
-	 * @return localMax: the highest color used in this coloring
-	 */
-	public static int bruteForce(int start)
-	{
-		setup();
-		coloring[start] = 1;
-		
-		int color;
-		int localMax = 1;
-		int vertex = 0;
-		
-		while ((localMax <= getMaxUsed()) && (vertex < getMaxColors()))
-		{
-			color = whatColor(vertex);
-			
-			if (color <= getMaxUsed())
-			{
-				coloring[vertex] = color;
-				vertex++;
-				
-				if (localMax < color)
-				{
-					localMax = color;
-				}
-			}
-			else
-			{
-				return -1;
-			}
-		}
-		
-		return localMax;
-	}
-	
-	/**
-	 * bruteForceAll - a method that runs through every vertex, using that vertex as
-	 * 		a color-1 starting point, and returns the lowest generated value. Will also
-	 * 		copy the current best coloring into the bestColoring array.
+	 * bruteForce - a brute force attempt at coloring outwards. Starts from a "center"
+	 * 		node, assigns it RED (1), all its neighbors a unique (2+) color, and all
+	 * 		its neighbors' neighbors RED (1). Will eventually recurse back so that 
+	 * 		brute force is run on all uncolored (White (0)) "grandchildren" of the 
+	 * 		original node, id est, the contents of the theirNeighbors array.
+	 * @param g
+	 * @param center
 	 * @return
 	 */
-	public static int bruteForceAll()
+	public static Graph bruteForce(Graph g, int center)
 	{
-		int current = getMaxUsed();
-		int currentMax = getMaxColors();
+		theirNeighbors = new int[Graph.getGraph().length];
+		moreNeighbors = new int[Graph.getGraph().length];
+		Graph.getGraph()[center].setColor(Color.RED);		// RED (1), V1
 		
-		for (int i = 0; i < getMaxColors(); i++)
+		int j = 2;
+		for (int i = 0; i < Graph.getGraph()[center].getMetNeighbors(); i++, j++)
 		{
-			current = bruteForce(i);
+			 Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].setColor(j);
 			
-			if (current < currentMax)
+			for (int k = 1, l = 0; k < Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].getMetNeighbors(); k++, l++)
 			{
-				copy();
-				currentMax = current;
+				theirNeighbors[l] = Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].neighbors[k];
+				Graph.getGraph()[theirNeighbors[l]].setColor(Color.RED);
 			}
 		}
 		
-		return currentMax;
+		
+		bruteForceLowerLevels(j);
+		return g;
 	}
 	
-	/**
-	 * colorMe - runs the brute force algorithm on the given graph and sets the colors
-	 * 		according to the best possible coloring (id est, the minimum coloring).
-	 * 
-	 * @param t: the uncolored tree
-	 * @return the colored tree
-	 */
-	public static Tree colorMe(Tree t)
+	
+	public static int bruteForceLowerLevels(int j)
 	{
-		setTree(t);
-		setMaxColors(t.getNumNodes(t));
-		setMaxUsed(1);
-		coloring = new int[t.getNumNodes(t)];
-		bestColoring = new int[t.getNumNodes(t)];
-		
-		bruteForceAll();
-		
-		for (int i = 0; i < getMaxColors(); i++)
+		for (int i = 0, q = 0; i < theirNeighbors.length; i++)
 		{
-			tree.tree[i].setColor(bestColoring[i]);
+			Node m = Graph.getGraph()[theirNeighbors[i]];
+			
+			for (int k = 0; k < m.getMetNeighbors(); k++)
+			{
+				int y = Graph.getGraph()[m.getName()].neighbors[k];
+				if (!Helper.isColored(y))
+				{
+					Graph.getGraph()[y].setColor(j);
+					j++;
+				}
+				
+				Node n = Graph.getGraph()[y];
+				
+				if (n.getMetNeighbors() > 1)
+				{
+					for (int l = 1; l < Graph.getGraph()[n.getName()].getMetNeighbors(); l++)
+					{
+						int x = Graph.getGraph()[n.getName()].neighbors[l];
+						if (!Helper.isColored(x))
+						{
+							Graph.getGraph()[x].setColor(Color.RED);
+						}
+						
+						if (Graph.getGraph()[x].getMetNeighbors() > 1);
+						{
+							for (int z = 1; z < Graph.getGraph()[x].getMetNeighbors(); z++)
+							{
+								moreNeighbors[q] = Graph.getGraph()[x].neighbors[z];
+								q++;
+							}
+						}
+					}
+				}
+			}
 		}
-		
-		return tree;
+		return j;
 	}
 	
 	/******************************************************************************
 	 *                                                                            *
-	 *                            Standard Methods                                *
+	 *                            Standard   Methods                              *
 	 *                                                                            *
 	 ******************************************************************************/
-	
-	/**
-	 * getBestColoring - standard getter for bestColoring.
-	 * 
-	 * @return bestColoring
-	 */
-	public int[] getBestColoring()
-	{
-		return bestColoring;
-	}
-	
-	/**
-	 * getColoring - standard getter for coloring.
-	 * 
-	 * @return coloring
-	 */
-	public int[] getColoring()
-	{
-		return coloring;
-	}
-	
-	/**
-//	 * getMaxColors - standard getter for maxColors.
-	 * 
-	 * @return maxColors
-	 */
-	public static int getMaxColors()
-	{
-		return maxColors;
-	}
-	
-	/**
-	 * getMaxUsed - standard getter for maxUsed.
-	 * 
-	 * @return maxUsed
-	 */
-	public static int getMaxUsed()
-	{
-		return maxUsed;
-	}
-	
-	/**
-	 * getTree - standard getter for tree.
-	 * 
-	 * @return tree
-	 */
-	public Tree getTree()
-	{
-		return tree;
-	}
-	
-	/**
-	 * setBestColoring - standard setter for bestColoring.
-	 * 
-	 * @param color: an array of Colors
-	 */
-	public void setBestColoring(int color[])
-	{
-		bestColoring = color;
-	}
-	
-	/**
-	 * setColoring - standard setter for coloring.
-	 * 
-	 * @param color: an array of Colors
-	 */
-	public void setColoring(int color[])
-	{
-		coloring = color;
-	}
-	
-	/**
-	 * setMaxColors - standard setter for maxColors.
-	 * 
-	 * @param color: an integer value
-	 */
-	public static void setMaxColors(int color)
-	{
-		maxColors = color;
-	}
-	
-	/**
-	 * setMaxUsed - standard setter for maxUsed.
-	 * 
-	 * @param color: an integer value
-	 */
-	public static void setMaxUsed(int color)
-	{
-		maxUsed = color;
-	}
-	
-	/**
-	 * seTree - standard setter for tree.
-	 * 
-	 * @param tree: a Tree
-	 */
-	public static void setTree(Tree t)
-	{
-		tree = t;
-	}
-	
-	/******************************************************************************
-	 *                                                                            *
-	 *                            Helper   Methods                                *
-	 *                                                                            *
-	 ******************************************************************************/
-	
-	/**
-	 * copy - copies the coloring array into the bestColoring array.
-	 */
-	private static void copy()
-	{
-		for (int i = 0; i < getMaxColors(); i++)
-		{
-			bestColoring[i] = coloring[i];
-		}
 		
-	}
-	
 	/**
-	 * setup - creates an array of uncolored "vertices".
-	 */
-	private static void setup()
-	{
-		for (int i = 0; i < getMaxColors(); i++)
-		{
-			coloring[i] = 0;
-		}
-		
-	}
-	
-	/**
-	 * uncolored - method that determines if the vertex has been assigned a color.
+	 * getTheirNeighbors - standard getter for theirNeighbors
 	 * 
-	 * @param vertex: the number of the vertex
-	 * @return true if uncolored, false otherwise
+	 * @return theirNeighbors
 	 */
-	private static Boolean uncolored(int vertex)
+	public int[] getTheirNeighbors()
 	{
-		return (coloring[vertex] == 0);
+		return theirNeighbors;
 	}
 	
 	/**
-	 * whatColor - a 1-PARAM version of whatColor(), which checks to see if the vertex
-	 * 		is uncolored. If not, it sends to whatColor(Tree, Node); otherwise it returns
-	 * 		the color the vertex already is.
+	 * setTheirNeighbors - standard setter for TheirNeighbors
 	 * 
-	 * @param vertex: the number of the vertex
-	 * @return the int color of the vertex
+	 *  @param array: the value to set theirNeighbors to
 	 */
-	private static int whatColor(int vertex)
+	public static void setTheirNeighbors(int[] array)
 	{
-		if (uncolored(vertex))
-		{
-			return whatColor(tree, tree.tree[vertex].getNode(), 1);
-		}
-		else
-		{
-			return coloring[vertex];
-		}
-	}
-	
-	/**
-	 * whatColor - a 2-PARAM for determining what color to assign a vertex.
-	 * 
-	 * @param t: the tree
-	 * @param node: the node in question
-	 * @return the int value of the vertex
-	 */
-	private static int whatColor(Tree t, Node node, int potentialColor)
-	{	
+		theirNeighbors = array;
 	}
 }

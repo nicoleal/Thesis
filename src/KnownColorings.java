@@ -31,7 +31,7 @@ public class KnownColorings
 	 * @param g: the graph to color
 	 * @return the colored graph
 	 */
-	public Graph knownFourDiamTree(Graph g)
+	public static Graph knownFourDiamTree(Graph g)
 	{
 		int degree;									// A general, all purpose int
 		int n1 = 0;									// Nodes with a metNeighbors of 1 / leaves
@@ -47,40 +47,44 @@ public class KnownColorings
 		 * 		- and places them into their respective arrays - 
 		 * 		large (for degree-4 or more) or small (up to degree-3).
 		 */
+		int v = Helper.isCenter(g).getName();
 		for (int i = 0, j = 0, k = 0; i < g.getNumNodes(); i++)
 		{
-			degree = Graph.getGraph()[i].getMetNeighbors();
+			if (Helper.areNeighbors(v, i) && (v != i))
+			{
+				degree = Graph.getGraph()[i].getMetNeighbors();
 			
-			if (degree > 3)
-			{
-				L++;
-				large[j] = i;
-				j++;
-			}
-			else
-			{
-				if (degree == 1)
+				if (degree > 3)
 				{
-					n1++;
+					L++;
+					large[j] = i;
+					j++;
 				}
-				else if (degree == 2)
+				else
 				{
-					n2++;
+					if (degree == 1)
+					{
+						n1++;
+					}
+					else if (degree == 2)
+					{
+						n2++;
+					}
+					else // (degree == 3)
+					{
+						n3++;
+					}
+					small[k] = i;
+					k++;
 				}
-				else // (degree == 3)
-				{
-					n3++;
-				}
-				small[k] = i;
-				k++;
 			}
 		}
 		s = n1 + n2 + n3;
-
+		
 		/*
 		 * Center first coloring, ideal for (n1 = n2 = 0) and either
 		 * 		(L = 0 and 2 <= n3 <= 3) or (L > 0 and n3 < 3).
-		 * 		This satisfies (L + n2 + n3 >= 2).
+		 * 		
 		 */
 		if ((n1 == 0) && (n2 == 0))
 		{
@@ -108,7 +112,7 @@ public class KnownColorings
 				}
 				
 				setChi(j);
-				System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+				System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 				return g;
 			}
 		}
@@ -138,59 +142,58 @@ public class KnownColorings
 			}
 			
 			setChi(Color.GREEN.getRadius());
-			System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+			System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 			return g;
 		}
 		
 		/*
-		 * Leaf first coloring, ideal for all other situations 
+		 * Leaf first coloring, ideal for all other situations.
+		 * T5_Graph example.
 		 */
-		int v = Helper.isCenter(g).getName();
-		boolean b = true;
-		
 		for (int i = 0; i < L; i++)
 		{
-			if (i != v)
+			for (int j = 1; j < Graph.getGraph()[large[i]].getMetNeighbors(); j++)
 			{
-				for (int j = 0; j < Graph.getGraph()[i].getMetNeighbors(); j++)
+				if (Graph.getGraph()[Graph.getGraph()[large[i]].getNeighbor(j)].getName() != v);
+				Graph.getGraph()[Graph.getGraph()[large[i]].getNeighbor(j)].setColor(Color.RED);		// RED (1), V1
+			}
+
+		}
+			
+		int j = Color.BLUE.getRadius();							// BLUE (2), V2
+		
+		for (int k = 0; k < s; k++)
+		{
+			if (!Helper.isColored(small[k]))	
+			{
+				Graph.getGraph()[small[k]].setColor(Color.RED);
+				Graph.getGraph()[Graph.getGraph()[small[k]].getNeighbor(1)].setColor(Color.BLUE);
+				if (Graph.getGraph()[small[k]].getMetNeighbors() == 3)
 				{
-					Graph.getGraph()[Graph.getGraph()[i].neighbors[j]].setColor(Color.RED);		// RED (1), V1
+					Graph.getGraph()[Graph.getGraph()[small[k]].getNeighbor(2)].setColor(Color.GREEN);
 				}
-				if (b)
-				{
-					Graph.getGraph()[large[i]].setColor(Color.BLUE);							// BLUE (2), V2
-					b = false;
-				}
+			}
+			else
+			{
+				k++;
 			}
 		}
 		
-		int j = Color.BLUE.getRadius();							// BLUE (2), V2
-		for (int i = 0; i < s; i++)
+		for (int i = 0; i < Graph.getGraph().length; i++)
 		{
-			if (!Helper.isColored(i))
+			if (!Helper.isColored(Graph.getGraph()[i]) && (i != v))
 			{
-				if (Helper.areNeighbors(i, v))
+				if (j == Color.GREEN.getRadius())
 				{
-					Graph.getGraph()[i].setColor(Color.RED);	// RED (1), V1
-				}
-				else
-				{
-					Graph.getGraph()[small[i]].setColor(j);		// (2+), unique colors
 					j++;
 				}
-			}		
-		}
-		
-		for (int i = 0; i < L; i++)
-		{
-			if (!Helper.isColored(i))
-			{
-				Graph.getGraph()[large[i]].setColor(j); 		// (2+), unique colors
+				Graph.getGraph()[i].setColor(j); 		// (2+), unique colors
+				j++;
 			}
 		}
-		
+		Graph.getGraph()[v].setColor(j); 
 		setChi(j);
-		System.out.println("/n/nThe Broadcast Chromatic Number is: " + getChi() + "./n/n");
+		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 
 		return g;
 	} 
@@ -205,7 +208,7 @@ public class KnownColorings
 	 * @param g: the graph to color
 	 * @return the colored graph
 	 */
-	public Graph knownSmallTree(Graph g)
+	public static Graph knownSmallTree(Graph g)
 	{
 		//TODO
 		
@@ -308,7 +311,7 @@ public class KnownColorings
 	 * @param g: the graph to color
 	 * @return the colored graph
 	 */
-	public Graph knownTree(Graph g)
+	public static Graph knownTree(Graph g)
 	{
 		if (Helper.getDiameter((Tree) g) == 2)
 		{

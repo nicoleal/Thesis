@@ -28,26 +28,17 @@ public class Helper
 	 */
 	public static boolean areNeighbors(int node1, int node2)
 	{
-		boolean one = false;
-		boolean two = false;
-		
-		for (int i = 0; i < Graph.graph[node1].getMetNeighbors(); i++)
+		if (node1 != node2)
 		{
-			if (Graph.graph[node1].neighbors[i] == node2);
+			for (int i = 0; i < Graph.getGraph()[node1].getMetNeighbors(); i++)
 			{
-				one = true;
+				if (Graph.getGraph()[node1].getNeighbor(i) == node2)
+				{
+					return true;
+				}
 			}
 		}
-		
-		for (int i = 0; i < Graph.graph[node2].getMetNeighbors(); i++)
-		{
-			if (Graph.graph[node2].neighbors[i] == node1);
-			{
-				two = true;
-			}
-		}
-		
-		return (one && two);
+		return false;
 	}
 	
 	/**
