@@ -12,20 +12,21 @@
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class UserInputTest 
+public class UserInputTest extends Graph
 {
+	Graph g;
 
 	@Test
 	public void testInput1() throws Exception
 	{
-		PrintGraph.printList(Graph.buildInput("InputTest1"));
+		PrintGraph.printList(new UserInputGraph("InputTest1"));
 	}
 	
 	@Test(expected = Exception.class)
 	public void testInput2() throws Exception
 	{
 		ExpectedException thrown = ExpectedException.none();
-		Graph.buildInput("InputTest2");
+		g = new UserInputGraph("InputTest2");
 		thrown.expect(Exception.class);
 		thrown.expectMessage("Incorrect input format.");
 	}
@@ -34,7 +35,7 @@ public class UserInputTest
 	public void testInput3() throws Exception
 	{
 		ExpectedException thrown = ExpectedException.none();
-		Graph.buildInput("InputTest3");
+		g = new UserInputGraph("InputTest3");
 		thrown.expect(Exception.class);
 		thrown.expectMessage("Too many nodes in input graph.");
 	}
@@ -43,7 +44,7 @@ public class UserInputTest
 	public void testInput4() throws Exception
 	{
 		ExpectedException thrown = ExpectedException.none();
-		Graph.buildInput("InputTest4");
+		g = new UserInputGraph("InputTest4");
 		thrown.expect(Exception.class);
 		thrown.expectMessage("Incorrect input format.");
 	}
@@ -51,18 +52,18 @@ public class UserInputTest
 	@Test
 	public void testInput5() throws Exception
 	{
-		PrintGraph.printToFile(Graph.buildInput("InputTest1"), "OutputTest3");
+		PrintGraph.printToFile(new UserInputGraph("InputTest1"), "OutputTest3");
 	}
 	
 	@Test
 	public void testInput6() throws Exception
 	{
-		PrintGraph.printListWithColors(Graph.buildInput("InputTest1"));
+		PrintGraph.printListWithColors(new UserInputGraph("InputTest1"));
 	}
 	
 	@Test
 	public void testInput7() throws Exception
 	{
-		PrintGraph.printToFileWithColors(Graph.buildInput("InputTest1"), "OutputTest4");
+		PrintGraph.printToFileWithColors(new UserInputGraph("InputTest1"), "OutputTest4");
 	}
 }

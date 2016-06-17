@@ -13,83 +13,114 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class BruteForceColoringTest 
+public class BruteForceColoringTest extends BruteForceColoring
 {
-	Tree tree;
+	Graph g;
 	
 	@Test
 	public void test4Diam1() throws Exception
 	{
-		Graph g = BruteForceColoring.bruteForce((UserInputGraph.makeInput("T5_Graph")), 0);
+		g = bruteForce(new UserInputGraph("T5_Graph"), 0);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = Graph.getLeaf(3).getColor();
+		int i = getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(5, i);
-		i = Graph.getLeaf(11).getColor();
+		i = getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(5).getColor();
+		i = getLeaf(5).getColor();
 		assertEquals(4, i);
-		i = Graph.getLeaf(0).getColor();
+		i = getLeaf(0).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(7).getColor();
+		i = getLeaf(7).getColor();
 		assertEquals(6, i);
-		i = Graph.getLeaf(16).getColor();
+		i = getLeaf(16).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(2).getColor();
+		i = getLeaf(2).getColor();
 		assertEquals(1, i);
 	}
 	
 	@Test
 	public void test4Diam2() throws Exception
 	{
-		Graph g = BruteForceColoring.bruteForce((UserInputGraph.makeInput("T5_Graph")), 4);
+		g = bruteForce(new UserInputGraph("T5_Graph"), 4);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = Graph.getLeaf(4).getColor();
+		int i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(0).getColor();
+		i = getLeaf(0).getColor();
 		assertEquals(2, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(12).getColor();
+		i = getLeaf(12).getColor();
 		assertEquals(7, i);
-		i = Graph.getLeaf(5).getColor();
+		i = getLeaf(5).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(11).getColor();
+		i = getLeaf(11).getColor();
 		assertEquals(6, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(16).getColor();
+		i = getLeaf(16).getColor();
 		assertEquals(11, i);
-		i = Graph.getLeaf(2).getColor();
+		i = getLeaf(2).getColor();
 		assertEquals(1, i);
 	}
 	
 	@Test
 	public void test4Diam3() throws Exception
 	{
-		Graph g = BruteForceColoring.bruteForce((UserInputGraph.makeInput("T5_Graph")), 2);
-		PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = Graph.getLeaf(4).getColor();
+		g = bruteForce( new UserInputGraph("T5_Graph"), 2);
+		//PrintGraph.printListWithColors_ZeroFirst(g);
+		int i = getLeaf(4).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(2).getColor();
+		i = getLeaf(2).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(5, i);
-		i = Graph.getLeaf(12).getColor();
+		i = getLeaf(12).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(5).getColor();
+		i = getLeaf(5).getColor();
 		assertEquals(4, i);
-		i = Graph.getLeaf(11).getColor();
+		i = getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(1).getColor();
+		i = getLeaf(1).getColor();
 		assertEquals(2, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(1, i);
-		//i = Graph.getLeaf(0).getColor();
+		i = getLeaf(0).getColor();
 		assertEquals(1, i);
-		
+	}
+	
+	@Test
+	public void test4Diam4() throws Exception
+	{
+		g = bruteForce(new UserInputGraph("T5_Graph"), 16);
+		PrintGraph.printListWithColors_ZeroFirst(g);
+		/*int i = getLeaf(4).getColor();
+		assertEquals(3, i);
+		i = getLeaf(2).getColor();
+		assertEquals(1, i);
+		i = getLeaf(6).getColor();
+		assertEquals(5, i);
+		i = getLeaf(12).getColor();
+		assertEquals(1, i);
+		i = getLeaf(5).getColor();
+		assertEquals(4, i);
+		i = getLeaf(11).getColor();
+		assertEquals(1, i);
+		i = getLeaf(1).getColor();
+		assertEquals(2, i);
+		i = getLeaf(3).getColor();
+		assertEquals(1, i);
+		i = getLeaf(0).getColor();
+		assertEquals(1, i);*/
+	}
+	
+	@Test
+	public void testForce() throws Exception
+	{
+		g = forceGraph(new UserInputGraph("T5_Graph"));
+		//PrintGraph.printListWithColors_ZeroFirst(g);
 	}
 }

@@ -184,8 +184,6 @@ public class NodeTest
 	public void testCopy() throws CloneNotSupportedException
 	{
 		Node node11 = new Node(11);
-		Node node12 = new Node(12);
-		Node node13 = new Node(13);
 		int[] array1 = new int[3];
 		array1[0] = 11;
 		array1[1] = 12;
@@ -276,18 +274,17 @@ public class NodeTest
 		i = node11.getDegree();
 		assertEquals(1, i);
 	}
-	
 		
 	@Test
 	public void testString()
 	{
 		Node node11 = new Node(11);
 		node11.setColor(5);
-		String s = node11.toString();
+		//String s = node11.toString();
 		//System.out.println(s);
 		Node node12 = new Node(12);
 		node12.setColor(17);
-		s = node12.toString();
+		//s = node12.toString();
 		//System.out.println(s);
 	}
 }

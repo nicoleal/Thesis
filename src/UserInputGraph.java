@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class UserInputGraph
+public class UserInputGraph extends Graph
 {
 	private static BufferedReader bufferedReader;		// A buffered file reader						
 	protected static File f;							// The input file
@@ -35,18 +35,20 @@ public class UserInputGraph
 	 * 		and builds the tree
 	 * 
 	 * @param numNodes: manyItems
-	 * @return the input graph
 	 */
-	protected static Graph makeInput(String fileName) throws Exception
+	public UserInputGraph(String fileName) throws Exception
 	{
+		super();
 		fileName = "TestFiles\\" + fileName + ".txt";
 		fileReader = new FileReader(fileName);
-		bufferedReader = new BufferedReader(fileReader);
+		bufferedReader = new BufferedReader(fileReader);	
 		
 		line = bufferedReader.readLine();
 		degree = Integer.parseInt(line.substring(0, line.indexOf(' ')));
-		numNodes = Integer.parseInt(line.substring(line.indexOf(' ') + 1));
-		Graph g = new Graph(numNodes, degree);
+		numNodes = Integer.parseInt(line.substring(line.indexOf(' ') + 1));	
+		
+		setGraphDegree(degree);
+		setNumNodes(numNodes);
 		
 		int sponsor;
 		int newNode;
@@ -62,7 +64,7 @@ public class UserInputGraph
 			
 			if (sponsor == 0)
 			{
-				Graph.getGraph()[0] = new Node(degree, 0);
+				graph[0] = new Node(degree, 0);
 			}
 			
 			line = line.substring(line.indexOf(':') + 2);
@@ -81,23 +83,20 @@ public class UserInputGraph
 						System.out.println(e);
 					}
 
-					Graph.getGraph()[newNode] = new Node(degree, newNode);
-					Graph.addNode(Graph.getGraph()[sponsor], Graph.getGraph()[newNode]);
+					graph[newNode] = new Node(degree, newNode);
+					addNode(graph[sponsor], graph[newNode]);
 					line = line.substring(line.indexOf(',') + 2);
 				}
 				else
 				{
 					newNode = Integer.parseInt(line);
-					Graph.getGraph()[newNode] = new Node(degree, newNode);
-					Graph.addNode(Graph.getGraph()[sponsor], Graph.getGraph()[newNode]);
+					graph[newNode] = new Node(degree, newNode);
+					addNode(graph[sponsor], graph[newNode]);
 					line = null;
 				}
 			}
 		}
-		
 		bufferedReader.close();
 		fileReader.close();
-		
-		return g;
 	}
 }

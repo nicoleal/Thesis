@@ -14,22 +14,17 @@
 
 public class Graph
 {
+	public static final int DEFAULT_CHI = 0;
 	public static final int DEFAULT_COUNTER = 000;
 	public static final int DEFAULT_DEGREE = 20;
 	public static final int DEFAULT_NODES = 10;
 	
-	private static int counter;				// Names the new nodes incrementally [0 - numNodes)
-	private static int graphDegree;			// The maximum degree any node in this graph can have, if any
-	private int numNodes;					// The total number of nodes in graph
-	private static Node node;				// An all-purpose node, to limit memory drain
-	public static Node[] graph;				// The graph, as a collection of ordered nodes in an array
-	
-	
-	/******************************************************************************
-	 *                                                                            *
-	 *							     CONSTRUCTORS                                 *
-	 *                                                                            *
-	 ******************************************************************************/
+	private int chi;					// The BCN, pronounced "kai"
+	private int counter;				// Names the new nodes incrementally [0 - numNodes)
+	private int graphDegree;			// The maximum degree any node in this graph can have, if any
+	private int numNodes;				// The total number of nodes in graph
+	private Node node;				  	// An all-purpose node, to limit memory drain
+	public Node[] graph;				// The graph, as a collection of ordered nodes in an array
 	
 	/**
 	 * NO-ARG CONSTRUCTOR for graph, which sets the counter to 0, the graphDegree and
@@ -37,6 +32,7 @@ public class Graph
 	 */
 	public Graph()
 	{
+		chi = DEFAULT_CHI;
 		counter = DEFAULT_COUNTER;
 		graphDegree = DEFAULT_DEGREE;
 		numNodes = DEFAULT_NODES;
@@ -52,6 +48,7 @@ public class Graph
 	 */
 	public Graph(int numNodes)
 	{
+		chi = DEFAULT_CHI;
 		counter = DEFAULT_COUNTER;
 		graphDegree = DEFAULT_DEGREE;
 		this.numNodes = numNodes;
@@ -67,277 +64,35 @@ public class Graph
 	 */
 	public Graph(int numNodes, int graphDegree)
 	{
+		chi = DEFAULT_CHI;
 		counter = DEFAULT_COUNTER;
-		Graph.graphDegree = graphDegree;
+		this.graphDegree = graphDegree;
 		this.numNodes = numNodes;
 		graph = new Node[numNodes];
 	}
-	
-	/******************************************************************************
-	 *                                                                            *
-	 *							   DEFAULT GRAPHS                                 *
-	 *                                                                            *
-	 ******************************************************************************/
-	
-	/**
-	 * buildCat1 - builds a CATERPILLAR GRAPH of TYPE 1. Which is to say a 
-	 * 		graph where any vertex v is no more than 1 edge away from the
-	 * 		spine AND all vertices have no more than degree-3. The degree-3
-	 * 		requirement is built into the method and cannot be changed without
-	 * 		delving into the code. 
-	 * 		
-	 * 		As this is __identical__ to a binary tree with one leaf node
-	 * 		and one non-leaf-node, this tree is constructed as such, with
-	 * 		the proper modifications made to the depth as needed. 
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new CATERPILLAR T1 GRAPH with a spine of (numNodes/2) and
-	 * 		(numNodes/2) branches of length 1 each.
-	 * @throws Exception
-	 */
-	protected static Graph buildCat1(int numNodes) throws Exception
-	{
-		int degree = 3;
-		Graph g = new Graph(numNodes, degree);
-		Graph.getGraph()[0] = new Node(degree, 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			if (Helper.isOdd(i))
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 1].getNode(), degree);
-				makeLeaf(i);
-			}
-			else
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 2].getNode(), degree);
-			}
-			g.setCounter(getCounter() + 1);
-		}
-		
-		return g;
-	}
-	
-	/**
-	 * buildCat2 - builds a CATERPILLAR GRAPH of TYPE 2. Which is to say a 
-	 * 		graph where any vertex v is no more than 1 edge away from the
-	 * 		spine AND all vertices have no more than degree-4. The degree-4
-	 * 		requirement is built into the method and cannot be changed without
-	 * 		delving into the code. 
-	 * 		
-	 * 		As this is __identical__ to a ternary tree with two leaf nodes
-	 * 		and one non-leaf-node, this tree is constructed as such, with
-	 * 		the proper modifications made to the depth as needed. 
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new CATERPILLAR T2 GRAPH with a spine of (numNodes/3) and
-	 * 		(2*numNodes/3) branches of length 1 each.
-	 * @throws Exception
-	 */
-	protected static Graph buildCat2(int numNodes) throws Exception
-	{
-		int degree = 4;
-		Graph g = new Graph(numNodes, degree);
-		Graph.getGraph()[0] = new Node(degree, 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			int j = i % 3;
-			
-			if (j == 0)
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 3].getNode(), degree);
-			}
-			else 
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
-				makeLeaf(i);
-			}
-			g.setCounter(getCounter() + 1);
-		}
-		
-		return g;
-	}
-	
-	/**
-	 * buildLob1 - builds a LOBSTER GRAPH of TYPE 1. Which is to say a 
-	 * 		graph where any vertex v is no more than 2 edges away from the
-	 * 		spine AND all vertices have no more than degree-3. The degree-3
-	 * 		requirement is built into the method and cannot be changed without
-	 * 		delving into the code. 
-	 * 		
-	 * 		As this is __identical__ to a binary tree with 1 branching nodes
-	 * 		and 1 spine node, this tree is constructed as such, with
-	 * 		the proper modifications made to the depth as needed. 
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new LOBSTER T1 GRAPH with a spine of (numNodes/4) and
-	 * 		(numNodes/4) branches of length 2 each.
-	 * @throws Exception
-	 */
-	protected static Graph buildLob1(int numNodes) throws Exception
-	{
-		int degree = 3;
-		Graph g = new Graph(numNodes, degree);
-		Graph.getGraph()[0] = new Node(degree, 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			int j = i % 4;
-			
-			if (j == 0)
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 4].getNode(), degree);
-			}
-			else if (j == 1)
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
-			}
-			else
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 1)].getNode(), degree);
-				makeLeaf(i);
-			}
-			g.setCounter(getCounter() + 1);
-		}
-		
-		return g;
-	}
-	
-	/**
-	 * buildLob2 - builds a LOBSTER GRAPH of TYPE 2. Which is to say a 
-	 * 		tree where any vertex v is no more than 2 edges away from the
-	 * 		spine AND all vertices have no more than degree-4. The degree-4
-	 * 		requirement is built into the method and cannot be changed without
-	 * 		delving into the code. 
-	 * 		
-	 * 		As this is __identical__ to a binary tree with 2 branching nodes
-	 * 		and 1 spine node, this tree is constructed as such, with
-	 * 		the proper modifications made to the depth as needed. 
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new LOBSTER T2 GRAPH with a spine of (numNodes/7)
-	 * 		and (2*numNodes/7) branches of length 2.
-	 * @throws Exception
-	 */
-	protected static Graph buildLob2(int numNodes) throws Exception
-	{
-		int degree = 4;
-		Graph g = new Graph(numNodes, degree);
-		Graph.getGraph()[0] = new Node(degree, 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			int j = i % 7;
-			
-			if (j == 0)
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - 7].getNode(), degree);
-			}
-			else if ((j == 1) || (j == 4))
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[i - j].getNode(), degree);
-			}
-			else if (j > 4)
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 4)].getNode(), degree);
-				makeLeaf(i);
-			}
-			else
-			{
-				Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - j + 1)].getNode(), degree);
-				makeLeaf(i);
-			}
-			g.setCounter(getCounter() + 1);
-		}
-		
-		return g;
-	}	
-	
-	/**
-	 * buildInput - builds a graph based off of user input. Which is to 
-	 * 		say graph that builds according to the makeInput() method in
-	 * 		the class UserInputGraph, dedicated to this problem.
-	 * 		 
-	 * @return the new USER INPUT GRAPH
-	 * @throws Exception
-	 */
-	protected static Graph buildInput(String fileName) throws Exception
-	{
-		return UserInputGraph.makeInput(fileName);
-	}
-	
-	/**
-	 * buildRand - builds a RANDOMLY GENERATED GRAPH. Which is to say a 
-	 * 		graph that builds according to the makeRandom() method in
-	 * 		the class RandomGraphGenerator, dedicated to this problem.
-	 * 		 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new RANDOMLY GENERATED GRAPH.
-	 * @throws Exception
-	 */
-	protected static Graph buildRand(int numNodes) throws Exception
-	{
-		return RandomGraphGenerator.makeRandom(numNodes);
-	}
-	
-	/**buildSpine - builds a SPINE GRAPH. Which is to say line of nodes 
-	 * 		with a root of zero and at most one child.
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new SPINE GRAPH with length N
-	 * @throws Exception
-	 */
-	protected static Graph buildSpine(int numNodes) throws Exception
-	{
-		int degree = 2;
-		Graph g = new Graph(numNodes, degree);
-		Graph.getGraph()[0] = new Node(degree, 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			g.setCounter(getCounter() + 1);
-			Graph.getGraph()[i] = newNode(Graph.getGraph()[(i - 1)], degree);
-			
-		}
-		
-		return g;
-	}
-	
-	/**buildStar - builds a STAR GRAPH. Which is to say 1 central node 
-	 * 		with (n - 1) leaves branching from it.
-	 * 
-	 * @param numNodes: the desired N of the graph
-	 * @return the new STAR GRAPH
-	 * @throws Exception
-	 */
-	protected static Graph buildStar(int numNodes) throws Exception
-	{
-		Graph g = new Graph(numNodes);
-		Graph.getGraph()[0] = new Node((numNodes - 1), 0);
-		
-		for (int i = 1; i < numNodes; i++)
-		{
-			g.setCounter(getCounter() + 1);
-			Graph.getGraph()[i] = newNode(Graph.getGraph()[0], 1);
-		}
-		
-		return g;
-	}
-	
+
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Standard Methods                                *
 	 *                                                                            *
 	 ******************************************************************************/
 	
+	/**
+	 * getChi - standard getter for chi
+	 * 
+	 * @return the current value of chi
+	 */
+	public int getChi()
+	{
+		return chi;
+	}
 	
 	/**
 	 * getCounter - standard getter for counter.
 	 * 
 	 * @return the current value of counter
 	 */
-	public static int getCounter()
+	public int getCounter()
 	{
 		return counter;
 	}
@@ -347,7 +102,7 @@ public class Graph
 	 * 
 	 * @return the node at graph[i]
 	 */
-	protected static Node getLeaf(int i)
+	protected Node getLeaf(int i)
 	{
 		return graph[i].getNode();
 	}
@@ -357,7 +112,7 @@ public class Graph
 	 * 
 	 * @return the array that holds the graph
 	 */
-	public static Node[] getGraph()
+	public Node[] getGraph()
 	{
 		return graph;
 	}
@@ -367,7 +122,7 @@ public class Graph
 	 * 
 	 * @return the max degree of the graph, if any
 	 */
-	public static int getGraphDegree()
+	public int getGraphDegree()
 	{
 		return graphDegree;
 	}
@@ -377,9 +132,20 @@ public class Graph
 	 * 
 	 * @return the Node named i
 	 */
-	public Node getNode(int name)
+	public Node getNeighbor(int name)
 	{
 		return graph[name];
+	}
+	
+	/**
+	 * getNode - returns the vertex with name i
+	 * 
+	 * @param i: the vertex's name
+	 * @return the vertex
+	 */
+	public Node getNode(int i) 
+	{
+		return graph[i];
 	}
 	
 	/**
@@ -392,6 +158,16 @@ public class Graph
 		return numNodes;
 	}
 	
+ 	/**
+ 	 * setChi - standard setter for chi.
+ 	 * 
+ 	 * @param chi1: the value to set chi to
+ 	 */
+ 	protected void setChi(int chi1)
+ 	{
+ 		chi = chi1;
+ 	}
+ 	
 	/**
 	 * setCounter - standard setter for counter.
 	 * 
@@ -403,11 +179,11 @@ public class Graph
 	}
 	
 	/**
-	 * setGraph - standard setter for graph.
+	 * setGraph - standard setter for graph array
 	 * 
-	 * @param array: the array to set graph to
+	 * @param array: the new array
 	 */
-	public static void setGraph(Node[] array)
+	protected void setGraph(Node[] array)
 	{
 		graph = array;
 	}
@@ -417,7 +193,7 @@ public class Graph
 	 * 
 	 * @param i: the number which to set degree to, if not default
 	 */
-	protected static void setGraphDegree(int i)
+	protected void setGraphDegree(int i)
 	{
 		graphDegree = i;
 	}
@@ -442,6 +218,7 @@ public class Graph
 		setCounter(0);
 	}
 	
+	
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Helper   Methods                                *
@@ -451,14 +228,14 @@ public class Graph
 	/**
 	 * addNode - adds a pre-existing node to its sponsor
 	 * 
-	 * @param sponsor: an existing node which to attach the new node
-	 * @param node: the node to attach to the sponsor
-	 * @throws Exception
+	 * @param sponsor: a pre-existing node in the graph
+	 * @param newNode: a pre-existing node to be added to the graph
+	 * @throws Exception 
 	 */
-	protected static void addNode(Node sponsor, Node node) throws Exception
+	public void addNode(Node sponsor, Node newNode) throws Exception 
 	{
-		sponsor.addNeighbor(node);
-		node.addNeighbor(sponsor);
+		sponsor.addNeighbor(newNode);
+		newNode.addNeighbor(sponsor);
 	}
 	
 	/**
@@ -469,7 +246,7 @@ public class Graph
 	 * @return the new node
 	 * @throws Exception
 	 */
-	protected static Node newNode(Node sponsor, int degree) throws Exception
+	protected Node newNode(Node sponsor, int degree) throws Exception
 	{
 		node = new Node(sponsor, getGraphDegree(), getCounter());
 		sponsor.addNeighbor(node);
@@ -483,7 +260,7 @@ public class Graph
 	 * @param i: the name of the node
 	 * @throws CloneNotSupportedException 
 	 */
-	protected static void makeLeaf(int i) throws CloneNotSupportedException
+	protected void makeLeaf(int i) throws CloneNotSupportedException
 	{
 		graph[i].leaf();
 	}

@@ -11,10 +11,11 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
-public class BruteForceColoring 
+public class BruteForceColoring extends Colorings
 {
-	public static int[] theirNeighbors;						// A holder for the neighbors' neighbors
-	public static int[] moreNeighbors;						// a holder for more neighbors
+	public int chi;										// The BCN
+	public int[] theirNeighbors;						// A holder for the neighbors' neighbors
+	
 	
 	/**
 	 * bruteForce - a brute force attempt at coloring outwards. Starts from a "center"
@@ -22,82 +23,112 @@ public class BruteForceColoring
 	 * 		its neighbors' neighbors RED (1). Will eventually recurse back so that 
 	 * 		brute force is run on all uncolored (White (0)) "grandchildren" of the 
 	 * 		original node, id est, the contents of the theirNeighbors array.
-	 * @param g
-	 * @param center
-	 * @return
+	 * 
+	 * @param g: the input graph
+	 * @param center: the start point
+	 * @return the colored graph
 	 */
-	public static Graph bruteForce(Graph g, int center)
+	public Graph bruteForce(Graph g, int center)
 	{
-		theirNeighbors = new int[Graph.getGraph().length];
-		moreNeighbors = new int[Graph.getGraph().length];
-		Graph.getGraph()[center].setColor(Color.RED);		// RED (1), V1
+		theirNeighbors = new int[getNumNodes()];
+		graph[center].setColor(Color.RED);		// RED (1), V1
 		
 		int j = 2;
-		for (int i = 0; i < Graph.getGraph()[center].getMetNeighbors(); i++, j++)
+		for (int i = 0; i < graph[center].getMetNeighbors(); i++)
 		{
-			 Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].setColor(j);
+			Node n = graph[graph[center].neighbors[i]];
+			n.setColor(j);
+			setChi(j);
+			j++;
 			
-			for (int k = 1, l = 0; k < Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].getMetNeighbors(); k++, l++)
+			for (int k = 1, l = 0; k < n.getMetNeighbors(); k++, l++)
 			{
-				theirNeighbors[l] = Graph.getGraph()[Graph.getGraph()[center].neighbors[i]].neighbors[k];
-				Graph.getGraph()[theirNeighbors[l]].setColor(Color.RED);
+				theirNeighbors[l] = n.neighbors[k];
+				if (!isColored(graph[theirNeighbors[l]]))
+				{
+					graph[theirNeighbors[l]].setColor(Color.RED);
+				}
 			}
 		}
-		
-		
-		bruteForceLowerLevels(j);
-		return g;
-	}
-	
-	
-	public static int bruteForceLowerLevels(int j)
-	{
-		for (int i = 0, q = 0; i < theirNeighbors.length; i++)
+
+		for (int i = 0; i < theirNeighbors.length; i++)
 		{
-			Node m = Graph.getGraph()[theirNeighbors[i]];
+			Node m = graph[theirNeighbors[i]];
 			
 			for (int k = 0; k < m.getMetNeighbors(); k++)
 			{
-				int y = Graph.getGraph()[m.getName()].neighbors[k];
-				if (!Helper.isColored(y))
+				int y = graph[m.getName()].neighbors[k];
+				if (!isColored(y))
 				{
-					Graph.getGraph()[y].setColor(j);
+					graph[y].setColor(j);
+					setChi(j);
 					j++;
 				}
 				
-				Node n = Graph.getGraph()[y];
+				Node n = graph[y];
 				
 				if (n.getMetNeighbors() > 1)
 				{
-					for (int l = 1; l < Graph.getGraph()[n.getName()].getMetNeighbors(); l++)
+					for (int l = 0; l < graph[n.getName()].getMetNeighbors(); l++)
 					{
-						int x = Graph.getGraph()[n.getName()].neighbors[l];
-						if (!Helper.isColored(x))
+						int x = graph[n.getName()].neighbors[l];
+						if (!isColored(x))
 						{
-							Graph.getGraph()[x].setColor(Color.RED);
-						}
-						
-						if (Graph.getGraph()[x].getMetNeighbors() > 1);
-						{
-							for (int z = 1; z < Graph.getGraph()[x].getMetNeighbors(); z++)
-							{
-								moreNeighbors[q] = Graph.getGraph()[x].neighbors[z];
-								q++;
-							}
+							graph[x].setColor(Color.RED);
 						}
 					}
 				}
 			}
 		}
-		return j;
+		//System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+		return g;
 	}
+	
+	/**
+	 * forceGraph - runs bruteForce() on each node of the graph, to find the lowest possible BCN /
+	 * 		 best possible coloring. 
+	 * 
+	 * @param g: the input graph
+	 * @return the best coloring
+	 */
+	public Graph forceGraph(Graph g)
+	{
+		int bestChi = g.getNumNodes();
+		int tempChi;
+		
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{
+			g = bruteForce(g, i);
+			tempChi = getChi();
+			
+			if (tempChi < bestChi)
+			{
+				bestChi = getChi();
+			}
+		}
+		setChi(bestChi);
+		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+		
+		return g;
+	}
+	
 	
 	/******************************************************************************
 	 *                                                                            *
 	 *                            Standard   Methods                              *
 	 *                                                                            *
 	 ******************************************************************************/
-		
+	
+	/**
+	 * getChi - returns the value of chi (X), the broadcast chromatic number
+	 * 
+	 * @return chi: the broadcast chromatic number
+	 */
+	public int getChi()
+	{
+		return chi;
+	}
+	
 	/**
 	 * getTheirNeighbors - standard getter for theirNeighbors
 	 * 
@@ -109,11 +140,24 @@ public class BruteForceColoring
 	}
 	
 	/**
+	 * setChi - sets the value of chi (X), the broadcast chromatic number
+	 * 
+	 * @param chi: the value to be set to the broadcast chromatic number
+	 */
+	protected void setChi(int chi1)
+	{
+		if (chi1 > getChi())
+		{
+			chi = chi1;
+		}
+	}
+	
+	/**
 	 * setTheirNeighbors - standard setter for TheirNeighbors
 	 * 
 	 *  @param array: the value to set theirNeighbors to
 	 */
-	public static void setTheirNeighbors(int[] array)
+	public void setTheirNeighbors(int[] array)
 	{
 		theirNeighbors = array;
 	}

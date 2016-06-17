@@ -10,7 +10,7 @@
  * {@link https://github.com/nicoleal/Thesis}
  */
 
-public class Helper 
+public class Colorings extends Graph
 {
 	/******************************************************************************
 	 *                                                                            *
@@ -26,13 +26,13 @@ public class Helper
 	 * @param node2: the name of the second node to be compared.
 	 * return TRUE if neighbors, false otherwise
 	 */
-	public static boolean areNeighbors(int node1, int node2)
+	public boolean areNeighbors(int node1, int node2)
 	{
 		if (node1 != node2)
 		{
-			for (int i = 0; i < Graph.getGraph()[node1].getMetNeighbors(); i++)
+			for (int i = 0; i < graph[node1].getMetNeighbors(); i++)
 			{
-				if (Graph.getGraph()[node1].getNeighbor(i) == node2)
+				if (graph[node1].getNeighbor(i) == node2)
 				{
 					return true;
 				}
@@ -49,7 +49,7 @@ public class Helper
 	 * @param node2: the second node to be compared.
 	 * return TRUE if neighbors, false otherwise
 	 */
-	public static boolean areNeighbors(Node node1, Node node2)
+	public boolean areNeighbors(Node node1, Node node2)
 	{
 		boolean one = false;
 		boolean two = false;
@@ -80,9 +80,9 @@ public class Helper
 	 * @param i: the name of the node
 	 * @return TRUE if colored, FALSE otherwise
 	 */
-	public static boolean isColored(int i)
+	public boolean isColored(int i)
 	{
-		return (Graph.getLeaf(i).getColor() != Color.WHITE.getRadius());
+		return (getLeaf(i).getColor() != Color.WHITE.getRadius());
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class Helper
 	 * @param i: the name of the node
 	 * @return TRUE if colored, FALSE otherwise
 	 */
-	public static boolean isColored(Node node)
+	public boolean isColored(Node node)
 	{
 		return (node.getColor() != Color.WHITE.getRadius());
 	}
@@ -116,9 +116,9 @@ public class Helper
 	 * @param i: the name of the node in question
 	 * @return TRUE if leaf, FALSE otherwise
 	 */
-	public static boolean isLeaf(int i)
+	public boolean isLeaf(int i)
 	{
-		return (Graph.getLeaf(i).getMetNeighbors() == 1);
+		return (getLeaf(i).getMetNeighbors() == 1);
 	}
 	
 	/**
@@ -211,50 +211,32 @@ public class Helper
 	 ******************************************************************************/
 	
 	/**
+	 * copy - copies the contents from one array to another
+	 * 
+	 * @param oldArray - the copy destination
+	 * @param newArray - the array to be copied
+	 * @return the copied array
+	 */
+	//public static 
+	
+	/**
 	 * getDiameter - determines the diameter of the tree by finding the maximum
 	 * 		depth of Node farthest from the root.
 	 * 
 	 * @param t: the tree
 	 * @return the maximum depth of the tree
 	 */
-	public static int getDiameter(Tree t)
+	public int getDiameter(Tree t)
 	{
 		int maxDepth = 0; 
 		
 		for (int i = 0; i < t.getNumNodes(); i++)
 		{	
-			if (((TreeNode) Tree.getGraph()[i]).getDepth() > maxDepth)
+			if (((TreeNode) getGraph()[i]).getDepth() > maxDepth)
 			{
-				maxDepth = ((TreeNode) Tree.getGraph()[i]).getDepth();
+				maxDepth = ((TreeNode) getGraph()[i]).getDepth();
 			}
 		}
-		
 		return maxDepth;
 	}
-	
-	/**
-	 * isCenter - returns the Node at the center of the graph / with the highest number
-	 * 		of metNeighbors. If there are duplicates, the Node with the smallest (lowest)
-	 * 		name is selected. 
-	 * 
-	 * @param g: the graph
-	 * @return the central Node
-	 */
-	public static Node isCenter(Graph g)
-	{
-		int center = 0;
-		int maxMetNeighbors = 1;
-		
-		for (int i = 0; i < g.getNumNodes(); i++)
-		{
-			if (Graph.getGraph()[i].getMetNeighbors() > maxMetNeighbors)
-			{
-				maxMetNeighbors = Graph.getGraph()[i].getMetNeighbors();
-				center = i;
-			}
-		}
-				
-		return Graph.getGraph()[center];
-	}
-	
 }

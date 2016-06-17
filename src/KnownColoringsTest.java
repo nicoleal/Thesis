@@ -12,25 +12,27 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class KnownColoringsTest 
+public class KnownColoringsTest extends KnownColorings
 {
+	Graph g;
+	
 	@Test
 	public void testSpine1() throws Exception
 	{
-		Graph t = KnownColorings.knownSpine(Graph.buildSpine(8));
-		int i = t.getNumNodes();
+		g = knownSpine(new Spine(8));
+		int i = getNumNodes();
 		assertEquals(8, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(2).getMetNeighbors();
+		i = getLeaf(2).getMetNeighbors();
 		assertEquals(2, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		boolean b = Helper.isLeaf(3);
+		boolean b = isLeaf(3);
 		assertEquals(false, b);
-		b = Helper.isLeaf(7);
+		b = isLeaf(7);
 		assertEquals(true, b);
 		//PrintGraph.printListWithColors(t);
 	}
@@ -38,47 +40,47 @@ public class KnownColoringsTest
 	@Test
 	public void testSpine2() throws Exception
 	{
-		Graph t = KnownColorings.knownSpine(Graph.buildSpine(30));
-		int i = t.getNumNodes();
+		g = knownSpine(new Spine(30));
+		int i = getNumNodes();
 		assertEquals(30, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(2).getMetNeighbors();
+		i = getLeaf(2).getMetNeighbors();
 		assertEquals(2, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(29).getColor();
+		i = getLeaf(29).getColor();
 		assertEquals(4, i);
-		i = Graph.getLeaf(27).getColor();
+		i = getLeaf(27).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(28).getColor();
+		i = getLeaf(28).getColor();
 		assertEquals(1, i);
-		//PrintGraph.printListWithColors(t);
+		PrintGraph.printListWithColors(g);
 	}
 	
 	@Test
 	public void testSpine3() throws Exception
 	{
-		Graph t = KnownColorings.knownSpine(Graph.buildSpine(31));
-		int i = t.getNumNodes();
+		g = knownSpine(new Spine(31));
+		int i = getNumNodes();
 		assertEquals(31, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(2).getMetNeighbors();
+		i = getLeaf(2).getMetNeighbors();
 		assertEquals(2, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(29).getColor();
+		i = getLeaf(29).getColor();
 		assertEquals(2, i);
-		i = Graph.getLeaf(27).getColor();
+		i = getLeaf(27).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(28).getColor();
+		i = getLeaf(28).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(30).getColor();
+		i = getLeaf(30).getColor();
 		assertEquals(4, i);
 		//PrintGraph.printListWithColors(t);
 	}
@@ -86,22 +88,22 @@ public class KnownColoringsTest
 	@Test
 	public void testSpine4() throws Exception
 	{
-		Graph t = KnownColorings.knownSpine(Graph.buildSpine(29));
-		int i = t.getNumNodes();
+		g = knownSpine(new Spine(29));
+		int i = getNumNodes();
 		assertEquals(29, i);
-		i = Graph.getLeaf(6).getColor();
+		i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(2).getMetNeighbors();
+		i = getLeaf(2).getMetNeighbors();
 		assertEquals(2, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(28).getColor();
+		i = getLeaf(28).getColor();
 		assertEquals(4, i);
-		i = Graph.getLeaf(27).getColor();
+		i = getLeaf(27).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(26).getColor();
+		i = getLeaf(26).getColor();
 		assertEquals(1, i);
 		//PrintGraph.printListWithColors(t);
 	}
@@ -109,14 +111,14 @@ public class KnownColoringsTest
 	@Test
 	public void testStar1() throws Exception
 	{
-		Graph g = KnownColorings.knownStar(Graph.buildStar(10));
-		int i = Graph.getLeaf(6).getColor();
+		g = knownStar(new Star(10));
+		int i = getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(0).getColor();
+		i = getLeaf(0).getColor();
 		assertEquals(2, i);
-		i = Graph.getLeaf(0).getMetNeighbors();
+		i = getLeaf(0).getMetNeighbors();
 		assertEquals(9, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(1, i);
 		//PrintGraph.printListWithColors_Star(g);
 	}
@@ -124,25 +126,26 @@ public class KnownColoringsTest
 	@Test
 	public void test4Diam1() throws Exception
 	{
-		Graph g = KnownColorings.knownFourDiamTree(UserInputGraph.makeInput("T5_Graph"));
+		g = new UserInputGraph("T5_Graph");
+		knownFourDiamTree(g, 0);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = Graph.getLeaf(6).getColor();
+		int i = getLeaf(6).getColor();
 		assertEquals(4, i);
-		i = Graph.getLeaf(11).getColor();
+		i = getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(5).getColor();
+		i = getLeaf(5).getColor();
 		assertEquals(2, i);
-		i = Graph.getLeaf(0).getColor();
+		i = getLeaf(0).getColor();
 		assertEquals(6, i);
-		i = Graph.getLeaf(7).getColor();
+		i = getLeaf(7).getColor();
 		assertEquals(5, i);
-		i = Graph.getLeaf(16).getColor();
+		i = getLeaf(16).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(3).getColor();
+		i = getLeaf(3).getColor();
 		assertEquals(3, i);
-		i = Graph.getLeaf(4).getColor();
+		i = getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = Graph.getLeaf(2).getColor();
+		i = getLeaf(2).getColor();
 		assertEquals(2, i);
 	}
 	
