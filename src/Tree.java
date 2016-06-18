@@ -14,6 +14,8 @@
 
 public class Tree extends Graph
 {
+	private TreeNode node;				  	// An all-purpose node, to limit memory drain
+	
 	/**
 	 * NO-ARG CONSTRUCTOR for tree, which sets the counter to 0, the graphDegree and
 	 * 		numNodes to their default values, and greats a Node array of length numNodes.
@@ -57,6 +59,30 @@ public class Tree extends Graph
 	 ******************************************************************************/
 	
 	/**
+	 * addNode - adds a pre-existing node to its sponsor. TREENODE VERSION.
+	 * 
+	 * @param sponsor: a pre-existing node in the graph
+	 * @param newNode: a pre-existing node to be added to the graph
+	 * @throws Exception 
+	 */
+	public void addTreeNode(TreeNode sponsor, TreeNode newNode) throws Exception 
+	{
+		sponsor.addNeighbor(newNode);
+		newNode.addNeighbor(sponsor);
+	}
+	
+	/**
+	 * getLeaf - standard getter for a node / leaf. TREENODE VERSION.
+	 * 
+	 * @return the node at graph[i]
+	 */
+	protected TreeNode getLeaf(int i)
+	{
+		return (TreeNode) graph[i].getNode();
+	}
+	
+	
+	/**
 	 * getRoot - standard getter for a root node / node-0.
 	 * 
 	 * @return the node at graph[0]
@@ -64,5 +90,22 @@ public class Tree extends Graph
 	public Node getRoot()
 	{
 		return graph[0].getNode();
+	}
+	
+	/**
+	 * newTreeNode - creates a new node and attaches it to a pre-existing node.
+	 * 		TREENODE VERSION.
+	 * 
+	 * @param sponsor: an existing node which to attach the new node
+	 * @param degree: the degree the node should have
+	 * @return the new node
+	 * @throws Exception
+	 */
+	protected TreeNode newTreeNode(TreeNode sponsor, int degree) throws Exception
+	{
+		node = new TreeNode(sponsor, getGraphDegree(), getCounter());
+		sponsor.addNeighbor(node);
+		
+		return node;
 	}
 }

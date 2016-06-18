@@ -26,11 +26,12 @@ public class BinaryTree extends Tree
 	 */
 	public BinaryTree(int numNodes) throws Exception
 	{
+		super(numNodes);
 		graph[0] = new TreeNode(DEGREE, 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			graph[i] = newNode(graph[((i - 1) / 2)], DEGREE);
+			graph[i] = newTreeNode((TreeNode) graph[((i - 1) / 2)], DEGREE);
 			setCounter(getCounter() + 1);
 		}
 	}

@@ -146,7 +146,7 @@ public class TreeNode extends Node
 	 * @param newNeighbor: the node to be added
 	 * @throws Exception: node cannot add more nodes
 	 */
-	protected void addNeighbor(Node newNeighbor)
+	protected void addNeighbor(TreeNode newNeighbor)
 	{
 		if (canAddNeighbors())
 		{
@@ -158,7 +158,6 @@ public class TreeNode extends Node
 		else
 		{
 			Exception e = new Exception("This node is already at its max degree.");
-			System.out.println(e);
 		}
 	}
 	
@@ -205,6 +204,16 @@ public class TreeNode extends Node
 	{
 		return myChildren;
 	}
+	
+	/**
+	 * getNode - returns a reference of the calling node. TREENODE VERSION
+	 * 
+	 * @return returns a reference to the node
+	 */
+	protected TreeNode getNode()
+ 	{
+ 		return this;
+ 	}
 	
 	/**
 	 * getParent - standard getter for parent.
@@ -254,7 +263,7 @@ public class TreeNode extends Node
 	 * 
 	 * @param node: the new neighbor
 	 */
-	protected void setNeighbor(Node node)
+	protected void setNeighbor(TreeNode node)
 	{
 		if (canAddNeighbors())
 		{
@@ -318,7 +327,7 @@ public class TreeNode extends Node
 	 * 
 	 * @param parent: the desired parent of the node
 	 */
-	protected void setParent(Node parent)
+	protected void setParent(TreeNode parent)
 	{
 		this.parent = parent.getName();
 	}
@@ -380,6 +389,5 @@ public class TreeNode extends Node
 				}
 			}
 		}
-	}
- 		
+	} 		
 }

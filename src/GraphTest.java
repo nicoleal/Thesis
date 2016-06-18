@@ -20,6 +20,7 @@ public class GraphTest extends Graph
 	public void testCat1Tree1() throws Exception
 	{
 		g = new Caterpillar_T1(3);
+		setNumNodes(3);
 		int i = getNumNodes();
 		assertEquals(3, i);
 		i = getLeaf(0).getMetNeighbors();
@@ -177,10 +178,10 @@ public class GraphTest extends Graph
 	@Test
 	public void testBinary1() throws Exception
 	{
-		Tree t = new BinaryTree(10);
+		g = new BinaryTree(10);
 		int i = graph.length;
 		assertEquals(10, i);
-		i = t.getLeaf(0).getMetNeighbors();
+		i = getLeaf(0).getMetNeighbors();
 		assertEquals(2, i);
 		i = getLeaf(9).getMetNeighbors();
 		assertEquals(1, i);

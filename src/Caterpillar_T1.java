@@ -44,6 +44,6 @@ public class Caterpillar_T1 extends Graph
 				graph[i] = newNode(graph[i - 2].getNode(), T1_DEGREE);
 			}
 			setCounter(getCounter() + 1);
-		}	
+		}
 	}	
 }
