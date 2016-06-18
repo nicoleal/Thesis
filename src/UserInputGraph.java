@@ -49,6 +49,7 @@ public class UserInputGraph extends Graph
 		
 		setGraphDegree(degree);
 		setNumNodes(numNodes);
+		graph = new Node[numNodes];
 		
 		int sponsor;
 		int newNode;

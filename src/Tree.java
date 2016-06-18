@@ -76,7 +76,7 @@ public class Tree extends Graph
 	 * 
 	 * @return the node at graph[i]
 	 */
-	protected TreeNode getLeaf(int i)
+	public TreeNode getLeaf(int i)
 	{
 		return (TreeNode) graph[i].getNode();
 	}

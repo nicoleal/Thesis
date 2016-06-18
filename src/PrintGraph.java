@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-public class PrintGraph 
+public class PrintGraph extends Graph
 {
 	static PrintWriter writer;						// An instance of PrintWriter
 	
@@ -35,19 +35,16 @@ public class PrintGraph
 	 */
 	protected static void printList(Graph g)
 	{
-		
-		for (int i = 0; i < g.getNumNodes(); i++)
+		System.out.print(g.getNode(0).getName() + ": ");
+		for (int j = 0; j < g.getNode(0).getMetNeighbors(); j++)
 		{
-			if (i == 0)
-			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
-				{
-					System.out.print(g.getNode(i).neighbors[j] + " ");
-				}
-				System.out.println();
-			}
-			else if (g.getNode(i).getMetNeighbors() > 1)
+			System.out.print(g.getNode(0).neighbors[j] + " ");
+		}
+		System.out.println();
+		
+		for (int i = 1; i < g.getNumNodes(); i++)
+		{
+			if (g.getNode(i).getMetNeighbors() > 1)
 			{
 				System.out.print(g.getNode(i).getName() + ": ");
 				

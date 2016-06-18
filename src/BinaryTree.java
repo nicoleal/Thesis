@@ -27,6 +27,8 @@ public class BinaryTree extends Tree
 	public BinaryTree(int numNodes) throws Exception
 	{
 		super(numNodes);
+		setNumNodes(numNodes);
+		setGraphDegree(DEGREE);
 		graph[0] = new TreeNode(DEGREE, 0);
 		
 		for (int i = 1; i < numNodes; i++)

@@ -31,12 +31,12 @@ public class BruteForceColoring extends Colorings
 	public Graph bruteForce(Graph g, int center)
 	{
 		theirNeighbors = new int[getNumNodes()];
-		graph[center].setColor(Color.RED);		// RED (1), V1
+		g.graph[center].setColor(Color.RED);		// RED (1), V1
 		
 		int j = 2;
-		for (int i = 0; i < graph[center].getMetNeighbors(); i++)
+		for (int i = 0; i < g.graph[center].getMetNeighbors(); i++)
 		{
-			Node n = graph[graph[center].neighbors[i]];
+			Node n = g.graph[g.graph[center].neighbors[i]];
 			n.setColor(j);
 			setChi(j);
 			j++;
@@ -44,37 +44,37 @@ public class BruteForceColoring extends Colorings
 			for (int k = 1, l = 0; k < n.getMetNeighbors(); k++, l++)
 			{
 				theirNeighbors[l] = n.neighbors[k];
-				if (!isColored(graph[theirNeighbors[l]]))
+				if (!isColored(g.graph[theirNeighbors[l]]))
 				{
-					graph[theirNeighbors[l]].setColor(Color.RED);
+					g.graph[theirNeighbors[l]].setColor(Color.RED);
 				}
 			}
 		}
 
 		for (int i = 0; i < theirNeighbors.length; i++)
 		{
-			Node m = graph[theirNeighbors[i]];
+			Node m = g.graph[theirNeighbors[i]];
 			
 			for (int k = 0; k < m.getMetNeighbors(); k++)
 			{
-				int y = graph[m.getName()].neighbors[k];
-				if (!isColored(y))
+				int y = g.graph[m.getName()].neighbors[k];
+				if (!isColored(g, y))
 				{
-					graph[y].setColor(j);
+					g.graph[y].setColor(j);
 					setChi(j);
 					j++;
 				}
 				
-				Node n = graph[y];
+				Node n = g.graph[y];
 				
 				if (n.getMetNeighbors() > 1)
 				{
-					for (int l = 0; l < graph[n.getName()].getMetNeighbors(); l++)
+					for (int l = 0; l < g.graph[n.getName()].getMetNeighbors(); l++)
 					{
-						int x = graph[n.getName()].neighbors[l];
-						if (!isColored(x))
+						int x = g.graph[n.getName()].neighbors[l];
+						if (!isColored(g, x))
 						{
-							graph[x].setColor(Color.RED);
+							g.graph[x].setColor(Color.RED);
 						}
 					}
 				}

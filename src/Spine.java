@@ -23,6 +23,10 @@ public class Spine extends Graph
 	public Spine(int numNodes) throws Exception
 	{
 		super(numNodes, DEGREE);
+		setNumNodes(numNodes);
+		setGraphDegree(DEGREE);
+		graph = new Node[numNodes];
+		
 		graph[0] = new Node(DEGREE, 0);
 		
 		for (int i = 1; i < numNodes; i++)

@@ -20,100 +20,104 @@ public class BruteForceColoringTest extends BruteForceColoring
 	@Test
 	public void test4Diam1() throws Exception
 	{
-		g = bruteForce(new UserInputGraph("T5_Graph"), 0);
+		g = new UserInputGraph("T5_Graph");
+		bruteForce(g, 0);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = getLeaf(3).getColor();
+		int i = g.getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = getLeaf(6).getColor();
+		i = g.getLeaf(6).getColor();
 		assertEquals(5, i);
-		i = getLeaf(11).getColor();
+		i = g.getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = getLeaf(5).getColor();
+		i = g.getLeaf(5).getColor();
 		assertEquals(4, i);
-		i = getLeaf(0).getColor();
+		i = g.getLeaf(0).getColor();
 		assertEquals(1, i);
-		i = getLeaf(7).getColor();
+		i = g.getLeaf(7).getColor();
 		assertEquals(6, i);
-		i = getLeaf(16).getColor();
+		i = g.getLeaf(16).getColor();
 		assertEquals(1, i);
-		i = getLeaf(4).getColor();
+		i = g.getLeaf(4).getColor();
 		assertEquals(3, i);
-		i = getLeaf(2).getColor();
+		i = g.getLeaf(2).getColor();
 		assertEquals(1, i);
 	}
 	
 	@Test
 	public void test4Diam2() throws Exception
 	{
-		g = bruteForce(new UserInputGraph("T5_Graph"), 4);
+		g = new UserInputGraph("T5_Graph");
+		bruteForce(g, 4);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = getLeaf(4).getColor();
+		int i = g.getLeaf(4).getColor();
 		assertEquals(1, i);
-		i = getLeaf(0).getColor();
+		i = g.getLeaf(0).getColor();
 		assertEquals(2, i);
-		i = getLeaf(6).getColor();
+		i = g.getLeaf(6).getColor();
 		assertEquals(1, i);
-		i = getLeaf(12).getColor();
+		i = g.getLeaf(12).getColor();
 		assertEquals(7, i);
-		i = getLeaf(5).getColor();
+		i = g.getLeaf(5).getColor();
 		assertEquals(1, i);
-		i = getLeaf(11).getColor();
+		i = g.getLeaf(11).getColor();
 		assertEquals(6, i);
-		i = getLeaf(3).getColor();
+		i = g.getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = getLeaf(16).getColor();
+		i = g.getLeaf(16).getColor();
 		assertEquals(11, i);
-		i = getLeaf(2).getColor();
+		i = g.getLeaf(2).getColor();
 		assertEquals(1, i);
 	}
 	
 	@Test
 	public void test4Diam3() throws Exception
 	{
-		g = bruteForce( new UserInputGraph("T5_Graph"), 2);
+		g = new UserInputGraph("T5_Graph");
+		bruteForce(g, 2);
 		//PrintGraph.printListWithColors_ZeroFirst(g);
-		int i = getLeaf(4).getColor();
+		int i = g.getLeaf(4).getColor();
 		assertEquals(3, i);
-		i = getLeaf(2).getColor();
+		i = g.getLeaf(2).getColor();
 		assertEquals(1, i);
-		i = getLeaf(6).getColor();
+		i = g.getLeaf(6).getColor();
 		assertEquals(5, i);
-		i = getLeaf(12).getColor();
+		i = g.getLeaf(12).getColor();
 		assertEquals(1, i);
-		i = getLeaf(5).getColor();
+		i = g.getLeaf(5).getColor();
 		assertEquals(4, i);
-		i = getLeaf(11).getColor();
+		i = g.getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = getLeaf(1).getColor();
+		i = g.getLeaf(1).getColor();
 		assertEquals(2, i);
-		i = getLeaf(3).getColor();
+		i = g.getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = getLeaf(0).getColor();
+		i = g.getLeaf(0).getColor();
 		assertEquals(1, i);
 	}
 	
 	@Test
 	public void test4Diam4() throws Exception
 	{
-		g = bruteForce(new UserInputGraph("T5_Graph"), 16);
+		g = new UserInputGraph("T5_Graph");
+		bruteForce(g, 16);
 		PrintGraph.printListWithColors_ZeroFirst(g);
-		/*int i = getLeaf(4).getColor();
+		/*int i = g.getLeaf(4).getColor();
 		assertEquals(3, i);
-		i = getLeaf(2).getColor();
+		i = g.getLeaf(2).getColor();
 		assertEquals(1, i);
-		i = getLeaf(6).getColor();
+		i = g.getLeaf(6).getColor();
 		assertEquals(5, i);
-		i = getLeaf(12).getColor();
+		i = g.getLeaf(12).getColor();
 		assertEquals(1, i);
-		i = getLeaf(5).getColor();
+		i = g.getLeaf(5).getColor();
 		assertEquals(4, i);
-		i = getLeaf(11).getColor();
+		i = g.getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = getLeaf(1).getColor();
+		i = g.getLeaf(1).getColor();
 		assertEquals(2, i);
-		i = getLeaf(3).getColor();
+		i = g.getLeaf(3).getColor();
 		assertEquals(1, i);
-		i = getLeaf(0).getColor();
+		i = g.getLeaf(0).getColor();
 		assertEquals(1, i);*/
 	}
 	

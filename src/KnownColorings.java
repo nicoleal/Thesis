@@ -14,8 +14,6 @@
 
 public class KnownColorings extends Colorings
 {
-	private int chi;									// The BCN, pronounced "kai"
-	
 	/******************************************************************************
 	 *                                                                            *
 	 *							   DEFAULT GRAPHS                                 *
@@ -48,11 +46,9 @@ public class KnownColorings extends Colorings
 		 * 		- and places them into their respective arrays - 
 		 * 		large (for degree-4 or more) or small (up to degree-3).
 		 */
-		for (int i = 0, j = 0, k = 0; i < g.getNumNodes(); i++)
+		for (int i = 0, j = 0, k = 0; i < graph[v].getMetNeighbors(); i++)
 		{
-			if (areNeighbors(v, i) && (v != i))
-			{
-				degree = graph[i].getMetNeighbors();
+				degree = graph[graph[v].neighbors[i]].getMetNeighbors();
 			
 				if (degree > 3)
 				{
@@ -77,7 +73,7 @@ public class KnownColorings extends Colorings
 					small[k] = i;
 					k++;
 				}
-			}
+			
 		}
 		s = n1 + n2 + n3;
 		
@@ -163,7 +159,7 @@ public class KnownColorings extends Colorings
 		
 		for (int k = 0; k < s; k++)
 		{
-			if (!isColored(small[k]))	
+			if (!isColored(g, small[k]))	
 			{
 				graph[small[k]].setColor(Color.RED);
 				graph[graph[small[k]].getNeighbor(1)].setColor(Color.BLUE);
@@ -230,43 +226,41 @@ public class KnownColorings extends Colorings
 		
 		for (int i = 0; i < setsOfFour; i++)
 		{
-			if (isEven(i))						// (1, ?, 1, ? 1, ?, 1, ? ....)
+			if (isEven(i))							// (1, ?, 1, ? 1, ?, 1, ? ....)
 			{
-				graph[i].setColor(Color.RED);		// RED (1), V1
+				g.graph[i].setColor(Color.RED);		// RED (1), V1
 			}
-			else if ((i % 4) == 1)						// (1, 2, 1, ? 1, 2, 1, ? ....)
+			else if ((i % 4) == 1)					// (1, 2, 1, ? 1, 2, 1, ? ....)
 			{
-				graph[i].setColor(Color.BLUE);		// BLUE (2), V2
+				g.graph[i].setColor(Color.BLUE);		// BLUE (2), V2
 			}
-			else										// (1, 2, 1, 3, 1, 2, 1, 3 ....)
+			else									// (1, 2, 1, 3, 1, 2, 1, 3 ....)
 			{
-				graph[i].setColor(Color.GREEN);		// GREEN (3), V3
+				g.graph[i].setColor(Color.GREEN);		// GREEN (3), V3
 			}
 		}
-		setChi(Color.GREEN.getRadius());
+		g.setChi(Color.GREEN.getRadius());
 		
 		if (remainder != 0)
 		{
 			if (remainder == 1)							// (1, 2, 1, 3 1, 2, 1, ... 3, 4)
 			{
-				graph[setsOfFour].setColor(Color.YELLOW);	// YELLOW (4), V4
+				g.graph[setsOfFour].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
 			else if (remainder == 2)					// (1, 2, 1, 3, 1, 2, 1, ... 3, 1, 4)
 			{
-				graph[setsOfFour].setColor(Color.RED);		// RED (1), V1
-				graph[setsOfFour + 1].setColor(Color.YELLOW);	// YELLOW (4), V4
+				g.graph[setsOfFour].setColor(Color.RED);		// RED (1), V1
+				g.graph[setsOfFour + 1].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
 			else										// (1, 2, 1, 3, 1, 2, 1, ... 3, 1, 2, 4)
 			{
-				graph[setsOfFour].setColor(Color.RED);		// RED (1), V1
-				graph[setsOfFour + 1].setColor(Color.BLUE);		// BLUE (2), V2
-				graph[setsOfFour + 2].setColor(Color.YELLOW);	// YELLOW (4), V4
+				g.graph[setsOfFour].setColor(Color.RED);		// RED (1), V1
+				g.graph[setsOfFour + 1].setColor(Color.BLUE);		// BLUE (2), V2
+				g.graph[setsOfFour + 2].setColor(Color.YELLOW);	// YELLOW (4), V4
 			}
-			setChi(Color.YELLOW.getRadius());
+			g.setChi(Color.YELLOW.getRadius());
 		}
-		
-		g.setChi(getChi());
-		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+		System.out.println("\nThe Broadcast Chromatic Number is " + g.getChi() + ".\n");
 		return g;
 	}
 	
@@ -284,19 +278,19 @@ public class KnownColorings extends Colorings
 	{
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			if (isLeaf(i))
+			if (g.graph[i].getMetNeighbors() == 1)
 			{
-				graph[i].setColor(Color.RED);		// RED (1), V1
+				g.graph[i].setColor(Color.RED);		// RED (1), V1
 			}
 			else
 			{
-				graph[i].setColor(Color.BLUE);		// BLUE (2), V2
+				g.graph[i].setColor(Color.BLUE);		// BLUE (2), V2
 			}
 		}
 		
-		setChi(Color.BLUE.getRadius());
+		g.setChi(Color.BLUE.getRadius());
 		g.setChi(getChi());
-		System.out.println("\nThe Broadcast Chromatic Number is: " + getChi() + ".\n");
+		System.out.println("\nThe Broadcast Chromatic Number is: " + g.getChi() + ".\n");
 		
 		return g;
 	}
@@ -325,22 +319,5 @@ public class KnownColorings extends Colorings
 		{
 			knownFourDiamTree(g, 0);
 		}
-	}
-	
-	
-	/******************************************************************************
-	 *                                                                            *
-	 *                            Standard   Methods                              *
-	 *                                                                            *
-	 ******************************************************************************/
-
-	/**
-	 * getChi - returns the value of chi (X), the broadcast chromatic number
-	 * 
-	 * @return chi: the broadcast chromatic number
-	 */
-	public int getChi()
-	{
-		return chi;
 	}
 }

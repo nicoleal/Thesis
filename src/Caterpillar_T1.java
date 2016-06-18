@@ -30,6 +30,8 @@ public class Caterpillar_T1 extends Graph
 	public Caterpillar_T1 (int numNodes) throws Exception
 	{
 		super(numNodes);
+		setNumNodes(numNodes);
+		setGraphDegree(T1_DEGREE);
 		graph[0] = new Node(T1_DEGREE, 0);
 		
 		for (int i = 1; i < numNodes; i++)

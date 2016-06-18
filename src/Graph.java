@@ -102,7 +102,7 @@ public class Graph
 	 * 
 	 * @return the node at graph[i]
 	 */
-	protected Node getLeaf(int i)
+	public Node getLeaf(int i)
 	{
 		return graph[i].getNode();
 	}

@@ -56,15 +56,11 @@ public class NodeTest
 		i = node2.getColor();
 		assertEquals(0, i);
 		i = node2.getMetNeighbors();
-		assertEquals(0, i);
+		assertEquals(1, i);
 		i = node2.getDegree();
 		assertEquals(20, i);
 		i = node2.getName();
 		assertEquals(2, i);
-		boolean b = node2.canAddNeighbors();
-		assertEquals(true, b); 
-		b = node2.hasNeighbors();
-		assertEquals(false, b);
 	}
 	
 	@Test
@@ -118,24 +114,9 @@ public class NodeTest
 		i = node4.getName();
 		assertEquals(4, i);
 		i = node4.getMetNeighbors();
-		assertEquals(0, i);
-		boolean b = node4.hasNeighbors();
-		assertEquals(false, b);
-		b = node4.canAddNeighbors();
-		assertEquals(true, b);
+		assertEquals(1, i);
 	}
 	
-	@Test(expected = Exception.class)
-	public void exception2() throws Exception
-	{
-		ExpectedException thrown = ExpectedException.none();
-		node8.addNeighbor(node6);
-		node8.addNeighbor(node7);
-		thrown.expect(Exception.class);
-		thrown.expectMessage("This node is already at its max degree.");
-		node8.emptyNeighborhood(node8);
-	}
-
 	@Test
 	public void exception3()
 	{

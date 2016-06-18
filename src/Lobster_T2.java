@@ -30,6 +30,8 @@ public class Lobster_T2 extends Graph
 	public Lobster_T2(int numNodes) throws Exception
 	{
 		super(numNodes);
+		setNumNodes(numNodes);
+		setGraphDegree(T2_DEGREE);
 		graph[0] = new Node(T2_DEGREE, 0);
 		
 		for (int i = 1; i < numNodes; i++)

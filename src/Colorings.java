@@ -28,49 +28,21 @@ public class Colorings extends Graph
 	 */
 	public boolean areNeighbors(int node1, int node2)
 	{
-		if (node1 != node2)
+		if (node1 == node2)
+		{
+			return false;
+		}
+		else
 		{
 			for (int i = 0; i < graph[node1].getMetNeighbors(); i++)
 			{
-				if (graph[node1].getNeighbor(i) == node2)
+				if (graph[node1].neighbors[i] == node2)
 				{
 					return true;
 				}
 			}
+			return false;
 		}
-		return false;
-	}
-	
-	/**
-	 * areNeighbors - determines if two gives nodes are neighbors by checking their
-	 * 		neighbors arrays (both of them). NODE VERSION.
-	 * 
-	 * @param node1: the first node to be compared
-	 * @param node2: the second node to be compared.
-	 * return TRUE if neighbors, false otherwise
-	 */
-	public boolean areNeighbors(Node node1, Node node2)
-	{
-		boolean one = false;
-		boolean two = false;
-		
-		for (int i = 0; i < node1.getMetNeighbors(); i++)
-		{
-			if (node1.neighbors[i] == node2.getName());
-			{
-				one = true;
-			}
-		}
-		
-		for (int i = 0; i < node2.getMetNeighbors(); i++)
-		{
-			if (node2.neighbors[i] == node1.getName());
-			{
-				two = true;
-			}
-		}
-		
-		return (one && two);
 	}
 	
 	/**
@@ -80,9 +52,9 @@ public class Colorings extends Graph
 	 * @param i: the name of the node
 	 * @return TRUE if colored, FALSE otherwise
 	 */
-	public boolean isColored(int i)
+	public boolean isColored(Graph g, int i)
 	{
-		return (getLeaf(i).getColor() != Color.WHITE.getRadius());
+		return (g.graph[i].getColor() != Color.WHITE.getRadius());
 	}
 	
 	/**
@@ -118,7 +90,7 @@ public class Colorings extends Graph
 	 */
 	public boolean isLeaf(int i)
 	{
-		return (getLeaf(i).getMetNeighbors() == 1);
+		return (graph[i].getMetNeighbors() == 1);
 	}
 	
 	/**

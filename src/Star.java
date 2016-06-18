@@ -22,12 +22,16 @@ public class Star extends Graph
 	public Star(int numNodes) throws Exception
 	{
 		super(numNodes);
+		setNumNodes(numNodes);
+		graph = new Node[numNodes];
+		
 		graph[0] = new Node((numNodes - DEGREE), 0);
 		
 		for (int i = 1; i < numNodes; i++)
 		{
 			setCounter(getCounter() + 1);
 			graph[i] = newNode(graph[0], DEGREE);
+			makeLeaf(i);
 		}
 	}
 }
