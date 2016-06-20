@@ -100,8 +100,33 @@ public class BruteForceColoringTest extends BruteForceColoring
 	{
 		g = new UserInputGraph("T5_Graph");
 		bruteForce(g, 16);
+		//PrintGraph.printListWithColors_ZeroFirst(g);
+		int i = g.getLeaf(4).getColor();
+		assertEquals(4, i);
+		i = g.getLeaf(2).getColor();
+		assertEquals(1, i);
+		i = g.getLeaf(6).getColor();
+		assertEquals(6, i);
+		i = g.getLeaf(12).getColor();
+		assertEquals(1, i);
+		i = g.getLeaf(5).getColor();
+		assertEquals(5, i);
+		i = g.getLeaf(11).getColor();
+		assertEquals(1, i);
+		i = g.getLeaf(1).getColor();
+		assertEquals(3, i);
+		i = g.getLeaf(3).getColor();
+		assertEquals(1, i);
+		i = g.getLeaf(0).getColor();
+		assertEquals(1, i);
+	}
+	
+	@Test
+	public void testForce() throws Exception
+	{
+		g = forceGraph(new UserInputGraph("T5_Graph"));
 		PrintGraph.printListWithColors_ZeroFirst(g);
-		/*int i = g.getLeaf(4).getColor();
+		int i = g.getLeaf(4).getColor();
 		assertEquals(3, i);
 		i = g.getLeaf(2).getColor();
 		assertEquals(1, i);
@@ -113,18 +138,11 @@ public class BruteForceColoringTest extends BruteForceColoring
 		assertEquals(4, i);
 		i = g.getLeaf(11).getColor();
 		assertEquals(1, i);
-		i = g.getLeaf(1).getColor();
-		assertEquals(2, i);
+		i = g.getLeaf(7).getColor();
+		assertEquals(6, i);
 		i = g.getLeaf(3).getColor();
 		assertEquals(1, i);
 		i = g.getLeaf(0).getColor();
-		assertEquals(1, i);*/
-	}
-	
-	@Test
-	public void testForce() throws Exception
-	{
-		g = forceGraph(new UserInputGraph("T5_Graph"));
-		//PrintGraph.printListWithColors_ZeroFirst(g);
+		assertEquals(1, i);
 	}
 }

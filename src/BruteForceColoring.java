@@ -95,18 +95,20 @@ public class BruteForceColoring extends Colorings
 	{
 		int bestChi = g.getNumNodes();
 		int tempChi;
+		int bestColoring = 0;
 		
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{
-			g = bruteForce(g, i);
-			tempChi = getChi();
+			tempChi = bruteForce(g, i).getChi();
 			
 			if (tempChi < bestChi)
 			{
-				bestChi = getChi();
+				bestChi = tempChi;
+				bestColoring = i;
 			}
 		}
-		setChi(bestChi);
+		g = bruteForce(g, bestColoring);
+		setChi(g.getChi());
 		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 		
 		return g;

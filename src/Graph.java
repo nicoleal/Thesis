@@ -100,7 +100,7 @@ public class Graph
 	/**
 	 * getLeaf - standard getter for a node / leaf.
 	 * 
-	 * @return the node at graph[i]
+	 * @return the node at graph[i]s
 	 */
 	public Node getLeaf(int i)
 	{
