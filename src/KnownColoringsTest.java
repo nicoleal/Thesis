@@ -120,7 +120,7 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(1, i);
 		//PrintGraph.printListWithColors_Star(g);
 	}
-
+/**
 	@Test
 	public void test4Diam1() throws Exception
 	{
@@ -145,6 +145,6 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(1, i);
 		i = g.getLeaf(2).getColor();
 		assertEquals(2, i);
-	}
+	}*/
 	
 }
