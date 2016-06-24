@@ -36,6 +36,7 @@ public class Lobster_T1 extends Graph
 		
 		for (int i = 1; i < numNodes; i++)
 		{
+			setCounter(getCounter() + 1);
 			int j = i % 4;
 			
 			if (j == 0)
@@ -50,8 +51,7 @@ public class Lobster_T1 extends Graph
 			{
 				graph[i] = newNode(graph[(i - j + 1)].getNode(), T1_DEGREE);
 				makeLeaf(i);
-			}
-			setCounter(getCounter() + 1);
+			}	
 		}
 	}
 }

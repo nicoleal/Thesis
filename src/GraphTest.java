@@ -162,17 +162,19 @@ public class GraphTest extends Graph
 		i = g.getLeaf(7).getDegree();
 		assertEquals(4, i);
 	}
-	/**
+	/*
 	@Test
 	public void testRand1() throws Exception
 	{
-		Tree t = t.buildRand(10);
+		g = new RandomGraphGenerator(30);
+		PrintGraph.printList(g);
 	}
 	
 	@Test
 	public void testRand2() throws Exception
 	{
-		Tree t = t.buildRand(50);
+		g = new RandomTreeGenerator(30);
+		PrintGraph.printList(g);
 	}*/
 	
 	

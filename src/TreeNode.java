@@ -19,6 +19,7 @@ public class TreeNode extends Node
 	private int depth;						// The depth of the node (starting at 0)
 	private int myChildren;					// manyItems for children;
 	private int parent;						// The node's parent node
+	Exception e;							// An instance of Exception
 	
 	/******************************************************************************
 	 *                                                                            *
@@ -157,7 +158,7 @@ public class TreeNode extends Node
 		}
 		else
 		{
-			Exception e = new Exception("This node is already at its max degree.");
+			e = new Exception("This node is already at its max degree.");
 		}
 	}
 	
@@ -252,7 +253,7 @@ public class TreeNode extends Node
 		}
 		else
 		{
-			Exception e = new Exception("This node is already at its max degree.");
+			e = new Exception("This node is already at its max degree.");
 			System.out.println(e);
 		}
 	}
@@ -274,7 +275,7 @@ public class TreeNode extends Node
 		}
 		else
 		{
-			Exception e = new Exception("This node is already at its max degree.");
+			e = new Exception("This node is already at its max degree.");
 			System.out.println(e);
 		}
 	}

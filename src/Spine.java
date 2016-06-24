@@ -31,8 +31,8 @@ public class Spine extends Graph
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			graph[i] = newNode(graph[(i - 1)], DEGREE);
 			setCounter(getCounter() + 1);
+			graph[i] = newNode(graph[(i - 1)], DEGREE);
 		}
 	}
 }

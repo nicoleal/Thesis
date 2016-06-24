@@ -33,8 +33,8 @@ public class BinaryTree extends Tree
 		
 		for (int i = 1; i < numNodes; i++)
 		{
-			graph[i] = newTreeNode((TreeNode) graph[((i - 1) / 2)], DEGREE);
 			setCounter(getCounter() + 1);
+			graph[i] = newTreeNode((TreeNode) graph[((i - 1) / 2)], DEGREE);
 		}
 	}
 }
