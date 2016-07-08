@@ -30,7 +30,7 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(3, i);
 		i = g.getLeaf(4).getColor();
 		assertEquals(1, i);
-		//PrintGraph.printListWithColors(t);
+		//PrintGraph.printListWithColors(g);
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(1, i);
 		i = g.getLeaf(30).getColor();
 		assertEquals(4, i);
-		//PrintGraph.printListWithColors(t);
+		//PrintGraph.printListWithColors(g);
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(3, i);
 		i = g.getLeaf(26).getColor();
 		assertEquals(1, i);
-		//PrintGraph.printListWithColors(t);
+		//PrintGraph.printListWithColors(g);
 	}
 	
 	@Test
@@ -120,6 +120,30 @@ public class KnownColoringsTest extends KnownColorings
 		assertEquals(1, i);
 		//PrintGraph.printListWithColors_Star(g);
 	}
+	
+	@Test
+	public void test3Diam1() throws Exception
+	{
+		g = new UserInputGraph("D3_Graph");
+		knownSmallTree(g);
+		//PrintGraph.printListWithColors_ZeroFirst(g);
+		int i = g.getLeaf(0).getColor();
+		assertEquals(1, i);
+		i = g.getLeaf(2).getColor();
+		assertEquals(3, i);
+		i = g.getLeaf(4).getColor();
+		assertEquals(1, i);
+	}
+	
+	@Test
+	public void test4Diam1() throws Exception
+	{
+		g = new UserInputGraph("T5_Graph");
+		//PrintGraph.printListWithColors_ZeroFirst(g);
+	}
+	
+	
+	
 /**
 	@Test
 	public void test4Diam1() throws Exception

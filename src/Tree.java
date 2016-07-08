@@ -23,7 +23,7 @@ public class Tree extends Graph
 	public Tree()
 	{
 		super();
-		graph = new TreeNode[DEFAULT_NODES];
+		setGraph(new TreeNode[DEFAULT_NODES]);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class Tree extends Graph
 	public Tree(int numNodes)
 	{
 		super(numNodes);
-		graph = new TreeNode[numNodes];
+		setGraph(new TreeNode[numNodes]);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class Tree extends Graph
 	public Tree(int numNodes, int graphDegree)
 	{
 		super(numNodes, graphDegree);
-		graph = new TreeNode[numNodes];
+		setGraph(new TreeNode[numNodes]);
 	}	
 	
 	/******************************************************************************

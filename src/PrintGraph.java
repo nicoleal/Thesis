@@ -35,22 +35,41 @@ public class PrintGraph extends Graph
 	 */
 	protected static void printList(Graph g)
 	{
-		System.out.print(g.getNode(0).getName() + ": ");
-		for (int j = 0; j < g.getNode(0).getMetNeighbors(); j++)
+		System.out.print(g.graph[0].getName() + ": ");
+		for (int j = 0; j < g.graph[0].getMetNeighbors(); j++)
 		{
-			System.out.print(g.getNode(0).neighbors[j] + " ");
+			System.out.print(g.graph[0].neighbors[j] + " ");
 		}
 		System.out.println();
 		
 		for (int i = 1; i < g.getNumNodes(); i++)
 		{
-			if (g.getNode(i).getMetNeighbors() > 1)
+			if (g.graph[i].getMetNeighbors() > 1)
 			{
-				System.out.print(g.getNode(i).getName() + ": ");
+				System.out.print(g.graph[i].getName() + ": ");
 				
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					System.out.print(g.getNode(i).neighbors[j] + " ");
+					System.out.print(g.graph[i].neighbors[j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+		System.out.println();
+	}
+	
+	protected static void printList_leadZero(Graph g)
+	{
+		for (int i = 0; i < g.getNumNodes(); i++)
+		{
+			if (g.graph[i].getMetNeighbors() > 1)
+			{
+				System.out.print(g.graph[i].getName() + ": ");
+				
+				for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
+				{
+					System.out.print(g.graph[i].neighbors[j] + " ");
 				}
 				System.out.println();
 			}
@@ -70,24 +89,24 @@ public class PrintGraph extends Graph
 	 */
 	protected static void printListWithColors(Graph g)
 	{
-		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		System.out.println(g.graph[0].getName() + "(" + g.graph[0].getColor() + ")");
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{		
-			if (g.getNode(i).getMetNeighbors() > 1)
+			if (g.graph[i].getMetNeighbors() > 1)
 			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				System.out.print(g.graph[i].getName() + ": ");
+				for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+					System.out.print(g.graph[i].neighbors[j] + "(" + g.graph[g.graph[i].neighbors[j]].getColor() + ") ");
 				}
 			}
-			else if ((g.getNode(i).getMetNeighbors() == 1) && (i != (g.getNumNodes() - 1)) 
-					&& (i < g.getNode(i).neighbors[0]))
+			else if ((g.graph[i].getMetNeighbors() == 1) && (i != (g.getNumNodes() - 1)) 
+					&& (i < g.graph[i].neighbors[0]))
 			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				System.out.print(g.graph[i].getName() + ": ");
+				for (int j = 0; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+					System.out.print(g.graph[i].neighbors[j] + "(" + g.graph[g.graph[i].neighbors[j]].getColor() + ") ");
 				}
 			}
 			System.out.println();
@@ -105,34 +124,19 @@ public class PrintGraph extends Graph
 	 * 
 	 * @param g: the graph to be printed
 	 */
-	protected static void printListWithColors_Stars(Graph g)
+	protected static void printListWithColors_Star(Graph g)
 	{
-		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		System.out.println(g.graph[0].getName() + "(" + g.graph[0].getColor() + ")");
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{		
-			if (g.getNode(i).getMetNeighbors() > 1)
+			if (g.graph[i].getMetNeighbors() > 1)
 			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				System.out.print(g.graph[i].getName() + ": ");
+				for (int j = 0; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+					System.out.print(g.graph[i].neighbors[j] + "(" + g.graph[g.graph[i].neighbors[j]].getColor() + ") ");
 				}
 			}
-			else if ((g.getNode(i).getMetNeighbors() == 1) && (i != (g.getNumNodes() - 1)) 
-					&& (i < g.getNode(i).neighbors[0]))
-			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
-				{
-					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
-				}
-			}
-				System.out.print(g.getNode(i).getName() + ": ");
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
-				{
-					System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
-				}
-			System.out.println();
 		}
 		System.out.println();
 	}
@@ -149,23 +153,23 @@ public class PrintGraph extends Graph
 	 */
 	protected static void printListWithColors_ZeroFirst(Graph g)
 	{
-		System.out.println(g.getNode(0).getName() + "(" + g.getNode(0).getColor() + ")");
+		System.out.println(g.graph[0].getName() + "(" + g.graph[0].getColor() + ")");
 		for (int i = 0; i < g.getNumNodes(); i++)
 		{		
-			if (g.getNode(i).getMetNeighbors() > 1)
+			if (g.graph[i].getMetNeighbors() > 1)
 			{
-				System.out.print(g.getNode(i).getName() + ": ");
-				if (g.getNode(i).neighbors[0] == 0)
+				System.out.print(g.graph[i].getName() + ": ");
+				if (g.graph[i].neighbors[0] == 0)
 				{
-					for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+					for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
 					{
-						System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+						System.out.print(g.graph[i].neighbors[j] + "(" + g.graph[g.graph[i].neighbors[j]].getColor() + ") ");
 					}
 				}
 				else
-					for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+					for (int j = 0; j < g.graph[i].getMetNeighbors(); j++)
 					{
-						System.out.print(g.getNode(i).neighbors[j] + "(" + g.getNode(g.getNode(i).neighbors[j]).getColor() + ") ");
+						System.out.print(g.graph[i].neighbors[j] + "(" + g.graph[g.graph[i].neighbors[j]].getColor() + ") ");
 					}
 				System.out.println();
 			}
@@ -192,19 +196,19 @@ public class PrintGraph extends Graph
 		{
 			if (i == 0)
 			{
-				writer.print(g.getNode(i).getName() + ": ");
-				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				writer.print(g.graph[i].getName() + ": ");
+				for (int j = 0; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					writer.print(g.getNode(i).neighbors[j] + " ");
+					writer.print(g.graph[i].neighbors[j] + " ");
 				}
 				writer.println();
 			}
-			else if (g.getNode(i).getMetNeighbors() > 1)
+			else if (g.graph[i].getMetNeighbors() > 1)
 			{
-				writer.print(g.getNode(i).getName() + ": ");
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				writer.print(g.graph[i].getName() + ": ");
+				for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					writer.print(g.getNode(i).neighbors[j] + " ");
+					writer.print(g.graph[i].neighbors[j] + " ");
 				}
 				writer.println();
 			}
@@ -232,21 +236,21 @@ public class PrintGraph extends Graph
 		{
 			if (i == 0)
 			{
-				writer.println(g.getNode(i).getName() + "(" + g.getNode(i).getColor() + ")");
-				writer.print(g.getNode(i).getName() + ": ");
-				for (int j = 0; j < g.getNode(i).getMetNeighbors(); j++)
+				writer.println(g.graph[i].getName() + "(" + g.graph[i].getColor() + ")");
+				writer.print(g.graph[i].getName() + ": ");
+				for (int j = 0; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					writer.print(g.getNode(i).neighbors[j] + "(" + g.getNode(i).getColor() + ") ");
+					writer.print(g.graph[i].neighbors[j] + "(" + g.graph[i].getColor() + ") ");
 				}
 				writer.println();
 			}
-			else if (g.getNode(i).getMetNeighbors() > 1)
+			else if (g.graph[i].getMetNeighbors() > 1)
 			{
-				writer.print(g.getNode(i).getName() + ": ");
+				writer.print(g.graph[i].getName() + ": ");
 				
-				for (int j = 1; j < g.getNode(i).getMetNeighbors(); j++)
+				for (int j = 1; j < g.graph[i].getMetNeighbors(); j++)
 				{
-					writer.print(g.getNode(i).neighbors[j] + "(" + g.getNode(i).getColor() + ") ");
+					writer.print(g.graph[i].neighbors[j] + "(" + g.graph[i].getColor() + ") ");
 				}
 				writer.println();
 			}

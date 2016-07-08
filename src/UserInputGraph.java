@@ -51,10 +51,13 @@ public class UserInputGraph extends Graph
 		setNumNodes(numNodes);
 		graph = new Node[numNodes];
 		
+		line = bufferedReader.readLine();
+		System.out.println();
 		int sponsor;
 		int newNode;
 		while ((line = bufferedReader.readLine()) != null)
 		{
+			
 			sponsor = Integer.parseInt(line.substring(0, line.indexOf(':')));
 
 			if (sponsor > numNodes)

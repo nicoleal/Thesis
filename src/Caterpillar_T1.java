@@ -1,3 +1,4 @@
+
 /**
  * Approximating the Broadcast Chromatic Number of Graphs
  * 
@@ -36,6 +37,7 @@ public class Caterpillar_T1 extends Graph
 		
 		for (int i = 1; i < numNodes; i++)
 		{
+			setCounter(getCounter() + 1);
 			if (Colorings.isOdd(i))
 			{
 				graph[i] = newNode(graph[i - 1].getNode(), T1_DEGREE);
@@ -45,7 +47,6 @@ public class Caterpillar_T1 extends Graph
 			{
 				graph[i] = newNode(graph[i - 2].getNode(), T1_DEGREE);
 			}
-			setCounter(getCounter() + 1);
 		}
 	}	
 }

@@ -11,7 +11,7 @@
 
 import java.util.Random;
 
-public class RandomTreeGenerator extends Graph
+public class RandomTreeGenerator extends Tree
 {
 	public static Random r1 = new Random();				// An instance of Random, for degree
 	public static Random r2 = new Random();				// An instance of Random, for making neighbors
@@ -33,11 +33,12 @@ public class RandomTreeGenerator extends Graph
 		{
 			setCounter(i);
 			parent =  r2.nextInt(i);
-			while (!((TreeNode) graph[parent]).canAddChildren());
+			TreeNode n = (TreeNode) graph[parent];
+			while (!n.canAddChildren())
 			{
 				parent =  r2.nextInt(i);
 			}
-			graph[i] = newNode(graph[parent].getNode(), degree);
+			graph[i] = newTreeNode(n, degree);
 		}
 	}
 }

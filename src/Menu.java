@@ -13,10 +13,10 @@
 import java.util.Scanner;
 public class Menu 
 {
-	private Scanner s;
-	private int first;
-	private int second;
-	private int third;
+	private Scanner s;												// An instance of scanner
+	private int first;												// The graph choice variable
+	private int second;												// The numNodes choice variable
+	private int third;												// The continue choice variable
 	
 	/**
 	 * NO-ARG CONSTRUCTOR for menu, which initiates the scanner.
@@ -29,7 +29,7 @@ public class Menu
 	
 	/******************************************************************************
 	 *                                                                            *
-	 *                          LET'S MAKE A TREE                                 *
+	 *                         LET'S MAKE A Graph                                 *
 	 *                                                                            *
 	 ******************************************************************************/
 	
@@ -45,41 +45,95 @@ public class Menu
 	{
 		topMenu();
 		first = s.nextInt();
-		if (first == 2)
+		if (first == 9)
 		{
 			System.exit(0);
 		}
+		
 		vertexMenu();
 		second = s.nextInt();
-		whatTree(first, second);
+		whatGraph(first, second);
+
+		continueMenu();
+		third = s.nextInt();
+		if (third == 2)
+		{
+			System.exit(0);
+		}
+		else
+		{
+			setup();
+		}
 	}
 	
 	/**
-	 * whatTree - the start of many a decision tree as to what type of tree the 
-	 * 		program should make and how many nodes the tree should have. Passes
-	 * 		Along to the proper algorithm menu for the type of tree.
+	 * whatGraph - builds the graph based on user response.
 	 * 
-	 * @param i: what kind of tree
-	 * @param n: how many nodes
+	 * @param graph: the numerical identifier for which type of graph
+	 * @param numNodes: the number of verticies the graph should have.
 	 * @throws Exception
 	 */
-	public void whatTree(int i, int n) throws Exception
+	public void whatGraph(int graph, int numNodes) throws Exception
 	{
-		Tree t = new Tree();
-		switch(i)
+		Graph g;
+		switch(graph)
 		{
 			case 1:
 			{
-				PrintGraph.cat1TreePrinter(cat1MenuPrinter(t.buildCat1(t, n), n), n);
+				g = new Caterpillar_T1(numNodes);
+				PrintGraph.printList_leadZero(g);
 				break;
 			}
-			case 2: // ADD MORE CASES HERE
+			case 2:
+			{
+				g = new Caterpillar_T2(numNodes);
+				PrintGraph.printList_leadZero(g);
+				break;
+			}
+			case 3:
+			{
+				g = new Lobster_T1(numNodes);
+				PrintGraph.printList_leadZero(g);
+				break;
+			}
+			case 4:
+			{
+				g = new Lobster_T2(numNodes);
+				PrintGraph.printList_leadZero(g);
+				break;
+			}
+			case 5:
+			{
+				g = new RandomGraphGenerator(numNodes);
+				PrintGraph.printList(g);
+				break;
+			}
+			case 6:
+			{
+				g = new Spine(numNodes);
+				PrintGraph.printList_leadZero(g);
+				break;
+			}
+			case 7:
+			{
+				g = new Star(numNodes);
+				PrintGraph.printList(g);
+				break;
+			}
+			case 8:
+			{
+				userInputMenu();
+				String fileName = s.next();
+				g = new UserInputGraph(fileName);
+				PrintGraph.printList(g);
+				break;
+			}
 			default:
 			{
+				g = null;
 				System.exit(0);
 			}
 		}
-
 	}
 
 
@@ -89,21 +143,18 @@ public class Menu
 	 *                                                                            *
 	 ******************************************************************************/
 
-
 	/**
-	 * cat1Menu - prints menu for T1 Caterpillar coloring algorithms. 1 - V1 Children.
-	 * 		2 - best line spine. 
+	 * continueMenu - asks if the user would like to create another graph
 	 */
-	public void cat1Menu()
+	public void continueMenu()
 	{
 		System.out.println();
 		System.out.println("********************************************************************************");
 		System.out.println("*                                                                              *");
-		System.out.println("*     What Algorithim Would You Like to Examine?                               *");
+		System.out.println("*     Whould you like to make another graph?                                   *");
 		System.out.println("*                                                                              *");
-		System.out.println("*     1) V1 Children                                                           *");
-		System.out.println("*     2) V1-V2-V1-V3 Spine                                                     *");
-		System.out.println("*     3) Exit                                                                  *");
+		System.out.println("*     1) Yes, I'd like to continue                                             *");
+		System.out.println("*     2) No, I'd like to exit                                                  *");
 		System.out.println("*                                                                              *");
 		System.out.println("********************************************************************************");
 		System.out.println();
@@ -119,10 +170,33 @@ public class Menu
 		System.out.println();
 		System.out.println("********************************************************************************");
 		System.out.println("*                                                                              *");
-		System.out.println("*     What Type of Tree Would You Like to Examine?                             *");
+		System.out.println("*     What Type of Graph Would You Like to Examine?                            *");
 		System.out.println("*                                                                              *");
 		System.out.println("*     1) Caterpillar - Type 1 (|v| <= 3)                                       *");
-		System.out.println("*     2) Exit                                                                  *");
+		System.out.println("*     2) Caterpillar - Type 2 (|v| <= 4)                                       *");
+		System.out.println("*     3) Lobster - Type 1 (|v| <= 3)                                           *");
+		System.out.println("*     4) Lobster - Type 2 (|v| <= 4)                                           *");
+		System.out.println("*     5) Random Non-Cyclic Graph                                               *");
+		System.out.println("*     6) Spine (Line Graph)                                                    *");
+		System.out.println("*     7) Star                                                                  *");
+		System.out.println("*     8) User Input Graph                                                      *");
+		System.out.println("*     9) Exit                                                                  *");
+		System.out.println("*                                                                              *");
+		System.out.println("********************************************************************************");
+		System.out.println();
+		System.out.println();
+	}
+	
+	/**
+	 * userInputMenu - asks which file, as a string input, the user would like to
+	 * 		build a graph from.
+	 */
+	public void userInputMenu()
+	{
+		System.out.println();
+		System.out.println("********************************************************************************");
+		System.out.println("*                                                                              *");
+		System.out.println("*     Which File Would You Like to Use?                                        *");
 		System.out.println("*                                                                              *");
 		System.out.println("********************************************************************************");
 		System.out.println();
@@ -138,7 +212,7 @@ public class Menu
 		System.out.println();
 		System.out.println("********************************************************************************");
 		System.out.println("*                                                                              *");
-		System.out.println("*     How Many Vertices Would You Like the Tree to Have?                       *");
+		System.out.println("*     How Many Vertices Would You Like the Graph to Have?                      *");
 		System.out.println("*                                                                              *");
 		System.out.println("********************************************************************************");
 		System.out.println();
@@ -151,40 +225,6 @@ public class Menu
 	 *                            Which Algorithm?                                *
 	 *                                                                            *
 	 ******************************************************************************/
-	
-	
-	/**
-	 * cat1MenuPrinter - after a T1 Caterpillar is chosen, prints the algorithms menu, sets
-	 * 		third to input, and runs the algorithm. 
-	 *  
-	 * @param t: the tree in question
-	 * @param n: the number of vertices
-	 * @return the colored tree
-	 */
-	public Tree cat1MenuPrinter(Tree t, int n)
-	{
-		cat1Menu();
-		third = s.nextInt();
-		System.out.println(third);
-		
-		/*switch(third)
-		{
-			case 1:
-			{
-				return Coloring.womenAndChildrenFirst(t, n);
-			}
-			case 2: 
-			{	
-				return Coloring.backbone(t, n);
-			}
-			case 3:	// ADD MORE CASES HERE
-			default:
-			{
-				System.exit(0);
-			}
-		}*/
-		return t;
-	}
 	
 	
 	

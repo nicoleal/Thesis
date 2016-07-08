@@ -1,9 +1,9 @@
 /**
  * Approximating the Broadcast Chromatic Number of Graphs
  * 
- * 		Helper Class
+ * 		Colorings Class
  * 			A collection of helper classes a la the Math Class, et 
- * 			hoc genus omne. 
+ * 			hoc genus omne, for the graph constructor classes
  * 
  * @author Nicole Loew
  * @version CS5999 Graduate Thesis Spring 2017; 10 June 2016
@@ -80,6 +80,7 @@ public class Colorings extends Graph
 	{
 		return ((i & 1) == 0);
 	}
+	
 	
 	/**
 	 * isLeaf - returns whether the node in question is a leaf or not.

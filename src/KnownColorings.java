@@ -109,7 +109,7 @@ public class KnownColorings extends Colorings
 				
 				setChi(j);
 				g.setChi(getChi());
-				System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+				//System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 			}
 		}
 		
@@ -138,7 +138,7 @@ public class KnownColorings extends Colorings
 			
 			setChi(Color.GREEN.getRadius());
 			g.setChi(getChi());
-			System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+			//System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 		}
 		
 		/*
@@ -189,7 +189,7 @@ public class KnownColorings extends Colorings
 		graph[v].setColor(j); 
 		setChi(j);
 		g.setChi(getChi());
-		System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
+		//System.out.println("\nThe Broadcast Chromatic Number is " + getChi() + ".\n");
 	} 
 	
 	/**
@@ -204,7 +204,23 @@ public class KnownColorings extends Colorings
 	 */
 	public static Graph knownSmallTree(Graph g)
 	{
-		//TODO
+		g.graph[0].setColor(Color.RED);        		// RED (1), V1
+		
+		int j = Color.BLUE.getRadius();				
+		
+		for (int i = 0; i < g.graph[0].getMetNeighbors(); i++)
+		{
+			Node n = g.graph[g.graph[0].neighbors[i]];
+			n.setColor(j);							// (2+), unqiue colors
+			j++;
+			
+			for (int k = 1; k < n.getMetNeighbors(); k++)
+			{
+				int m = g.graph[n.getName()].neighbors[k];
+				g.graph[m].setColor(Color.RED);		// RED (1), V1
+			}
+		}
+		
 		
 		return g;
 	}
@@ -260,7 +276,7 @@ public class KnownColorings extends Colorings
 			}
 			g.setChi(Color.YELLOW.getRadius());
 		}
-		System.out.println("\nThe Broadcast Chromatic Number is " + g.getChi() + ".\n");
+		//System.out.println("\nThe Broadcast Chromatic Number is " + g.getChi() + ".\n");
 		return g;
 	}
 	
@@ -289,8 +305,7 @@ public class KnownColorings extends Colorings
 		}
 		
 		g.setChi(Color.BLUE.getRadius());
-		g.setChi(getChi());
-		System.out.println("\nThe Broadcast Chromatic Number is: " + g.getChi() + ".\n");
+		//System.out.println("\nThe Broadcast Chromatic Number is: " + g.getChi() + ".\n");
 		
 		return g;
 	}
